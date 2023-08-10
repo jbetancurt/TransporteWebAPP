@@ -8,12 +8,14 @@ import {MaterialModule} from './material/material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { WelcomeComponent } from './componentes/welcome/welcome.component';
 import { DashboardComponent } from './componentes/dashboard/dashboard.component';
+import { AccesosControlXPuntosComponent } from './componentes/accesos-control-xpuntos/accesos-control-xpuntos.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
-    DashboardComponent
+    DashboardComponent,
+    AccesosControlXPuntosComponent
   ],
   imports: [
     BrowserModule,
