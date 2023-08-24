@@ -1,1 +1,34 @@
 <p>tipos-de-archivos-adjuntos works!</p>
+<form [formGroup]="FGAgregarTiposDeArchivosAdjuntos" (ngSubmit)="FGAgregarTiposDeArchivosAdjuntos.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-card class="cardconfiguracion">
+            <mat-card-header>
+                <mat-card-title>
+                    <span>
+                        Agregar Tipo De Archivo Adjunto
+                    </span>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-form-field appearance="fill"  class="form-comtrol">
+                    <mat-label>Nombre Tipo De Archivo Adjunto:</mat-label>
+                    <input matInput   formControlName="nombretipodearchivoadjunto" [readonly]="false">
+                </mat-form-field>
+                <input type="hidden" formControlName="idTipoDeArchivoAdjunto" [readonly]="false">
+                <br>
+                <br>
+            </mat-card-content>
+            <mat-card-footer>
+                <button *ngIf="idTipoDeArchivoAdjunto <= 0" mat-button color="primary"  (submit)="enviarDatos()" >
+                    Agregar
+                </button>
+                <button *ngIf="idTipoDeArchivoAdjunto > 0" mat-button color="primary" (submit)="enviarDatos()" >
+                    Editar
+                </button>
+                
+            </mat-card-footer>
+        </mat-card>
+        
+    </ng-container>
+</form>
+

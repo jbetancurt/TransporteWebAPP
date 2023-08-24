@@ -11,7 +11,8 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatCardModule } from "@angular/material/card";
 import { MatSelectModule } from "@angular/material/select";
 import { MatTreeModule } from "@angular/material/tree";
-
+import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -28,7 +29,9 @@ import { MatTreeModule } from "@angular/material/tree";
     MatDatepickerModule,
     MatCardModule,
     MatSelectModule,
-    MatTreeModule
+    MatTreeModule,
+    MatTableModule,
+    MatDialogModule
   ],
   exports: [
     MatSidenavModule,
@@ -40,7 +43,9 @@ import { MatTreeModule } from "@angular/material/tree";
     MatDatepickerModule,
     MatCardModule,
     MatSelectModule,
-    MatTreeModule
+    MatTreeModule,
+    MatTableModule,
+    MatDialogModule
   ]
 })
 export class MaterialModule { }

@@ -1,1 +1,33 @@
 <p>tipos-orientaciones-de-la-oferta works!</p>
+<form [formGroup]="FGAgregarTiposOrientacionesDeLaOferta" (ngSubmit)="FGAgregarTiposOrientacionesDeLaOferta.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-card class="cardconfiguracion">
+            <mat-card-header>
+                <mat-card-title>
+                    <span>
+                        Agregar Tipo Orientacion Oferta
+                    </span>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-form-field appearance="fill"  class="form-comtrol">
+                    <mat-label>Nombre Tipo Orientacion Oferta:</mat-label>
+                    <input matInput   formControlName="nombretipoorientacionoferta" [readonly]="false">
+                </mat-form-field>
+                <input type="hidden" formControlName="idTipoOrientacionOferta" [readonly]="false">
+                <br>
+                <br>
+            </mat-card-content>
+            <mat-card-footer>
+                <button *ngIf="idTipoOrientacionOferta <= 0" mat-button color="primary"  (submit)="enviarDatos()" >
+                    Agregar
+                </button>
+                <button *ngIf="idTipoOrientacionOferta > 0" mat-button color="primary" (submit)="enviarDatos()" >
+                    Editar
+                </button>
+                
+            </mat-card-footer>
+        </mat-card>
+        
+    </ng-container>
+</form>

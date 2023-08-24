@@ -1,1 +1,33 @@
 <p>tipos-de-vehiculos works!</p>
+<form [formGroup]="FGAgregarTiposDeVehiculos" (ngSubmit)="FGAgregarTiposDeVehiculos.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-card class="cardconfiguracion">
+            <mat-card-header>
+                <mat-card-title>
+                    <span>
+                        Agregar Tipo De Vehiculo
+                    </span>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-form-field appearance="fill"  class="form-comtrol">
+                    <mat-label>Nombre Tipo De Vehiculo:</mat-label>
+                    <input matInput   formControlName="nombretipodevehiculo" [readonly]="false">
+                </mat-form-field>
+                <input type="hidden" formControlName="idTipoDeVehiculo" [readonly]="false">
+                <br>
+                <br>
+            </mat-card-content>
+            <mat-card-footer>
+                <button *ngIf="idTipoDeVehiculo <= 0" mat-button color="primary"  (submit)="enviarDatos()" >
+                    Agregar
+                </button>
+                <button *ngIf="idTipoDeVehiculo > 0" mat-button color="primary" (submit)="enviarDatos()" >
+                    Editar
+                </button>
+                
+            </mat-card-footer>
+        </mat-card>
+        
+    </ng-container>
+</form>

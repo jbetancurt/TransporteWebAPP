@@ -13,7 +13,7 @@ import { AccesosControlXPuntosComponent } from './componentes/accesos-control-xp
 
 import { LoginCallBackComponent } from './paginas/login-call-back/login-call-back.component';
 import { LoginComponent } from './paginas/login/login.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { AdjuntosComponent } from './componentes/adjuntos/adjuntos.component';
 import { CarroceriasXTiposDeVehiculosComponent } from './componentes/carrocerias-xtipos-de-vehiculos/carrocerias-xtipos-de-vehiculos.component';
 import { CiudadesComponent } from './componentes/ciudades/ciudades.component';
@@ -55,6 +55,17 @@ import { TiposOrientacionesDeLaOfertaComponent } from './componentes/tipos-orien
 import { UsuariosComponent } from './componentes/usuarios/usuarios.component';
 import { VehiculosComponent } from './componentes/vehiculos/vehiculos.component';
 import { VehiculosXEmpresasComponent } from './componentes/vehiculos-xempresas/vehiculos-xempresas.component';
+import { ListarTiposDeDocumentosComponent } from './componentes/tipos-de-documentos/listar-tipos-de-documentos/listar-tipos-de-documentos.component';
+import { ListarTiposDeEmpresasComponent } from './componentes/tipos-de-empresas/listar-tipos-de-empresas/listar-tipos-de-empresas.component';
+import { ListarTiposDeAccionesEnDestinoDeLaRutaComponent } from './componentes/tipos-de-acciones-en-destino-de-la-ruta/listar-tipos-de-acciones-en-destino-de-la-ruta/listar-tipos-de-acciones-en-destino-de-la-ruta.component';
+import { ListarTiposDeArchivosAdjuntosComponent } from './componentes/tipos-de-archivos-adjuntos/listar-tipos-de-archivos-adjuntos/listar-tipos-de-archivos-adjuntos.component';
+import { ListarTiposDeCarroceriasComponent } from './componentes/tipos-de-carrocerias/listar-tipos-de-carrocerias/listar-tipos-de-carrocerias.component';
+import { ListarTiposDePersonasPorVehiculosComponent } from './componentes/tipos-de-personas-por-vehiculos/listar-tipos-de-personas-por-vehiculos/listar-tipos-de-personas-por-vehiculos.component';
+import { ListarTiposDePuntosDeControlComponent } from './componentes/tipos-de-puntos-de-control/listar-tipos-de-puntos-de-control/listar-tipos-de-puntos-de-control.component';
+import { ListarTiposDeRequisitosComponent } from './componentes/tipos-de-requisitos/listar-tipos-de-requisitos/listar-tipos-de-requisitos.component';
+import { ListarTiposDeRolesComponent } from './componentes/tipos-de-roles/listar-tipos-de-roles/listar-tipos-de-roles.component';
+import { ListarTiposDeVehiculosComponent } from './componentes/tipos-de-vehiculos/listar-tipos-de-vehiculos/listar-tipos-de-vehiculos.component';
+import { ListarTiposOrientacionesDeLaOfertaComponent } from './componentes/tipos-orientaciones-de-la-oferta/listar-tipos-orientaciones-de-la-oferta/listar-tipos-orientaciones-de-la-oferta.component';
 
 
 
@@ -107,6 +118,17 @@ import { VehiculosXEmpresasComponent } from './componentes/vehiculos-xempresas/v
     UsuariosComponent,
     VehiculosComponent,
     VehiculosXEmpresasComponent,
+    ListarTiposDeDocumentosComponent,
+    ListarTiposDeEmpresasComponent,
+    ListarTiposDeAccionesEnDestinoDeLaRutaComponent,
+    ListarTiposDeArchivosAdjuntosComponent,
+    ListarTiposDeCarroceriasComponent,
+    ListarTiposDePersonasPorVehiculosComponent,
+    ListarTiposDePuntosDeControlComponent,
+    ListarTiposDeRequisitosComponent,
+    ListarTiposDeRolesComponent,
+    ListarTiposDeVehiculosComponent,
+    ListarTiposOrientacionesDeLaOfertaComponent
     
 
   ],
@@ -116,7 +138,8 @@ import { VehiculosXEmpresasComponent } from './componentes/vehiculos-xempresas/v
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

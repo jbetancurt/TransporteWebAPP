@@ -1,1 +1,34 @@
 <p>tipos-de-empresas works!</p>
+<form [formGroup]="FGAgregarTiposDeEmpresas" (ngSubmit)="FGAgregarTiposDeEmpresas.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-card class="cardconfiguracion">
+            <mat-card-header>
+                <mat-card-title>
+                    <span>
+                        Agregar Tipo De Empresa
+                    </span>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-form-field appearance="fill"  class="form-comtrol">
+                    <mat-label>Nombre Tipo De Empresa:</mat-label>
+                    <input matInput   formControlName="nombretipoempresa" [readonly]="false">
+                </mat-form-field>
+                <input type="hidden" formControlName="idTipoDeEmpresa" [readonly]="false">
+                <br>
+                <br>
+            </mat-card-content>
+            <mat-card-footer>
+                <button *ngIf="idTipoDeEmpresa <= 0" mat-button color="primary"  (submit)="enviarDatos()" >
+                    Agregar
+                </button>
+                <button *ngIf="idTipoDeEmpresa > 0" mat-button color="primary" (submit)="enviarDatos()" >
+                    Editar
+                </button>
+                
+            </mat-card-footer>
+        </mat-card>
+        
+    </ng-container>
+</form>
+

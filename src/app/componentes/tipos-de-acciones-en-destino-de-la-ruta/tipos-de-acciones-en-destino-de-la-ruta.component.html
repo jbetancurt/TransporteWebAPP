@@ -1,1 +1,34 @@
-<p>tipos-de-acciones-en-destino-de-la-ruta works!</p>
+
+<form [formGroup]="FGAgregarTiposDeAccionesEnDestinoDeLaRuta" (ngSubmit)="FGAgregarTiposDeAccionesEnDestinoDeLaRuta.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-card class="cardconfiguracion">
+            <mat-card-header>
+                <mat-card-title>
+                    <span>
+                        Agregar Tipo De Accion En Destino De La Ruta
+                    </span>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-form-field appearance="fill"  class="form-comtrol">
+                    <mat-label>Nombre Tipo De Accion En Destino De La Ruta:</mat-label>
+                    <input matInput   formControlName="nombretipodeaccionendestinodelaruta" [readonly]="false">
+                </mat-form-field>
+                <input type="hidden" formControlName="idTipoDeAccionEnDestinoDeLaRuta" [readonly]="false">
+                <br>
+                <br>
+            </mat-card-content>
+            <mat-card-footer>
+                <button *ngIf="idTipoDeAccionEnDestinoDeLaRuta <= 0" mat-button color="primary"  (submit)="enviarDatos()" >
+                    Agregar
+                </button>
+                <button *ngIf="idTipoDeAccionEnDestinoDeLaRuta > 0" mat-button color="primary" (submit)="enviarDatos()" >
+                    Editar
+                </button>
+                
+            </mat-card-footer>
+        </mat-card>
+        
+    </ng-container>
+</form>
+
