@@ -1,1 +1,32 @@
-<p>tipos-de-documentos works!</p>
+<form [formGroup]="FGAgregarTipoDocumento" (ngSubmit)="FGAgregarTipoDocumento.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-card class="cardconfiguracion">
+            <mat-card-header>
+                <mat-card-title>
+                    <span>
+                        Agregar Tipo de Documento
+                    </span>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-form-field appearance="fill"  class="form-comtrol">
+                    <mat-label>Nombres Tipo De Documento:</mat-label>
+                    <input matInput   formControlName="nombretipodocumento" [readonly]="false">
+                </mat-form-field>
+                <input type="hidden" formControlName="idTipoDeDocumento" [readonly]="false">
+                <br>
+                <br>
+            </mat-card-content>
+            <mat-card-footer>
+                <button *ngIf="idTipoDeDocumento <= 0" mat-button color="primary"  (submit)="enviarDatos()" >
+                    Agregar
+                </button>
+                <button *ngIf="idTipoDeDocumento > 0" mat-button color="primary" (submit)="enviarDatos()" >
+                    Editar
+                </button>
+                
+            </mat-card-footer>
+        </mat-card>
+        
+    </ng-container>
+</form>

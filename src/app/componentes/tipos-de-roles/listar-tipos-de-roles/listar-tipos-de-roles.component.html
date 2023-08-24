@@ -1,0 +1,35 @@
+<p>listar-tipos-de-roles works!</p>
+<table mat-table [dataSource]="lsttiposderoles" class="mat-elevation-z8">
+    <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let element"> {{element.nombreTipoDeRol}} </td>
+    </ng-container>
+   
+    <ng-container matColumnDef="editar">
+        <th mat-header-cell *matHeaderCellDef>  </th>
+        <td mat-cell *matCellDef="let element"> 
+            <button type="button"  mat-fab extended color="primary" aria-label="editar persona" (click)="AbrirModalTipoDeRol(element.idTipoDeRol)">
+                <mat-icon>link</mat-icon>
+                Editar
+            </button>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="borrar">
+        <th mat-header-cell *matHeaderCellDef>  </th>
+        <td mat-cell *matCellDef="let element"> 
+            <button type="button"  mat-fab extended color="primary" aria-label="borrar persona" (click)="borrarXId(element.idTipoDeRol)">
+                <mat-icon>3d_rotation</mat-icon>
+                Borrar
+            </button>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+
+
+
+<button (click)="AbrirModalTipoDeRol(0)" >Agregar</button>
