@@ -84,7 +84,8 @@ export class TiposDeVehiculosComponent implements OnInit {
       ); 
       
     }
-  
+
+    
   
     enviarDatos() : void{
       let fgTiposDeVehiculos=this.FGAgregarTiposDeVehiculos.value;
@@ -107,7 +108,6 @@ export class TiposDeVehiculosComponent implements OnInit {
   
 
 }
-
 
 
 

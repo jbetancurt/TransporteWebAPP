@@ -1,33 +1,30 @@
-<p>tipos-orientaciones-de-la-oferta works!</p>
 <form [formGroup]="FGAgregarTiposOrientacionesDeLaOferta" (ngSubmit)="FGAgregarTiposOrientacionesDeLaOferta.valid &&  enviarDatos()" #formulario>
     <ng-container >
-        <mat-card class="cardconfiguracion">
-            <mat-card-header>
-                <mat-card-title>
-                    <span>
-                        Agregar Tipo Orientacion Oferta
-                    </span>
-                </mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <mat-form-field appearance="fill"  class="form-comtrol">
-                    <mat-label>Nombre Tipo Orientacion Oferta:</mat-label>
-                    <input matInput   formControlName="nombretipoorientacionoferta" [readonly]="false">
-                </mat-form-field>
-                <input type="hidden" formControlName="idTipoOrientacionOferta" [readonly]="false">
-                <br>
-                <br>
-            </mat-card-content>
-            <mat-card-footer>
-                <button *ngIf="idTipoOrientacionOferta <= 0" mat-button color="primary"  (submit)="enviarDatos()" >
-                    Agregar
-                </button>
-                <button *ngIf="idTipoOrientacionOferta > 0" mat-button color="primary" (submit)="enviarDatos()" >
-                    Editar
-                </button>
-                
-            </mat-card-footer>
-        </mat-card>
+        <mat-toolbar>
+            <h1 mat-dialog-title>Agregar Tipo De Orientacion De La Oferta</h1>
+            <div class="menu-spacer"></div>
+            
+        </mat-toolbar>
+        
+        <mat-dialog-content class="mat-typography">
+            <mat-form-field appearance="fill"  class="Tamanho100Porciento">
+                <mat-label>Nombre Tipo De Orientacion De La Oferta:</mat-label>
+                <input matInput class="Tamanho100Porciento"  formControlName="nombretipoorientaciondelaoferta" [readonly]="false">
+            </mat-form-field>
+            <input type="hidden" formControlName="idTipoOrientacionDeLaOferta" [readonly]="false">
+            
+        </mat-dialog-content>
+        
+        
+        <mat-dialog-actions align="end">
+            <button *ngIf="idTipoOrientacionDeLaOferta <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
+                Agregar
+            </button> 
+            <button *ngIf="idTipoOrientacionDeLaOferta > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
+                Editar
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+            
+        </mat-dialog-actions>
         
     </ng-container>
-</form>

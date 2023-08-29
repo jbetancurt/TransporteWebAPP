@@ -84,7 +84,8 @@ export class TiposDeRolesComponent implements OnInit {
       ); 
       
     }
-  
+
+    
   
     enviarDatos() : void{
       let fgTiposDeRoles=this.FGAgregarTiposDeRoles.value;
@@ -108,5 +109,6 @@ export class TiposDeRolesComponent implements OnInit {
 
 }
 
-
  
+ 
+  

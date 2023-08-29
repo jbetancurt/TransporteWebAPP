@@ -1,4 +1,4 @@
 export class TiposOrientacionesDeLaOferta {
-    idTipoOrientacionOferta : number=0;
-    nombreTipoOrientacionOferta : string='';
+    idTipoOrientacionDeLaOferta : number=0;
+    nombreTipoOrientacionDeLaOferta : string='';
 }

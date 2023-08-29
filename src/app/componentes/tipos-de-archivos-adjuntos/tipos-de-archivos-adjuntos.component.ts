@@ -14,7 +14,7 @@ export class TiposDeArchivosAdjuntosComponent implements OnInit {
   onAdd = new EventEmitter(); 
   @Input() idTipoDeArchivoAdjunto = 0;
   editar:boolean=false;
-  //lsttiposdearchivosadjuntos:TiposDeEmpresas[]=[];
+  //lsttiposdearchivosadjuntos:TiposDeArchivosAdjuntos[]=[];
   FGAgregarTiposDeArchivosAdjuntos : FormGroup = this.formBuilder.group({      
     nombretipodearchivoadjunto:new FormControl('',Validators.required),
     idTipoDeArchivoAdjunto:new FormControl('0')
@@ -58,7 +58,7 @@ export class TiposDeArchivosAdjuntosComponent implements OnInit {
   
       
       //agregamos los datos del formulario a la tabla personas
-      tiposdearchivosadjuntos.nombreTipoDeArchivoAdjunto=this.FGAgregarTiposDeArchivosAdjuntos.value.nombretipodocumento;
+      tiposdearchivosadjuntos.nombreTipoDeArchivoAdjunto=this.FGAgregarTiposDeArchivosAdjuntos.value.nombretipodearchivoadjunto;
       
       
      //suscrubimos la guardada de los datos en la tabla tiposdearchivosadjuntos
@@ -85,13 +85,14 @@ export class TiposDeArchivosAdjuntosComponent implements OnInit {
       ); 
       
     }
-  
+
+    
   
     enviarDatos() : void{
       let fgTiposDeArchivosAdjuntos=this.FGAgregarTiposDeArchivosAdjuntos.value;
       this.tiposdearchivosadjuntosService.Get(fgTiposDeArchivosAdjuntos.idTipoDeArchivoAdjunto).subscribe({
         next : (datatiposdearchivosadjuntos:TiposDeArchivosAdjuntos) => {
-         if(datatiposdearchivosadjuntos.idTipoDeArchivoAdjunto <=0){
+         if(datatiposdearchivosadjuntos.idTipoDeArchivoAdjunto<=0){
           
           this.crearTiposDeArchivosAdjuntos();
          }
