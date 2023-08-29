@@ -1,33 +1,31 @@
-<p>tipos-de-vehiculos works!</p>
 <form [formGroup]="FGAgregarTiposDeVehiculos" (ngSubmit)="FGAgregarTiposDeVehiculos.valid &&  enviarDatos()" #formulario>
     <ng-container >
-        <mat-card class="cardconfiguracion">
-            <mat-card-header>
-                <mat-card-title>
-                    <span>
-                        Agregar Tipo De Vehiculo
-                    </span>
-                </mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <mat-form-field appearance="fill"  class="form-comtrol">
-                    <mat-label>Nombre Tipo De Vehiculo:</mat-label>
-                    <input matInput   formControlName="nombretipodevehiculo" [readonly]="false">
-                </mat-form-field>
-                <input type="hidden" formControlName="idTipoDeVehiculo" [readonly]="false">
-                <br>
-                <br>
-            </mat-card-content>
-            <mat-card-footer>
-                <button *ngIf="idTipoDeVehiculo <= 0" mat-button color="primary"  (submit)="enviarDatos()" >
-                    Agregar
-                </button>
-                <button *ngIf="idTipoDeVehiculo > 0" mat-button color="primary" (submit)="enviarDatos()" >
-                    Editar
-                </button>
-                
-            </mat-card-footer>
-        </mat-card>
+        <mat-toolbar>
+            <h1 mat-dialog-title>Agregar Tipo De Rol</h1>
+            <div class="menu-spacer"></div>
+            
+        </mat-toolbar>
+        
+        <mat-dialog-content class="mat-typography">
+            <mat-form-field appearance="fill"  class="Tamanho100Porciento">
+                <mat-label>Nombre Tipo De Rol:</mat-label>
+                <input matInput class="Tamanho100Porciento"  formControlName="nombretipodevehiculo" [readonly]="false">
+            </mat-form-field>
+            <input type="hidden" formControlName="idTipoDeVehiculo" [readonly]="false">
+            
+        </mat-dialog-content>
+        
+        
+        <mat-dialog-actions align="end">
+            <button *ngIf="idTipoDeVehiculo <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
+                Agregar
+            </button> 
+            <button *ngIf="idTipoDeVehiculo > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
+                Editar
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+            
+        </mat-dialog-actions>
         
     </ng-container>
 </form>

@@ -39,3 +39,9 @@ mat-sidenav-container, mat-sidenav-content, mat-sidenav {
     margin: 0;
     width: 85%;
   }
+
+  .mat-column-borrar {
+    display: flex;
+    padding: 21px 0;
+    justify-content: flex-end;
+  }

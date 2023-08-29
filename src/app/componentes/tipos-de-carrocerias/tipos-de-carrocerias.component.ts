@@ -13,7 +13,7 @@ export class TiposDeCarroceriasComponent implements OnInit {
   onAdd = new EventEmitter(); 
   @Input() idTipoDeCarroceria = 0;
   editar:boolean=false;
-  //lsttiposdecarrocerias:tiposdecarrocerias[]=[];
+  //lsttiposdecarrocerias:TiposDeCarrocerias[]=[];
   FGAgregarTiposDeCarrocerias : FormGroup = this.formBuilder.group({      
     nombretipodecarroceria:new FormControl('',Validators.required),
     idTipoDeCarroceria:new FormControl('0')
@@ -84,7 +84,8 @@ export class TiposDeCarroceriasComponent implements OnInit {
       ); 
       
     }
-  
+
+    
   
     enviarDatos() : void{
       let fgTiposDeCarrocerias=this.FGAgregarTiposDeCarrocerias.value;
@@ -107,5 +108,3 @@ export class TiposDeCarroceriasComponent implements OnInit {
   
 
 }
-
-

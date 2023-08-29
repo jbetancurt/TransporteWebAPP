@@ -13,31 +13,31 @@ import { TiposOrientacionesDeLaOfertaService } from './tipos-orientaciones-de-la
 export class TiposOrientacionesDeLaOfertaComponent implements OnInit {
   
   onAdd = new EventEmitter(); 
-  @Input() idTipoOrientacionOferta = 0;
+  @Input() idTipoOrientacionDeLaOferta = 0;
   editar:boolean=false;
   //lsttiposorientacionesdelaoferta:TiposOrientacionesDeLaOferta[]=[];
   FGAgregarTiposOrientacionesDeLaOferta : FormGroup = this.formBuilder.group({      
-    nombretipoorientacionoferta:new FormControl('',Validators.required),
-    idTipoOrientacionOferta:new FormControl('0')
+    nombretipoorientaciondelaoferta:new FormControl('',Validators.required),
+    idTipoOrientacionDeLaOferta:new FormControl('0')
   });
 
   
   cargarNombresTiposOrientacionesDeLaOferta(tiposorientacionesdelaoferta:TiposOrientacionesDeLaOferta){
     this.FGAgregarTiposOrientacionesDeLaOferta.patchValue({
-      nombretipoorientacionoferta:tiposorientacionesdelaoferta.nombreTipoOrientacionOferta,
-      idTipoOrientacionOferta:tiposorientacionesdelaoferta.idTipoOrientacionOferta
+      nombretipoorientaciondelaoferta:tiposorientacionesdelaoferta.nombreTipoOrientacionDeLaOferta,
+      idTipoOrientacionDeLaOferta:tiposorientacionesdelaoferta.idTipoOrientacionDeLaOferta
     })
   }  
-  public asignarid(idTipoOrientacionOferta:number){
-    this.idTipoOrientacionOferta=idTipoOrientacionOferta;
+  public asignarid(idTipoOrientacionDeLaOferta:number){
+    this.idTipoOrientacionDeLaOferta=idTipoOrientacionDeLaOferta;
     this.editar=true;
   }
 
   public AbrirInformacion()
   {
-    if(this.idTipoOrientacionOferta>0)
+    if(this.idTipoOrientacionDeLaOferta>0)
     {
-      this.tiposorientacionesdelaofertaService.Get(this.idTipoOrientacionOferta.toString()).subscribe({
+      this.tiposorientacionesdelaofertaService.Get(this.idTipoOrientacionDeLaOferta.toString()).subscribe({
         next : (datatiposorientacionesdelaoferta:TiposOrientacionesDeLaOferta) => {
           this.cargarNombresTiposOrientacionesDeLaOferta(datatiposorientacionesdelaoferta);
         }
@@ -59,7 +59,7 @@ export class TiposOrientacionesDeLaOfertaComponent implements OnInit {
   
       
       //agregamos los datos del formulario a la tabla personas
-      tiposorientacionesdelaoferta.nombreTipoOrientacionOferta=this.FGAgregarTiposOrientacionesDeLaOferta.value.nombretipoorientacionoferta;
+      tiposorientacionesdelaoferta.nombreTipoOrientacionDeLaOferta=this.FGAgregarTiposOrientacionesDeLaOferta.value.nombretipoorientaciondelaoferta;
       
       
      //suscrubimos la guardada de los datos en la tabla tiposorientacionesdelaoferta
@@ -71,12 +71,12 @@ export class TiposOrientacionesDeLaOfertaComponent implements OnInit {
       
     }
   
-    editarTiposOrientacionesDeLaOferta(idTipoOrientacionOferta:number){
+    editarTiposOrientacionesDeLaOferta(idTipoOrientacionDeLaOferta:number){
       let tiposorientacionesdelaoferta : TiposOrientacionesDeLaOferta = new TiposOrientacionesDeLaOferta;
   
-      tiposorientacionesdelaoferta.idTipoOrientacionOferta=idTipoOrientacionOferta;
+      tiposorientacionesdelaoferta.idTipoOrientacionDeLaOferta=idTipoOrientacionDeLaOferta;
       //agregamos los datos del formulario a la tabla tiposorientacionesdelaoferta
-      tiposorientacionesdelaoferta.nombreTipoOrientacionOferta=this.FGAgregarTiposOrientacionesDeLaOferta.value.nombretipoorientacionoferta;
+      tiposorientacionesdelaoferta.nombreTipoOrientacionDeLaOferta=this.FGAgregarTiposOrientacionesDeLaOferta.value.nombretipoorientaciondelaoferta;
             
      //suscrubimos la guardada de los datos en la tabla tiposorientacionesdelaoferta
       this.tiposorientacionesdelaofertaService.Edit(tiposorientacionesdelaoferta).subscribe(
@@ -86,24 +86,28 @@ export class TiposOrientacionesDeLaOfertaComponent implements OnInit {
       ); 
       
     }
-  
+
+    
   
     enviarDatos() : void{
       let fgTiposOrientacionesDeLaOferta=this.FGAgregarTiposOrientacionesDeLaOferta.value;
-      this.tiposorientacionesdelaofertaService.Get(fgTiposOrientacionesDeLaOferta.idTipoOrientacionOferta).subscribe({
+      this.tiposorientacionesdelaofertaService.Get(fgTiposOrientacionesDeLaOferta.idTipoOrientacionDeLaOferta).subscribe({
         next : (datatiposorientacionesdelaoferta:TiposOrientacionesDeLaOferta) => {
-         if(datatiposorientacionesdelaoferta.idTipoOrientacionOferta<=0){
+         if(datatiposorientacionesdelaoferta.idTipoOrientacionDeLaOferta<=0){
           
           this.crearTiposOrientacionesDeLaOferta();
          }
-         else if(datatiposorientacionesdelaoferta.idTipoOrientacionOferta>0){
+         else if(datatiposorientacionesdelaoferta.idTipoOrientacionDeLaOferta>0){
           
-          this.editarTiposOrientacionesDeLaOferta(datatiposorientacionesdelaoferta.idTipoOrientacionOferta);
+          this.editarTiposOrientacionesDeLaOferta(datatiposorientacionesdelaoferta.idTipoOrientacionDeLaOferta);
          }
          
         }
       }); 
-       
+  
+      
     }
+  
+
 }
 

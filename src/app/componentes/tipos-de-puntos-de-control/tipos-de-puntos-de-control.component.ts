@@ -18,7 +18,7 @@ export class TiposDePuntosDeControlComponent implements OnInit {
     nombretipodepuntodecontrol:new FormControl('',Validators.required),
     idTipoDePuntoDeControl:new FormControl('0')
   });
-
+  
   
   cargarNombresTiposDePuntosDeControl(tiposdepuntosdecontrol:TiposDePuntosDeControl){
     this.FGAgregarTiposDePuntosDeControl.patchValue({
@@ -30,7 +30,7 @@ export class TiposDePuntosDeControlComponent implements OnInit {
     this.idTipoDePuntoDeControl=idTipoDePuntoDeControl;
     this.editar=true;
   }
-
+  
   public AbrirInformacion()
   {
     if(this.idTipoDePuntoDeControl>0)
@@ -42,16 +42,16 @@ export class TiposDePuntosDeControlComponent implements OnInit {
       });
     }
   }
-
+  
   ngOnInit() {
     this.AbrirInformacion();
-           
+            
   }
-
+  
   constructor(
     private formBuilder: FormBuilder, 
     private tiposdepuntosdecontrolService: TiposDePuntosDeControlService) { }
-
+  
     crearTiposDePuntosDeControl(){
       let tiposdepuntosdecontrol : TiposDePuntosDeControl = new TiposDePuntosDeControl;
   
@@ -60,7 +60,7 @@ export class TiposDePuntosDeControlComponent implements OnInit {
       tiposdepuntosdecontrol.nombreTipoDePuntoDeControl=this.FGAgregarTiposDePuntosDeControl.value.nombretipodepuntodecontrol;
       
       
-     //suscrubimos la guardada de los datos en la tabla tiposdepuntosdecontrol
+      //suscrubimos la guardada de los datos en la tabla tiposdepuntosdecontrol
       this.tiposdepuntosdecontrolService.create(tiposdepuntosdecontrol).subscribe(
         data => {
           this.onAdd.emit();
@@ -76,7 +76,7 @@ export class TiposDePuntosDeControlComponent implements OnInit {
       //agregamos los datos del formulario a la tabla tiposdepuntosdecontrol
       tiposdepuntosdecontrol.nombreTipoDePuntoDeControl=this.FGAgregarTiposDePuntosDeControl.value.nombretipodepuntodecontrol;
             
-     //suscrubimos la guardada de los datos en la tabla tiposdepuntosdecontrol
+      //suscrubimos la guardada de los datos en la tabla tiposdepuntosdecontrol
       this.tiposdepuntosdecontrolService.Edit(tiposdepuntosdecontrol).subscribe(
         data => {
           this.onAdd.emit();
@@ -85,27 +85,26 @@ export class TiposDePuntosDeControlComponent implements OnInit {
       
     }
   
+    
   
     enviarDatos() : void{
       let fgTiposDePuntosDeControl=this.FGAgregarTiposDePuntosDeControl.value;
       this.tiposdepuntosdecontrolService.Get(fgTiposDePuntosDeControl.idTipoDePuntoDeControl).subscribe({
         next : (datatiposdepuntosdecontrol:TiposDePuntosDeControl) => {
-         if(datatiposdepuntosdecontrol.idTipoDePuntoDeControl<=0){
+          if(datatiposdepuntosdecontrol.idTipoDePuntoDeControl<=0){
           
           this.crearTiposDePuntosDeControl();
-         }
-         else if(datatiposdepuntosdecontrol.idTipoDePuntoDeControl>0){
+          }
+          else if(datatiposdepuntosdecontrol.idTipoDePuntoDeControl>0){
           
           this.editarTiposDePuntosDeControl(datatiposdepuntosdecontrol.idTipoDePuntoDeControl);
-         }
-         
+          }
+          
         }
       }); 
   
       
     }
   
-
-}
-
-TiposDePuntosDeControlComponent
+    
+  }

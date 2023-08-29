@@ -26,7 +26,7 @@ export class TiposOrientacionesDeLaOfertaService {
   }
 
   public Edit(_TiposOrientacionesDeLaOferta : TiposOrientacionesDeLaOferta): Observable<boolean>{
-    return this.httpClient.put<boolean>(urlPage + '/' + (_TiposOrientacionesDeLaOferta.idTipoOrientacionOferta), _TiposOrientacionesDeLaOferta, environment.httpOptions);
+    return this.httpClient.put<boolean>(urlPage + '/' + (_TiposOrientacionesDeLaOferta.idTipoOrientacionDeLaOferta), _TiposOrientacionesDeLaOferta, environment.httpOptions);
   }
   
   public create(_TiposOrientacionesDeLaOferta : TiposOrientacionesDeLaOferta): Observable<number>{
@@ -34,8 +34,8 @@ export class TiposOrientacionesDeLaOfertaService {
   }
 
   
-  public delete(idTipoOrientacionOferta: string): Observable<void> {
-    return this.httpClient.delete<void>(urlPage + '/' + idTipoOrientacionOferta, environment.httpOptions);
+  public delete(idTipoOrientacionDeLaOferta: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/' + idTipoOrientacionDeLaOferta, environment.httpOptions);
   }
 }
 

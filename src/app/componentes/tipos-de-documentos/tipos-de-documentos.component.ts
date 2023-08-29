@@ -14,15 +14,15 @@ export class TiposDeDocumentosComponent implements OnInit {
   @Input() idTipoDeDocumento = 0;
   editar:boolean=false;
   //lsttiposdedocumentos:TiposDeDocumentos[]=[];
-  FGAgregarTipoDocumento : FormGroup = this.formBuilder.group({      
-    nombretipodocumento:new FormControl('',Validators.required),
+  FGAgregarTiposDeDocumentos : FormGroup = this.formBuilder.group({      
+    nombretipodedocumento:new FormControl('',Validators.required),
     idTipoDeDocumento:new FormControl('0')
   });
 
   
   cargarNombresTiposDeDocumentos(tiposdedocumentos:TiposDeDocumentos){
-    this.FGAgregarTipoDocumento.patchValue({
-      nombretipodocumento:tiposdedocumentos.nombreTipoDeDocumento,
+    this.FGAgregarTiposDeDocumentos.patchValue({
+      nombretipodedocumento:tiposdedocumentos.nombreTipoDeDocumento,
       idTipoDeDocumento:tiposdedocumentos.idTipoDeDocumento
     })
   }  
@@ -52,12 +52,12 @@ export class TiposDeDocumentosComponent implements OnInit {
     private formBuilder: FormBuilder, 
     private tiposdedocumentosService: TiposDeDocumentosService) { }
 
-    crearTipoDeDocumento(){
+    crearTiposDeDocumentos(){
       let tiposdedocumentos : TiposDeDocumentos = new TiposDeDocumentos;
   
       
       //agregamos los datos del formulario a la tabla personas
-      tiposdedocumentos.nombreTipoDeDocumento=this.FGAgregarTipoDocumento.value.nombretipodocumento;
+      tiposdedocumentos.nombreTipoDeDocumento=this.FGAgregarTiposDeDocumentos.value.nombretipodedocumento;
       
       
      //suscrubimos la guardada de los datos en la tabla tiposdedocumentos
@@ -69,12 +69,12 @@ export class TiposDeDocumentosComponent implements OnInit {
       
     }
   
-    editarTipoDeDocumento(idtipodedocumento:number){
+    editarTiposDeDocumentos(idTipoDeDocumento:number){
       let tiposdedocumentos : TiposDeDocumentos = new TiposDeDocumentos;
   
-      tiposdedocumentos.idTipoDeDocumento=idtipodedocumento;
+      tiposdedocumentos.idTipoDeDocumento=idTipoDeDocumento;
       //agregamos los datos del formulario a la tabla tiposdedocumentos
-      tiposdedocumentos.nombreTipoDeDocumento=this.FGAgregarTipoDocumento.value.nombretipodocumento;
+      tiposdedocumentos.nombreTipoDeDocumento=this.FGAgregarTiposDeDocumentos.value.nombretipodedocumento;
             
      //suscrubimos la guardada de los datos en la tabla tiposdedocumentos
       this.tiposdedocumentosService.Edit(tiposdedocumentos).subscribe(
@@ -84,19 +84,20 @@ export class TiposDeDocumentosComponent implements OnInit {
       ); 
       
     }
-  
+
+    
   
     enviarDatos() : void{
-      let fgTipoDeDocumento=this.FGAgregarTipoDocumento.value;
-      this.tiposdedocumentosService.Get(fgTipoDeDocumento.idTipoDeDocumento).subscribe({
+      let fgTiposDeDocumentos=this.FGAgregarTiposDeDocumentos.value;
+      this.tiposdedocumentosService.Get(fgTiposDeDocumentos.idTipoDeDocumento).subscribe({
         next : (datatiposdedocumentos:TiposDeDocumentos) => {
          if(datatiposdedocumentos.idTipoDeDocumento<=0){
           
-          this.crearTipoDeDocumento();
+          this.crearTiposDeDocumentos();
          }
          else if(datatiposdedocumentos.idTipoDeDocumento>0){
           
-          this.editarTipoDeDocumento(datatiposdedocumentos.idTipoDeDocumento);
+          this.editarTiposDeDocumentos(datatiposdedocumentos.idTipoDeDocumento);
          }
          
         }

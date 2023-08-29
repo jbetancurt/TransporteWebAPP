@@ -2,4 +2,35 @@
 
 body {
   margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  
+}
+
+.btn-derecha{
+  text-align: right;
+  margin-right: 0;
+}
+.menu-spacer {
+  flex: 1 1 auto;
+}
+
+
+.mat-mdc-card-header-text{
+  width:100%;
+}
+.mat-column-editar {
+  text-align: right;
+  max-width: 5px;
+  justify-content: flex-end;
+  margin-right: 0;
+}
+.mat-column-borrar {
+  text-align: right;
+  max-width: 10px;
+  justify-content: flex-end;
+  margin-right: 0;
+}
+
+.Tamanho100Porciento{
+  width: 100%;
 }

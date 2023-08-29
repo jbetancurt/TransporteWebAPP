@@ -1,32 +1,31 @@
-<form [formGroup]="FGAgregarTipoDocumento" (ngSubmit)="FGAgregarTipoDocumento.valid &&  enviarDatos()" #formulario>
+<form [formGroup]="FGAgregarTiposDeDocumentos" (ngSubmit)="FGAgregarTiposDeDocumentos.valid &&  enviarDatos()" #formulario>
     <ng-container >
-        <mat-card class="cardconfiguracion">
-            <mat-card-header>
-                <mat-card-title>
-                    <span>
-                        Agregar Tipo de Documento
-                    </span>
-                </mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <mat-form-field appearance="fill"  class="form-comtrol">
-                    <mat-label>Nombres Tipo De Documento:</mat-label>
-                    <input matInput   formControlName="nombretipodocumento" [readonly]="false">
-                </mat-form-field>
-                <input type="hidden" formControlName="idTipoDeDocumento" [readonly]="false">
-                <br>
-                <br>
-            </mat-card-content>
-            <mat-card-footer>
-                <button *ngIf="idTipoDeDocumento <= 0" mat-button color="primary"  (submit)="enviarDatos()" >
-                    Agregar
-                </button>
-                <button *ngIf="idTipoDeDocumento > 0" mat-button color="primary" (submit)="enviarDatos()" >
-                    Editar
-                </button>
-                
-            </mat-card-footer>
-        </mat-card>
+        <mat-toolbar>
+            <h1 mat-dialog-title>Agregar Tipo De Documento</h1>
+            <div class="menu-spacer"></div>
+            
+        </mat-toolbar>
+        
+        <mat-dialog-content class="mat-typography">
+            <mat-form-field appearance="fill"  class="Tamanho100Porciento">
+                <mat-label>Nombre Tipo De Documento:</mat-label>
+                <input matInput class="Tamanho100Porciento"  formControlName="nombretipodedocumento" [readonly]="false">
+            </mat-form-field>
+            <input type="hidden" formControlName="idTipoDeDocumento" [readonly]="false">
+            
+        </mat-dialog-content>
+        
+        
+        <mat-dialog-actions align="end">
+            <button *ngIf="idTipoDeDocumento <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
+                Agregar
+            </button> 
+            <button *ngIf="idTipoDeDocumento > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
+                Editar
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+            
+        </mat-dialog-actions>
         
     </ng-container>
 </form>

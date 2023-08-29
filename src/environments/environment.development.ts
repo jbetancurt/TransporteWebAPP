@@ -3,6 +3,7 @@ import { HttpHeaders } from "@angular/common/http";
 export const environment = {
     
     production: true,
+    paginator: [5,10, 25, 50, 100],
     httpOptions : { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) },
     apiUrl : "https://localhost:7194/api",
     OAuth: {

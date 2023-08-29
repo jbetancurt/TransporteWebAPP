@@ -84,7 +84,8 @@ export class TiposDeRequisitosComponent implements OnInit {
       ); 
       
     }
-  
+
+    
   
     enviarDatos() : void{
       let fgTiposDeRequisitos=this.FGAgregarTiposDeRequisitos.value;
