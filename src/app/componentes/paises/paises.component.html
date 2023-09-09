@@ -1,1 +1,37 @@
-<p>paises works!</p>
+<form [formGroup]="FGAgregarPaises" (ngSubmit)="FGAgregarPaises.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-toolbar>
+            <h1 mat-dialog-title>Agregar Pais</h1>
+            <div class="menu-spacer"></div>
+            
+        </mat-toolbar>
+        
+        <div mat-dialog-content class="mat-typography">
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Nombre Pais:</mat-label>
+                    <input matInput  formControlName="nombrepais" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Codigo Pais:</mat-label>
+                    <input matInput  formControlName="codigopais" [readonly]="false">
+                </mat-form-field>
+            </div>
+            <input type="hidden" formControlName="idPais" [readonly]="false">  
+        </div>
+        
+        <div mat-dialog-actions align="end">
+            <button *ngIf="idPais <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
+                Agregar
+            </button> 
+            <button *ngIf="idPais > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
+                Editar
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+        </div>    
+    </ng-container>
+</form>
+
+

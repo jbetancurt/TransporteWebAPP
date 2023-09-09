@@ -1,1 +1,58 @@
-<p>usuarios works!</p>
+<form [formGroup]="FGAgregarUsuarios" (ngSubmit)="FGAgregarUsuarios.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-toolbar>
+            <h1  mat-dialog-title>Agregar Usuario</h1>
+            <div class="menu-spacer"></div>
+            
+        </mat-toolbar>
+        
+        <div mat-dialog-content class="mat-typography">
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Nombre Persona: </mat-label>
+                    <mat-select formControlName="idPersona" >
+                        <mat-option *ngFor="let item of lstPersonas" [value]="item.idPersona">{{ item.nombreCompletoPersona }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Nombre Usuario:</mat-label>
+                    <input matInput  formControlName="nombreUsuario" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Clave Usuario:</mat-label>
+                    <input matInput  formControlName="claveUsuario" [readonly]="false">
+                </mat-form-field>  
+            </div>
+
+            <div  fxLayout="row" fxLayoutGap="1px" >
+                <div appearance="fill" >
+                    <mat-checkbox formControlName="estadoUsuario" fxFlex>Estado Usuario:</mat-checkbox>
+                </div>
+            </div>
+
+
+            <input type="hidden" formControlName="idUsuario" [readonly]="false">  
+        
+        </div>
+        
+        
+        
+        <div mat-dialog-actions align="end">
+            <button *ngIf="idUsuario <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
+                Agregar
+            </button> 
+            <button *ngIf="idUsuario > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
+                Editar
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+            
+        </div>
+        
+    </ng-container>
+</form>

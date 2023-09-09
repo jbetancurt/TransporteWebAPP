@@ -8,7 +8,7 @@ const urlPage = environment.apiUrl +'/adjuntos';
 @Injectable({
   providedIn: 'root'
 })
-export default class AdjuntosService {
+export  class AdjuntosService {
   _Adjuntos? : Adjuntos[];
   constructor(private httpClient : HttpClient) { }
   
@@ -19,6 +19,12 @@ export default class AdjuntosService {
     return obj;
   }
 
+  public GetAll(): Observable<Adjuntos[]>{
+    
+    return this.httpClient.get<Adjuntos[]>(urlPage, environment.httpOptions);
+  }
+
+
   public Edit(_Adjuntos : Adjuntos): Observable<boolean>{
     return this.httpClient.put<boolean>(urlPage + '/' + (_Adjuntos.idAdjunto), _Adjuntos, environment.httpOptions);
   }
@@ -27,8 +33,8 @@ export default class AdjuntosService {
     return this.httpClient.post<number>(urlPage, _Adjuntos, environment.httpOptions);
   }
 
-  public delete(idAdjunto : string){
-     this.httpClient.delete(urlPage + '/' + idAdjunto, environment.httpOptions);
- }
+  public delete(idAdjunto: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/' + idAdjunto, environment.httpOptions);
+  }
 }
 

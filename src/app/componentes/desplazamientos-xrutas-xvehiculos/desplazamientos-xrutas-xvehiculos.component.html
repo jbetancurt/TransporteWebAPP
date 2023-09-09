@@ -1,1 +1,55 @@
-<p>desplazamientos-xrutas-xvehiculos works!</p>
+<form [formGroup]="FGAgregarDesplazamientosXRutasXVehiculos" (ngSubmit)="FGAgregarDesplazamientosXRutasXVehiculos.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-toolbar>
+            <h1  mat-dialog-title>Agregar Desplazamiento Por Ruta Por Vehiculo</h1>
+            <div class="menu-spacer"></div>
+            
+        </mat-toolbar>
+        
+        <div mat-dialog-content class="mat-typography">
+            
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Nombre Ruta Por Vehiculo: </mat-label>
+                    <mat-select formControlName="idRutaXVehiculo"  >
+                        <mat-option *ngFor="let item of lstRutasXVehiculos" [value]="item.idRutaXVehiculo">{{ item.nombreRutaXVehiculo }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px" >
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Fecha Desplazamiento Por Ruta Por Vehiculo:</mat-label>
+                    <input matInput  [matDatepicker]="fechadesplazamientoxrutaxvehiculo" formControlName="fechadesplazamientoxrutaxvehiculo">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="fechadesplazamientoxrutaxvehiculo"></mat-datepicker-toggle>
+                    <mat-datepicker #fechadesplazamientoxrutaxvehiculo></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Hora Desplazamiento Por Ruta Por Vehiculo:</mat-label><mat-label>Hora de desplazamiento:</mat-label>
+                    <input matInput type="time" formControlName="horadesplazamientoxrutaxvehiculo">
+                    <mat-icon matSuffix>access_time</mat-icon>
+                </mat-form-field>  
+            </div>
+            
+
+            <input type="hidden" formControlName="idDesplazamientoXRutaXVehiculo" [readonly]="false">  
+        
+        </div>
+        
+        
+        
+        <div mat-dialog-actions align="end">
+            <button *ngIf="idDesplazamientoXRutaXVehiculo <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
+                Agregar
+            </button> 
+            <button *ngIf="idDesplazamientoXRutaXVehiculo > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
+                Editar
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+            
+        </div>
+        
+    </ng-container>
+</form>

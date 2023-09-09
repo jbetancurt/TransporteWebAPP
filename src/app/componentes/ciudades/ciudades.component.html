@@ -1,1 +1,51 @@
-<p>ciudades works!</p>
+<form [formGroup]="FGAgregarCiudades" (ngSubmit)="FGAgregarCiudades.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-toolbar>
+            <h1  mat-dialog-title>Agregar Ciudad</h1>
+            <div class="menu-spacer"></div>
+        </mat-toolbar>
+        
+        <div mat-dialog-content class="mat-typography">
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Nombre Ciudad:</mat-label>
+                    <input matInput  formControlName="nombreciudad" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>País:</mat-label>
+                    <mat-select formControlName="idPais" (selectionChange)="listarDepartamentos($any($event).value)" >
+                        <mat-option *ngFor="let item of lstPaises" [value]="item.idPais">{{ item.nombrePais }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Departamento:</mat-label>
+                    <mat-select formControlName="idDepartamento"  >
+                        <mat-option *ngFor="let item of lstDepartamentos" [value]="item.idDepartamento">{{ item.nombreDepartamento }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Codigo Ciudad</mat-label>
+                    <input matInput  formControlName="codigociudad" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            <input type="hidden" formControlName="idCiudad" [readonly]="false">  
+        </div>
+ 
+        <div mat-dialog-actions align="end">
+            <button *ngIf="idCiudad <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
+                Agregar
+            </button> 
+            <button *ngIf="idCiudad > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
+                Editar
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+        </div>
+    </ng-container>
+</form>
+

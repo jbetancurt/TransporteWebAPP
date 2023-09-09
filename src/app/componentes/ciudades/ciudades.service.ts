@@ -8,7 +8,7 @@ const urlPage = environment.apiUrl +'/ciudades';
 @Injectable({
   providedIn: 'root'
 })
-export default class CiudadesService {
+export class CiudadesService {
   _Ciudades? : Ciudades[];
   constructor(private httpClient : HttpClient) { }
   
@@ -19,6 +19,11 @@ export default class CiudadesService {
     return obj;
   }
 
+  public GetAll(): Observable<Ciudades[]>{
+    
+    return this.httpClient.get<Ciudades[]>(urlPage, environment.httpOptions);
+  }
+
   public Edit(_Ciudades : Ciudades): Observable<boolean>{
     return this.httpClient.put<boolean>(urlPage + '/' + (_Ciudades.idCiudad), _Ciudades, environment.httpOptions);
   }
@@ -27,8 +32,9 @@ export default class CiudadesService {
     return this.httpClient.post<number>(urlPage, _Ciudades, environment.httpOptions);
   }
 
-  public delete(idCiudad: string){
-     this.httpClient.delete(urlPage + '/' + idCiudad, environment.httpOptions);
- }
+  public delete(idCiudad: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/' + idCiudad, environment.httpOptions);
+  }
+  
 }
 

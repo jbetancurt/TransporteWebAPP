@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { RolXUsuarios } from './rol-xusuarios.model';
-const urlPage = environment.apiUrl +'/rol-xusuarios';
+const urlPage = environment.apiUrl +'/rolxusuarios';
 
 @Injectable({
   providedIn: 'root'
 })
-export default class RolXUsuariosService {
+export class RolXUsuariosService {
   _RolXUsuarios? : RolXUsuarios[];
   constructor(private httpClient : HttpClient) { }
   
@@ -19,6 +19,11 @@ export default class RolXUsuariosService {
     return obj;
   }
 
+  public GetAll(): Observable<RolXUsuarios[]>{
+    
+    return this.httpClient.get<RolXUsuarios[]>(urlPage, environment.httpOptions);
+  }
+
   public Edit(_RolXUsuarios : RolXUsuarios): Observable<boolean>{
     return this.httpClient.put<boolean>(urlPage + '/' + (_RolXUsuarios.idRolXUsuario), _RolXUsuarios, environment.httpOptions);
   }
@@ -27,8 +32,10 @@ export default class RolXUsuariosService {
     return this.httpClient.post<number>(urlPage, _RolXUsuarios, environment.httpOptions);
   }
 
-  public delete(idRolXUsuario: string){
-     this.httpClient.delete(urlPage + '/' + idRolXUsuario, environment.httpOptions);
- }
+  public delete(idRolXUsuario: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/' + idRolXUsuario, environment.httpOptions);
+  }
+
+  
 }
 

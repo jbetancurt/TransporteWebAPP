@@ -8,7 +8,7 @@ const urlPage = environment.apiUrl +'/rutas-xvehiculos';
 @Injectable({
   providedIn: 'root'
 })
-export default class RutasXVehiculosService {
+export  class RutasXVehiculosService {
   _RutasXVehiculos? : RutasXVehiculos[];
   constructor(private httpClient : HttpClient) { }
   
@@ -19,6 +19,11 @@ export default class RutasXVehiculosService {
     return obj;
   }
 
+  public GetAll(): Observable<RutasXVehiculos[]>{
+    
+    return this.httpClient.get<RutasXVehiculos[]>(urlPage, environment.httpOptions);
+  }
+
   public Edit(_RutasXVehiculos : RutasXVehiculos): Observable<boolean>{
     return this.httpClient.put<boolean>(urlPage + '/' + (_RutasXVehiculos.idRutaXVehiculo), _RutasXVehiculos, environment.httpOptions);
   }
@@ -27,8 +32,8 @@ export default class RutasXVehiculosService {
     return this.httpClient.post<number>(urlPage, _RutasXVehiculos, environment.httpOptions);
   }
 
-  public delete(idRutaXVehiculo: string){
-     this.httpClient.delete(urlPage + '/' + idRutaXVehiculo, environment.httpOptions);
- }
+  public delete(idRutaXVehiculo: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/' + idRutaXVehiculo, environment.httpOptions);
+  }
 }
 

@@ -1,1 +1,57 @@
-<p>destinos works!</p>
+<form [formGroup]="FGAgregarDestinos" (ngSubmit)="FGAgregarDestinos.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-toolbar>
+            <h1  mat-dialog-title>Agregar Destino</h1>
+            <div class="menu-spacer"></div>
+        </mat-toolbar>
+        
+        <div mat-dialog-content class="mat-typography">
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Nombre Contacto:</mat-label>
+                    <mat-select formControlName="idContacto"  >
+                        <mat-option *ngFor="let item of lstPersonas" [value]="item.idPersona">{{ item.nombreCompletoPersona }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Ciudad:</mat-label>
+                    <mat-select formControlName="idCiudad"  >
+                        <mat-option *ngFor="let item of lstCiudades" [value]="item.idCiudad">{{ item.nombreCiudad }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Observacion Destino:</mat-label>
+                    <input matInput  formControlName="observacionDestino" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Direccion Destino:</mat-label>
+                    <input matInput  formControlName="direccionDestino" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Telefono Destino:</mat-label>
+                    <input matInput  formControlName="telefonoDestino" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            <input type="hidden" formControlName="idDestino" [readonly]="false">  
+            
+        </div>
+ 
+        <div mat-dialog-actions align="end">
+            <button *ngIf="idDestino <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
+                Agregar
+            </button> 
+            <button *ngIf="idDestino > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
+                Editar
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+        </div>
+    </ng-container>
+</form>

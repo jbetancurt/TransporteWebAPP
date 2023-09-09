@@ -31,6 +31,42 @@ body {
   margin-right: 0;
 }
 
+.table-container {
+  
+  overflow: auto;
+}
+
 .Tamanho100Porciento{
   width: 100%;
+}
+.mat-success {
+  color: #fff !important;
+  background-color: #28a745 !important;
+}
+.mat-success-out {
+  color: #28a745 !important;
+  background-color: #fff !important;
+}
+.mat-success[disabled] {
+  background-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+.mat-aceptar {
+  color: #fff !important;
+  background-color: #284ea7 !important;
+}
+.mat-aceptar[disabled] {
+  background-color: rgba(0, 0, 0, 0.12) !important;
+}
+.mat-tiene {
+  color: #284ea7 !important;
+  background-color: #fff !important;
+}
+.mat-notiene {
+  color: #df1818 !important;
+  background-color: #fff !important;
+}
+.ngx-material-timepicker-overlay-container {
+  position: fixed !important;
+  z-index: 9999;
 }

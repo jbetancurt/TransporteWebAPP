@@ -67,6 +67,24 @@ import { ListarTiposDeRequisitosComponent } from './componentes/tipos-de-requisi
 import { ListarTiposDeRolesComponent } from './componentes/tipos-de-roles/listar-tipos-de-roles/listar-tipos-de-roles.component';
 import { ListarTiposDeVehiculosComponent } from './componentes/tipos-de-vehiculos/listar-tipos-de-vehiculos/listar-tipos-de-vehiculos.component';
 import { ListarTiposOrientacionesDeLaOfertaComponent } from './componentes/tipos-orientaciones-de-la-oferta/listar-tipos-orientaciones-de-la-oferta/listar-tipos-orientaciones-de-la-oferta.component';
+import { ListarRolesComponent } from './componentes/roles/listar-roles/listar-roles.component';
+import { ListarPaisesComponent } from './componentes/paises/listar-paises/listar-paises.component';
+import { ListarDepartamentosComponent } from './componentes/departamentos/listar-departamentos/listar-departamentos.component';
+import { ListarCiudadesComponent } from './componentes/ciudades/listar-ciudades/listar-ciudades.component';
+import { ListarEstadosPorRutasComponent } from './componentes/estados-por-rutas/listar-estados-por-rutas/listar-estados-por-rutas.component';
+import { ListarAdjuntosComponent } from './componentes/adjuntos/listar-adjuntos/listar-adjuntos.component';
+import { ListarCarroceriasXTiposDeVehiculosComponent } from './componentes/carrocerias-xtipos-de-vehiculos/listar-carrocerias-xtipos-de-vehiculos/listar-carrocerias-xtipos-de-vehiculos.component';
+import { ListarControlesXPuntosComponent } from './componentes/controles-xpuntos/listar-controles-xpuntos/listar-controles-xpuntos.component';
+import { ListarDesplazamientosXRutasXVehiculosComponent } from './componentes/desplazamientos-xrutas-xvehiculos/listar-desplazamientos-xrutas-xvehiculos/listar-desplazamientos-xrutas-xvehiculos.component';
+import { ListarDestinosComponent } from './componentes/destinos/listar-destinos/listar-destinos.component';
+import { ListarEmpresasComponent } from './componentes/empresas/listar-empresas/listar-empresas.component';
+import { ListarPersonasComponent } from './componentes/personas/listar-personas/listar-personas.component';
+import { ListarRequisitosComponent } from './componentes/requisitos/listar-requisitos/listar-requisitos.component';
+import { ListarRolXUsuariosComponent } from './componentes/rol-xusuarios/listar-rol-xusuarios/listar-rol-xusuarios.component';
+import { ListarUsuariosComponent } from './componentes/usuarios/listar-usuarios/listar-usuarios.component';
+import { ListarSedesComponent } from './componentes/sedes/listar-sedes/listar-sedes.component';
+import { ListarVehiculosComponent } from './componentes/vehiculos/listar-vehiculos/listar-vehiculos.component';
+
 
 
 
@@ -129,7 +147,25 @@ import { ListarTiposOrientacionesDeLaOfertaComponent } from './componentes/tipos
     ListarTiposDeRequisitosComponent,
     ListarTiposDeRolesComponent,
     ListarTiposDeVehiculosComponent,
-    ListarTiposOrientacionesDeLaOfertaComponent
+    ListarTiposOrientacionesDeLaOfertaComponent,
+    ListarRolesComponent,
+    ListarPaisesComponent,
+    ListarDepartamentosComponent,
+    ListarCiudadesComponent,
+    ListarEstadosPorRutasComponent,
+    ListarAdjuntosComponent,
+    ListarCarroceriasXTiposDeVehiculosComponent,
+    ListarControlesXPuntosComponent,
+    ListarDesplazamientosXRutasXVehiculosComponent,
+    ListarDestinosComponent,
+    ListarEmpresasComponent,
+    ListarPersonasComponent,
+    ListarRequisitosComponent,
+    ListarRolXUsuariosComponent,
+    ListarUsuariosComponent,
+    ListarSedesComponent,
+    ListarVehiculosComponent
+    
     
 
   ],

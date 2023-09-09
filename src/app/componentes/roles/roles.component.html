@@ -1,1 +1,44 @@
-<p>roles works!</p>
+<form [formGroup]="FGAgregarRoles" (ngSubmit)="FGAgregarRoles.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-toolbar>
+            <h1  mat-dialog-title>Agregar Rol</h1>
+            <div class="menu-spacer"></div>
+            
+        </mat-toolbar>
+        
+        <div mat-dialog-content class="mat-typography">
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Nombre Rol:</mat-label>
+                    <input matInput  formControlName="nombrerol" [readonly]="false">
+                </mat-form-field>  
+
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Tipos De Rol: </mat-label>
+                    <mat-select formControlName="idTipoDeRol"  >
+                        <mat-option *ngFor="let item of lstTipoRoles" [value]="item.idTipoDeRol">{{ item.nombreTipoDeRol }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+            </div>
+            <input type="hidden" formControlName="idRol" [readonly]="false">  
+        
+        </div>
+        
+        
+        
+        <div mat-dialog-actions align="end">
+            <button *ngIf="idRol <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
+                Agregar
+            </button> 
+            <button *ngIf="idRol > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
+                Editar
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+            
+        </div>
+        
+    </ng-container>
+</form>

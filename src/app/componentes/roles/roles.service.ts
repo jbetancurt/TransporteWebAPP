@@ -8,7 +8,7 @@ const urlPage = environment.apiUrl +'/roles';
 @Injectable({
   providedIn: 'root'
 })
-export default class RolesService {
+export class RolesService {
   _Roles? : Roles[];
   constructor(private httpClient : HttpClient) { }
   
@@ -19,6 +19,11 @@ export default class RolesService {
     return obj;
   }
 
+  public GetAll(): Observable<Roles[]>{
+    
+    return this.httpClient.get<Roles[]>(urlPage, environment.httpOptions);
+  }
+
   public Edit(_Roles : Roles): Observable<boolean>{
     return this.httpClient.put<boolean>(urlPage + '/' + (_Roles.idRol), _Roles, environment.httpOptions);
   }
@@ -26,9 +31,9 @@ export default class RolesService {
   public create(_Roles : Roles): Observable<number>{
     return this.httpClient.post<number>(urlPage, _Roles, environment.httpOptions);
   }
-
-  public delete(idRol: string){
-     this.httpClient.delete(urlPage + '/' + idRol, environment.httpOptions);
- }
+  
+  public delete(idRol: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/' + idRol, environment.httpOptions);
+  }
 }
 

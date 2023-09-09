@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ControlesXPuntos } from './controles-xpuntos.model';
-const urlPage = environment.apiUrl +'/controles-xpuntos';
+const urlPage = environment.apiUrl +'/controlesxpuntos';
 
 @Injectable({
   providedIn: 'root'
 })
-export default class ControlesXPuntosService {
+export class ControlesXPuntosService {
   _ControlesXPuntos? : ControlesXPuntos[];
   constructor(private httpClient : HttpClient) { }
   
@@ -19,6 +19,11 @@ export default class ControlesXPuntosService {
     return obj;
   }
 
+  public GetAll(): Observable<ControlesXPuntos[]>{
+    
+    return this.httpClient.get<ControlesXPuntos[]>(urlPage, environment.httpOptions);
+  }
+
   public Edit(_ControlesXPuntos : ControlesXPuntos): Observable<boolean>{
     return this.httpClient.put<boolean>(urlPage + '/' + (_ControlesXPuntos.idControlXPunto), _ControlesXPuntos, environment.httpOptions);
   }
@@ -27,8 +32,9 @@ export default class ControlesXPuntosService {
     return this.httpClient.post<number>(urlPage, _ControlesXPuntos, environment.httpOptions);
   }
 
-  public delete(idControlXPunto: string){
-     this.httpClient.delete(urlPage + '/' + idControlXPunto, environment.httpOptions);
- }
+  public delete(idControlXPunto: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/' + idControlXPunto, environment.httpOptions);
+  }
+  
 }
 
