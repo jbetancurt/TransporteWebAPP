@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CarroceriasXTiposDeVehiculos } from './carrocerias-xtipos-de-vehiculos.model';
-const urlPage = environment.apiUrl +'/carrocerias-xtipos-de-vehiculos';
+const urlPage = environment.apiUrl +'/carroceriasxtiposdevehiculos';
 
  
 @Injectable({
   providedIn: 'root'
 })
-export default class CarroceriasXTiposDeVehiculosService {
+export  class CarroceriasXTiposDeVehiculosService {
   _CarroceriasXTiposDeVehiculos? : CarroceriasXTiposDeVehiculos[];
   constructor(private httpClient : HttpClient) { }
   
@@ -20,6 +20,11 @@ export default class CarroceriasXTiposDeVehiculosService {
     return obj;
   }
 
+  public GetAll(): Observable<CarroceriasXTiposDeVehiculos[]>{
+    
+    return this.httpClient.get<CarroceriasXTiposDeVehiculos[]>(urlPage, environment.httpOptions);
+  }
+
   public Edit(_CarroceriasXTiposDeVehiculos : CarroceriasXTiposDeVehiculos): Observable<boolean>{
     return this.httpClient.put<boolean>(urlPage + '/' + (_CarroceriasXTiposDeVehiculos.idCarroceriaXTipoDeVehiculo), _CarroceriasXTiposDeVehiculos, environment.httpOptions);
   }
@@ -28,8 +33,8 @@ export default class CarroceriasXTiposDeVehiculosService {
     return this.httpClient.post<number>(urlPage, _CarroceriasXTiposDeVehiculos, environment.httpOptions);
   }
 
-  public delete(idCarroceriaXTipoDeVehiculo : string){
-     this.httpClient.delete(urlPage + '/' + idCarroceriaXTipoDeVehiculo, environment.httpOptions);
- }
+  public delete(idCarroceriaXTipoDeVehiculo: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/' + idCarroceriaXTipoDeVehiculo, environment.httpOptions);
+  }
 }
 

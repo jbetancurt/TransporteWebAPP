@@ -8,7 +8,7 @@ const urlPage = environment.apiUrl +'/vehiculos';
 @Injectable({
   providedIn: 'root'
 })
-export default class VehiculosService {
+export class VehiculosService {
   _Vehiculos? : Vehiculos[];
   constructor(private httpClient : HttpClient) { }
   
@@ -19,6 +19,10 @@ export default class VehiculosService {
     return obj;
   }
 
+  public GetAll(): Observable<Vehiculos[]>{
+    return this.httpClient.get<Vehiculos[]>(urlPage, environment.httpOptions);
+  }
+
   public Edit(_Vehiculos : Vehiculos): Observable<boolean>{
     return this.httpClient.put<boolean>(urlPage + '/' + (_Vehiculos.idVehiculo), _Vehiculos, environment.httpOptions);
   }
@@ -27,8 +31,10 @@ export default class VehiculosService {
     return this.httpClient.post<number>(urlPage, _Vehiculos, environment.httpOptions);
   }
 
-  public delete(idVehiculo: string){
-     this.httpClient.delete(urlPage + '/' + idVehiculo, environment.httpOptions);
- }
+  public delete(idVehiculo: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/' + idVehiculo, environment.httpOptions);
+  }
+
+  
 }
 

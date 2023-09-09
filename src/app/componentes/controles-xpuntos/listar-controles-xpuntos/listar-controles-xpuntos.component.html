@@ -1,0 +1,110 @@
+<mat-card class="example-card" >
+    <mat-card-header >
+      <mat-card-title >
+        <mat-toolbar>
+            <span>Administrar Controles Por Puntos</span>
+            <div class="menu-spacer"></div>
+            <span  class="btn-derecha" >
+                <button   mat-raised-button color="primary" (click)="AbrirModalControlXPunto(0)">Agregar</button>
+            </span>
+        </mat-toolbar>
+        
+        
+        
+      </mat-card-title>
+      <mat-card-subtitle >
+        <br>
+        <form>
+            <mat-form-field class="Tamanho100Porciento" >
+                <mat-label>Filtro de Busqueda:</mat-label>
+                <input matInput #txtFiltro name="txtFiltro" [(ngModel)]="filtroBusqueda" (input)="search($any($event))">
+            </mat-form-field>
+        </form>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <ng-container matColumnDef="nombrecontrolxpunto">
+                <th mat-header-cell *matHeaderCellDef> Nombre Control Por Punto </th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{element.nombreControlXPunto}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="valorcontrolxpunto">
+                <th mat-header-cell *matHeaderCellDef> Valor Control Por Punto </th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{element.valorControlXPunto}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="idTipoDeEmpresa">
+                <th mat-header-cell *matHeaderCellDef>Tipo De Empresa</th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{encontrarNombreTipoDeEmpresa(element.idTipoDeEmpresa)}}
+                </td>
+            </ng-container>
+           
+            <ng-container matColumnDef="idTipoDePuntoDeControl">
+                <th mat-header-cell *matHeaderCellDef>Tipo De Punto de Control</th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{encontrarNombreTipoDePuntoDeControl(element.idTipoDePuntoDeControl)}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="idMenu">
+                <th mat-header-cell *matHeaderCellDef>Menu</th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{encontrarNombreMenu(element.idMenu)}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="idAdjunto">
+                <th mat-header-cell *matHeaderCellDef>Adjunto</th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{encontrarNombreAdjunto(element.idAdjunto)}}
+                </td>
+            </ng-container>
+
+            
+        
+            <ng-container matColumnDef="editar" >
+                <th mat-header-cell *matHeaderCellDef >  </th>
+                <td  mat-cell *matCellDef="let element"> 
+                    <mat-button-toggle-group style="border: none;" >
+                        <button type="button" matTooltip="Editar"  mat-button  color="primary" aria-label="editar departamento" (click)="AbrirModalControlXPunto(element.idControlXPunto)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </mat-button-toggle-group>
+                    
+                </td>
+            </ng-container>
+        
+            <ng-container matColumnDef="borrar" >
+                <th mat-header-cell *matHeaderCellDef >  </th>
+                <td  mat-cell *matCellDef="let element"> 
+                    <mat-button-toggle-group style="border: none;" >
+                        <button type="button"  matTooltip="Borrar" mat-button color="warn" aria-label="borrar departamento" (click)="borrarXId(element.idControlXPunto)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </mat-button-toggle-group>
+                    
+                </td>
+            </ng-container>
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">No data matching the filter "{{txtFiltro.value}}"</td>
+            </tr>
+        </table>
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <mat-paginator [pageSizeOptions]="arraypaginator" aria-label="Select pagePayer of _Payers"></mat-paginator>
+        
+    </mat-card-actions>
+  </mat-card>
+
+

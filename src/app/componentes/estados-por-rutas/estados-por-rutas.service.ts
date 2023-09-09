@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { EstadosPorRutas } from './estados-por-rutas.model';
-const urlPage = environment.apiUrl +'/estados-por-rutas';
+const urlPage = environment.apiUrl +'/estadosporrutas';
 
 @Injectable({
   providedIn: 'root'
 })
-export default class EstadosPorRutasService {
+export class EstadosPorRutasService {
   _EstadosPorRutas? : EstadosPorRutas[];
   constructor(private httpClient : HttpClient) { }
   
@@ -19,6 +19,12 @@ export default class EstadosPorRutasService {
     return obj;
   }
 
+  public GetAll(): Observable<EstadosPorRutas[]>{
+    
+    return this.httpClient.get<EstadosPorRutas[]>(urlPage, environment.httpOptions);
+  }
+
+  
   public Edit(_EstadosPorRutas : EstadosPorRutas): Observable<boolean>{
     return this.httpClient.put<boolean>(urlPage + '/' + (_EstadosPorRutas.idEstadoPorRuta), _EstadosPorRutas, environment.httpOptions);
   }
@@ -27,8 +33,8 @@ export default class EstadosPorRutasService {
     return this.httpClient.post<number>(urlPage, _EstadosPorRutas, environment.httpOptions);
   }
 
-  public delete(idEstadoPorRuta: string){
-     this.httpClient.delete(urlPage + '/' + idEstadoPorRuta, environment.httpOptions);
+  public delete(idEstadoPorRuta: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/' + idEstadoPorRuta, environment.httpOptions);
  }
 }
 

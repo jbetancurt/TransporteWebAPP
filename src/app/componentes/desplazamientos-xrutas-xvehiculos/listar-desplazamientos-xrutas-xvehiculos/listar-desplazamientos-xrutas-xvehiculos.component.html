@@ -1,0 +1,90 @@
+<mat-card class="example-card" >
+    <mat-card-header >
+      <mat-card-title >
+        <mat-toolbar>
+            <span>Administrar Desplazamientos Por Rutas Por Vehiculos</span>
+            <div class="menu-spacer"></div>
+            <span  class="btn-derecha" >
+                <button   mat-raised-button color="primary" (click)="AbrirModalDesplazamientoXRutaXVehiculo(0)">Agregar</button>
+            </span>
+        </mat-toolbar>
+        
+        
+        
+      </mat-card-title>
+      <mat-card-subtitle >
+        <br>
+        <form>
+            <mat-form-field class="Tamanho100Porciento" >
+                <mat-label>Filtro de Busqueda:</mat-label>
+                <input matInput #txtFiltro name="txtFiltro" [(ngModel)]="filtroBusqueda" (input)="search($any($event))">
+            </mat-form-field>
+        </form>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <ng-container matColumnDef="idRutaXVehiculo">
+                <th mat-header-cell *matHeaderCellDef> Nombre Ruta Por Vehiculo </th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{encontrarNombreRutaXVehiculo(element.idRutaXVehiculo)}}
+                </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="fechadesplazamientoxrutaxvehiculo">
+                <th mat-header-cell *matHeaderCellDef>Fecha Desplazamiento Por Ruta Por Vehiculo </th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{element.fechaDesplazamientoXRutaXVehiculo}}
+                    
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="horadesplazamientoxrutaxvehiculo">
+                <th mat-header-cell *matHeaderCellDef> Hora Desplazamiento Por Ruta Por Vehiculo </th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{element.horaDesplazamientoXRutaXVehiculo}}
+                </td>
+            </ng-container>
+
+            
+        
+            <ng-container matColumnDef="editar" >
+                <th mat-header-cell *matHeaderCellDef >  </th>
+                <td  mat-cell *matCellDef="let element"> 
+                    <mat-button-toggle-group style="border: none;" >
+                        <button type="button" matTooltip="Editar"  mat-button  color="primary" aria-label="editar departamento" (click)="AbrirModalDesplazamientoXRutaXVehiculo(element.idDesplazamientoXRutaXVehiculo)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </mat-button-toggle-group>
+                    
+                </td>
+            </ng-container>
+        
+            <ng-container matColumnDef="borrar" >
+                <th mat-header-cell *matHeaderCellDef >  </th>
+                <td  mat-cell *matCellDef="let element"> 
+                    <mat-button-toggle-group style="border: none;" >
+                        <button type="button"  matTooltip="Borrar" mat-button color="warn" aria-label="borrar departamento" (click)="borrarXId(element.idDesplazamientoXRutaXVehiculo)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </mat-button-toggle-group>
+                    
+                </td>
+            </ng-container>
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">No data matching the filter "{{txtFiltro.value}}"</td>
+            </tr>
+        </table>
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <mat-paginator [pageSizeOptions]="arraypaginator" aria-label="Select pagePayer of _Payers"></mat-paginator>
+        
+    </mat-card-actions>
+  </mat-card>
+
+

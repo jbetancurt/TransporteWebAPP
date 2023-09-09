@@ -8,7 +8,7 @@ const urlPage = environment.apiUrl +'/usuarios';
 @Injectable({
   providedIn: 'root'
 })
-export default class UsuariosService {
+export class UsuariosService {
   _Usuarios? : Usuarios[];
   constructor(private httpClient : HttpClient) { }
   
@@ -19,6 +19,11 @@ export default class UsuariosService {
     return obj;
   }
 
+  public GetAll(): Observable<Usuarios[]>{
+    
+    return this.httpClient.get<Usuarios[]>(urlPage, environment.httpOptions);
+  }
+
   public Edit(_Usuarios : Usuarios): Observable<boolean>{
     return this.httpClient.put<boolean>(urlPage + '/' + (_Usuarios.idUsuario), _Usuarios, environment.httpOptions);
   }
@@ -27,7 +32,9 @@ export default class UsuariosService {
     return this.httpClient.post<number>(urlPage, _Usuarios, environment.httpOptions);
   }
 
-  public delete(idUsuario: string){
-     this.httpClient.delete(urlPage + '/' + idUsuario, environment.httpOptions);
- }
+  public delete(idUsuario: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/' + idUsuario, environment.httpOptions);
+  }
+
+
 }

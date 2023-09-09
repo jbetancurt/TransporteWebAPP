@@ -1,1 +1,96 @@
-<p>personas works!</p>
+<form [formGroup]="FGAgregarPersonas" (ngSubmit)="FGAgregarPersonas.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-toolbar>
+            <h1  mat-dialog-title>Agregar Persona</h1>
+            <div class="menu-spacer"></div>
+            
+        </mat-toolbar>
+        
+        <div mat-dialog-content class="mat-typography">
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Primer Nombre</mat-label>
+                    <input matInput  formControlName="nombre1Persona" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Segundo Nombre</mat-label>
+                    <input matInput  formControlName="nombre2Persona" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Primer Apellido</mat-label>
+                    <input matInput  formControlName="apellido1Persona" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Segundo Apellido</mat-label>
+                    <input matInput  formControlName="apellido2Persona" [readonly]="false">
+                </mat-form-field>  
+            </div>
+
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Tipo DE Documento: </mat-label>
+                    <mat-select formControlName="idTipoDeDocumento"  >
+                        <mat-option *ngFor="let item of lstTiposDeDocumentos" [value]="item.idTipoDeDocumento">{{ item.nombreTipoDeDocumento }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Numero De Documento:</mat-label>
+                    <input matInput  formControlName="documentoDeIdentidadPersona" [readonly]="false">
+                </mat-form-field>  
+            </div>
+
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Correo:</mat-label>
+                    <input matInput  formControlName="correoPersona" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Telefono1:</mat-label>
+                    <input matInput  formControlName="telefonoPersona" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Telefono2:</mat-label>
+                    <input matInput  formControlName="telefonoOtroPersona" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Direccion:</mat-label>
+                    <input matInput  formControlName="direccionPersona" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            
+            
+            <input type="hidden" formControlName="idPersona" [readonly]="false">  
+        
+        </div>
+        
+        
+        
+        <div mat-dialog-actions align="end">
+            <button *ngIf="idPersona <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
+                Agregar
+            </button> 
+            <button *ngIf="idPersona > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
+                Editar
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+            
+        </div>
+        
+    </ng-container>
+</form>
+

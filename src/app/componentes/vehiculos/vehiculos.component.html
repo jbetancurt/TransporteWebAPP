@@ -1,1 +1,69 @@
-<p>vehiculos works!</p>
+<form [formGroup]="FGAgregarVehiculos" (ngSubmit)="FGAgregarVehiculos.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-toolbar>
+            <h1  mat-dialog-title>Agregar Vehiculo</h1>
+            <div class="menu-spacer"></div>
+            
+        </mat-toolbar>
+        
+        <div mat-dialog-content class="mat-typography">
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Tipo De Vehiculo: </mat-label>
+                    <mat-select formControlName="idTipoDeVehiculo"  >
+                        <mat-option *ngFor="let item of lstTiposDeVehiculos" [value]="item.idTipoDeVehiculo">{{ item.nombreTipoDeVehiculo }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Tipo de Carroceria: </mat-label>
+                    <mat-select formControlName="idTipoDeCarroceria"  >
+                        <mat-option *ngFor="let item of lstTiposDeCarrocerias" [value]="item.idTipoDeCarroceria">{{ item.nombreTipoDeCarroceria }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Carroceria Por Tipo de Vehiculo: </mat-label>
+                    <mat-select formControlName="idCarroceriaXTipoDeVehiculo"  >
+                        <mat-option *ngFor="let item of lstCarroceriasXTiposDeVehiculos" [value]="item.idCarroceriaXTipoDeVehiculo">{{ item.idCarroceriaXTipoDeVehiculo }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+          
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Placa Vehiculo</mat-label>
+                    <input matInput  formControlName="placaVehiculo" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Placa Trailer Vehiculo</mat-label>
+                    <input matInput  formControlName="placaTrailerVehiculo" [readonly]="false">
+                </mat-form-field>  
+            </div>
+         
+            <input type="hidden" formControlName="idVehiculo" [readonly]="false">  
+        
+        </div>
+        
+        
+        
+        <div mat-dialog-actions align="end">
+            <button *ngIf="idVehiculo <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
+                Agregar
+            </button> 
+            <button *ngIf="idVehiculo > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
+                Editar
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+            
+        </div>
+        
+    </ng-container>
+</form>
+
+

@@ -1,0 +1,100 @@
+<mat-card class="example-card" >
+    <mat-card-header >
+      <mat-card-title >
+        <mat-toolbar>
+            <span>Administrar Usuarios</span>
+            <div class="menu-spacer"></div>
+            <span  class="btn-derecha" >
+                <button   mat-raised-button color="primary" (click)="AbrirModalUsuario(0)">Agregar</button>
+            </span>
+        </mat-toolbar>
+        
+        
+        
+      </mat-card-title>
+      <mat-card-subtitle >
+        <br>
+        <form>
+            <mat-form-field class="Tamanho100Porciento" >
+                <mat-label>Filtro de Busqueda:</mat-label>
+                <input matInput #txtFiltro name="txtFiltro" [(ngModel)]="filtroBusqueda" (input)="search($any($event))">
+            </mat-form-field>
+        </form>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <ng-container matColumnDef="idPersona">
+                <th mat-header-cell *matHeaderCellDef> Nombre Persona </th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{encontrarNombrePersona(element.idPersona)}}
+                </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="nombreUsuario">
+                <th mat-header-cell *matHeaderCellDef> Usuario </th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{element.nombreUsuario}}
+                    
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="claveUsuario">
+                <th mat-header-cell *matHeaderCellDef> Clave </th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{element.claveUsuario}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="estadoUsuario">
+                <th mat-header-cell *matHeaderCellDef><div fxFlexFill fxLayoutAlign="center center">
+                    Estado
+                </div>  </th>
+                <td mat-cell *matCellDef="let element"> 
+                    <div fxFlexFill fxLayoutAlign="center center">
+                        <mat-icon *ngIf="element.estadoUsuario" color="tiene">check</mat-icon>
+                        <mat-icon *ngIf="!element.estadoUsuario" color="notiene">close</mat-icon>
+                    </div>
+                </td>
+            </ng-container>
+        
+            <ng-container matColumnDef="editar" >
+                <th mat-header-cell *matHeaderCellDef >  </th>
+                <td  mat-cell *matCellDef="let element"> 
+                    <mat-button-toggle-group style="border: none;" >
+                        <button type="button" matTooltip="Editar"  mat-button  color="primary" aria-label="editar departamento" (click)="AbrirModalUsuario(element.idUsuario)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </mat-button-toggle-group>
+                    
+                </td>
+            </ng-container>
+        
+            <ng-container matColumnDef="borrar" >
+                <th mat-header-cell *matHeaderCellDef >  </th>
+                <td  mat-cell *matCellDef="let element"> 
+                    <mat-button-toggle-group style="border: none;" >
+                        <button type="button"  matTooltip="Borrar" mat-button color="warn" aria-label="borrar departamento" (click)="borrarXId(element.idUsuario)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </mat-button-toggle-group>
+                    
+                </td>
+            </ng-container>
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">No data matching the filter "{{txtFiltro.value}}"</td>
+            </tr>
+        </table>
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <mat-paginator [pageSizeOptions]="arraypaginator" aria-label="Select pagePayer of _Payers"></mat-paginator>
+        
+    </mat-card-actions>
+  </mat-card>
+
+

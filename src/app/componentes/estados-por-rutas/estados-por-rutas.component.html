@@ -1,1 +1,31 @@
-<p>estados-por-rutas works!</p>
+<form [formGroup]="FGAgregarEstadosPorRutas" (ngSubmit)="FGAgregarEstadosPorRutas.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-toolbar>
+            <h1 mat-dialog-title>Agregar Estado de Ruta</h1>
+            <div class="menu-spacer"></div>
+            
+        </mat-toolbar>
+        
+        <mat-dialog-content class="mat-typography">
+            <mat-form-field appearance="fill"  class="Tamanho100Porciento">
+                <mat-label>Nombre Estado de Ruta:</mat-label>
+                <input matInput class="Tamanho100Porciento"  formControlName="nombreestadoporruta" [readonly]="false">
+            </mat-form-field>
+            <input type="hidden" formControlName="idEstadoPorRuta" [readonly]="false">
+            
+        </mat-dialog-content>
+        
+        
+        <mat-dialog-actions align="end">
+            <button *ngIf="idEstadoPorRuta <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
+                Agregar
+            </button> 
+            <button *ngIf="idEstadoPorRuta > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
+                Editar
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+            
+        </mat-dialog-actions>
+        
+    </ng-container>
+</form>

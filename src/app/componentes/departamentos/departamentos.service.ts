@@ -8,7 +8,7 @@ const urlPage = environment.apiUrl +'/departamentos';
 @Injectable({
   providedIn: 'root'
 })
-export default class DepartamentosService {
+export class DepartamentosService {
   _Departamentos? : Departamentos[];
   constructor(private httpClient : HttpClient) { }
   
@@ -19,6 +19,15 @@ export default class DepartamentosService {
     return obj;
   }
 
+  public GetAll(): Observable<Departamentos[]>{
+    
+    return this.httpClient.get<Departamentos[]>(urlPage, environment.httpOptions);
+  }
+  public GetByIdPais(idPaise : number): Observable<Departamentos[]>{
+    
+    return this.httpClient.get<Departamentos[]>(urlPage + "/ListarDepartamentos/" +idPaise, environment.httpOptions);
+  }
+
   public Edit(_Departamentos : Departamentos): Observable<boolean>{
     return this.httpClient.put<boolean>(urlPage + '/' + (_Departamentos.idDepartamento), _Departamentos, environment.httpOptions);
   }
@@ -27,7 +36,7 @@ export default class DepartamentosService {
     return this.httpClient.post<number>(urlPage, _Departamentos, environment.httpOptions);
   }
 
-  public delete(idDepartamento: string){
-     this.httpClient.delete(urlPage + '/' + idDepartamento, environment.httpOptions);
- }
+  public delete(idDepartamento: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/' + idDepartamento, environment.httpOptions);
+  }
 }

@@ -1,1 +1,46 @@
-<p>carrocerias-xtipos-de-vehiculos works!</p>
+<form [formGroup]="FGAgregarCarroceriasXTiposDeVehiculos" (ngSubmit)="FGAgregarCarroceriasXTiposDeVehiculos.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-toolbar>
+            <h1  mat-dialog-title>Agregar Carrocerias Por Tipos De Vehiculos</h1>
+            <div class="menu-spacer"></div>
+        </mat-toolbar>
+        
+        <div mat-dialog-content class="mat-typography">
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Tipo De Vehiculo:</mat-label>
+                    <mat-select formControlName="idTipoDeVehiculo"  >
+                        <mat-option *ngFor="let item of lstTiposDeVehiculos" [value]="item.idTipoDeVehiculo">{{ item.nombreTipoDeVehiculo }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Tipo De Carroceria:</mat-label>
+                    <mat-select formControlName="idTipoDeCarroceria"  >
+                        <mat-option *ngFor="let item of lstTiposDeCarrocerias" [value]="item.idTipoDeCarroceria">{{ item.nombreTipoDeCarroceria }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px" >
+                <div appearance="fill" >
+                    <mat-checkbox formControlName="tieneTrailer" fxFlex>Tiene Trailer</mat-checkbox>
+                </div>
+            </div>
+            
+            <input type="hidden" formControlName="idCarroceriaXTipoDeVehiculo" [readonly]="false">  
+            
+        </div>
+ 
+        <div mat-dialog-actions align="end">
+            <button *ngIf="idCarroceriaXTipoDeVehiculo <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
+                Agregar
+            </button> 
+            <button *ngIf="idCarroceriaXTipoDeVehiculo > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
+                Editar
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+        </div>
+    </ng-container>
+</form>
+

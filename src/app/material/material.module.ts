@@ -8,6 +8,7 @@ import { MatGridListModule } from "@angular/material/grid-list";
 import { MatGridTile } from '@angular/material/grid-list';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
+import {MatNativeDateModule} from '@angular/material/core';
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatCardModule } from "@angular/material/card";
 import { MatSelectModule } from "@angular/material/select";
@@ -19,6 +20,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 @NgModule({
   declarations: [],
@@ -30,6 +33,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatGridListModule,
     MatFormFieldModule,
     MatInputModule,
+    MatNativeDateModule,
     MatDatepickerModule,
     MatCardModule,
     MatSelectModule,
@@ -40,7 +44,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatButtonModule,
     MatButtonToggleModule,
     MatPaginatorModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatCheckboxModule,
+    NgxMaterialTimepickerModule
+    
   ],
   exports: [
     MatSidenavModule,
@@ -48,7 +55,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatIconModule,
     MatListModule,
     MatFormFieldModule,
+    MatDatepickerModule,
     MatInputModule,
+    MatNativeDateModule,
     MatDatepickerModule,
     MatCardModule,
     MatSelectModule,
@@ -61,7 +70,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatButtonModule,
     MatButtonToggleModule,
     MatPaginatorModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatCheckboxModule,
+    NgxMaterialTimepickerModule
   ]
 })
 export class MaterialModule { }

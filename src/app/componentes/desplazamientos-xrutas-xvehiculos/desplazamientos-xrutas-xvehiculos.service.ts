@@ -8,7 +8,7 @@ const urlPage = environment.apiUrl +'/desplazamientos-xrutas-xvehiculos';
 @Injectable({
   providedIn: 'root'
 })
-export default class DesplazamientosXRutasXVehiculosService {
+export class DesplazamientosXRutasXVehiculosService {
   _DesplazamientosXRutasXVehiculos? : DesplazamientosXRutasXVehiculos[];
   constructor(private httpClient : HttpClient) { }
   
@@ -19,6 +19,11 @@ export default class DesplazamientosXRutasXVehiculosService {
     return obj;
   }
 
+  public GetAll(): Observable<DesplazamientosXRutasXVehiculos[]>{
+    
+    return this.httpClient.get<DesplazamientosXRutasXVehiculos[]>(urlPage, environment.httpOptions);
+  }
+
   public Edit(_DesplazamientosXRutasXVehiculos : DesplazamientosXRutasXVehiculos): Observable<boolean>{
     return this.httpClient.put<boolean>(urlPage + '/' + (_DesplazamientosXRutasXVehiculos.idDesplazamientoXRutaXVehiculo), _DesplazamientosXRutasXVehiculos, environment.httpOptions);
   }
@@ -27,8 +32,8 @@ export default class DesplazamientosXRutasXVehiculosService {
     return this.httpClient.post<number>(urlPage, _DesplazamientosXRutasXVehiculos, environment.httpOptions);
   }
 
-  public delete(idDesplazamientoXRutaXVehiculo: string){
-     this.httpClient.delete(urlPage + '/' + idDesplazamientoXRutaXVehiculo, environment.httpOptions);
- }
+  public delete(idDesplazamientoXRutaXVehiculo: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/' + idDesplazamientoXRutaXVehiculo, environment.httpOptions);
+  }
 }
 

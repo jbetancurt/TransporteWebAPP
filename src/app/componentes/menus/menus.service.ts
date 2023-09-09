@@ -8,7 +8,7 @@ const urlPage = environment.apiUrl +'/menus';
 @Injectable({
   providedIn: 'root'
 })
-export default class MenusService {
+export class MenusService {
   _Menus? : Menus[];
   constructor(private httpClient : HttpClient) { }
   
@@ -19,6 +19,11 @@ export default class MenusService {
     return obj;
   }
 
+  public GetAll(): Observable<Menus[]>{
+    
+    return this.httpClient.get<Menus[]>(urlPage, environment.httpOptions);
+  }
+
   public Edit(_Menus : Menus): Observable<boolean>{
     return this.httpClient.put<boolean>(urlPage + '/' + (_Menus.idMenu), _Menus, environment.httpOptions);
   }
@@ -27,9 +32,10 @@ export default class MenusService {
     return this.httpClient.post<number>(urlPage, _Menus, environment.httpOptions);
   }
 
-  public delete(idMenu: string){
-     this.httpClient.delete(urlPage + '/' + idMenu, environment.httpOptions);
- }
+  public delete(idMenu: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/' + idMenu, environment.httpOptions);
+  }
+  
 }
 
 

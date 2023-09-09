@@ -1,1 +1,50 @@
-<p>departamentos works!</p>
+<form [formGroup]="FGAgregarDepartamentos" (ngSubmit)="FGAgregarDepartamentos.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-toolbar>
+            <h1  mat-dialog-title>Agregar Departamento</h1>
+            <div class="menu-spacer"></div>
+            
+        </mat-toolbar>
+        
+        <div mat-dialog-content class="mat-typography">
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Nombre Departamento</mat-label>
+                    <input matInput  formControlName="nombredepartamento" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Pais: </mat-label>
+                    <mat-select formControlName="idPais"  >
+                        <mat-option *ngFor="let item of lstPaises" [value]="item.idPais">{{ item.nombrePais }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Codigo Departamento</mat-label>
+                    <input matInput  formControlName="codigodepartamento" [readonly]="false">
+                </mat-form-field>  
+            </div>
+
+
+            <input type="hidden" formControlName="idDepartamento" [readonly]="false">  
+        
+        </div>
+        
+        
+        
+        <div mat-dialog-actions align="end">
+            <button *ngIf="idDepartamento <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
+                Agregar
+            </button> 
+            <button *ngIf="idDepartamento > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
+                Editar
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+            
+        </div>
+        
+    </ng-container>
+</form>

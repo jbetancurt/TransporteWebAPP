@@ -4,9 +4,11 @@ export class Personas {
     nombre2Persona : string="";
     apellido1Persona : string="";
     apellido2Persona : string="";
+    nombreCompletoPersona : string="";
     documentoDeIdentidadPersona : string="";
     idTipoDeDocumentoPersona : number=0;
     correoPersona: string="";
-    telefonoPersona : number=0;
-    telefonoOtroPersona : number=0;
+    telefonoPersona : string="";
+    telefonoOtroPersona : string="";
+    direccionPersona : string="";
 }
