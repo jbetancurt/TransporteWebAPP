@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { RequisitosAdjuntos } from './requisitos-adjuntos.model';
-const urlPage = environment.apiUrl +'/requisitos-adjuntos';
+const urlPage = environment.apiUrl +'/requisitosadjuntos';
 
 @Injectable({
   providedIn: 'root'
 })
-export default class RequisitosAdjuntosService {
+export  class RequisitosAdjuntosService {
   _RequisitosAdjuntos? : RequisitosAdjuntos[];
   constructor(private httpClient : HttpClient) { }
   
@@ -19,6 +19,11 @@ export default class RequisitosAdjuntosService {
     return obj;
   }
 
+  public GetAll(): Observable<RequisitosAdjuntos[]>{
+    
+    return this.httpClient.get<RequisitosAdjuntos[]>(urlPage, environment.httpOptions);
+  }
+
   public Edit(_RequisitosAdjuntos : RequisitosAdjuntos): Observable<boolean>{
     return this.httpClient.put<boolean>(urlPage + '/' + (_RequisitosAdjuntos.idRequisitoAdjunto), _RequisitosAdjuntos, environment.httpOptions);
   }
@@ -27,8 +32,8 @@ export default class RequisitosAdjuntosService {
     return this.httpClient.post<number>(urlPage, _RequisitosAdjuntos, environment.httpOptions);
   }
 
-  public delete(idRequisitoAdjunto: string){
-     this.httpClient.delete(urlPage + '/' + idRequisitoAdjunto, environment.httpOptions);
- }
+  public delete(idRequisitoAdjunto: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/' + idRequisitoAdjunto, environment.httpOptions);
+}
 }
 

@@ -8,7 +8,7 @@ const urlPage = environment.apiUrl +'/ofertas';
 @Injectable({
   providedIn: 'root'
 })
-export default class OfertasService {
+export class OfertasService {
   _Ofertas? : Ofertas[];
   constructor(private httpClient : HttpClient) { }
   
@@ -19,6 +19,11 @@ export default class OfertasService {
     return obj;
   }
 
+  public GetAll(): Observable<Ofertas[]>{
+    
+    return this.httpClient.get<Ofertas[]>(urlPage, environment.httpOptions);
+  }
+
   public Edit(_Ofertas : Ofertas): Observable<boolean>{
     return this.httpClient.put<boolean>(urlPage + '/' + (_Ofertas.idOferta), _Ofertas, environment.httpOptions);
   }
@@ -26,9 +31,10 @@ export default class OfertasService {
   public create(_Ofertas : Ofertas): Observable<number>{
     return this.httpClient.post<number>(urlPage, _Ofertas, environment.httpOptions);
   }
-
-  public delete(idOferta: string){
-     this.httpClient.delete(urlPage + '/' + idOferta, environment.httpOptions);
- }
+  public delete(idOferta: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/' + idOferta, environment.httpOptions);
+  }
+ 
+ 
 }
 

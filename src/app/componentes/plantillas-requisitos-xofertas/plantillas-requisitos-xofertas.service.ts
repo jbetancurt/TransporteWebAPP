@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PlantillasRequisitosXOfertas } from './plantillas-requisitos-xofertas.model';
-const urlPage = environment.apiUrl +'/plantillas-requisitos-xofertas';
+const urlPage = environment.apiUrl +'/plantillas_requisitosxofertas';
 
 @Injectable({
   providedIn: 'root'
 })
-export default class PlantillasRequisitosXOfertasServices {
+export  class PlantillasRequisitosXOfertasServices {
   _PlantillasRequisitosXOfertas? : PlantillasRequisitosXOfertas[];
   constructor(private httpClient : HttpClient) { }
   
@@ -19,6 +19,11 @@ export default class PlantillasRequisitosXOfertasServices {
     return obj;
   }
 
+  public GetAll(): Observable<PlantillasRequisitosXOfertas[]>{
+    
+    return this.httpClient.get<PlantillasRequisitosXOfertas[]>(urlPage, environment.httpOptions);
+  }
+
   public Edit(_PlantillasRequisitosXOfertas : PlantillasRequisitosXOfertas): Observable<boolean>{
     return this.httpClient.put<boolean>(urlPage + '/' + (_PlantillasRequisitosXOfertas.idRequisitoXOferta), _PlantillasRequisitosXOfertas, environment.httpOptions);
   }
@@ -26,10 +31,10 @@ export default class PlantillasRequisitosXOfertasServices {
   public create(_PlantillasRequisitosXOfertas : PlantillasRequisitosXOfertas): Observable<number>{
     return this.httpClient.post<number>(urlPage, _PlantillasRequisitosXOfertas, environment.httpOptions);
   }
-
-  public delete(idPlantillaRequisitoXOferta: string){
-     this.httpClient.delete(urlPage + '/' + idPlantillaRequisitoXOferta, environment.httpOptions);
- }
+  public delete(idPlantillaRequisitoXOferta: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/' + idPlantillaRequisitoXOferta, environment.httpOptions);
+  }
+  
 }
 
 

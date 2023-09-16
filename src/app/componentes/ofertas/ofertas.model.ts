@@ -3,7 +3,7 @@ export class Ofertas {
     idDestinoInicio : number=0;
     idDestinoFin : number=0;
     idEmpresa : number=0;
-    idTipoOferta : number=0;
+    idTipoOrientacionDeLaOferta : number=0;
     tituloOferta : string='';
     descripcionOferta : string='';
     altoOferta : number=0;

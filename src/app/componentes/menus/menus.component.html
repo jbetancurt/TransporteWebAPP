@@ -1,1 +1,67 @@
-<p>menus works!</p>
+<form [formGroup]="FGAgregarMenus" (ngSubmit)="FGAgregarMenus.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-toolbar>
+            <h1  mat-dialog-title>Agregar Menu</h1>
+            <div class="menu-spacer"></div>
+            
+        </mat-toolbar>
+        
+        <div mat-dialog-content class="mat-typography">
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Nombre Menu</mat-label>
+                    <input matInput  formControlName="nombre" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Menu Padre: </mat-label>
+                    <mat-select formControlName="idMenuPadre"  >
+                        <mat-option *ngFor="let item of lstMenus" [value]="item.idMenu">{{ item.nombre }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Nombre Controller</mat-label>
+                    <input matInput  formControlName="nombreController" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Nombre Action</mat-label>
+                    <input matInput  formControlName="nombreAction" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px" >
+                <div appearance="fill" >
+                    <mat-checkbox formControlName="esNodo" fxFlex>Es Nodo</mat-checkbox>
+                </div>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px" >
+                <div appearance="fill" >
+                    <mat-checkbox formControlName="activo" fxFlex>Es Activo</mat-checkbox>
+                </div>
+            </div>
+
+
+            <input type="hidden" formControlName="idMenu" [readonly]="false">  
+        
+        </div>
+        
+        
+        
+        <div mat-dialog-actions align="end">
+            <button *ngIf="idMenu <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
+                Agregar
+            </button> 
+            <button *ngIf="idMenu > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
+                Editar
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+            
+        </div>
+        
+    </ng-container>
+</form>
+

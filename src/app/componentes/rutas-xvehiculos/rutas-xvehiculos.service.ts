@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { RutasXVehiculos } from './rutas-xvehiculos.model';
-const urlPage = environment.apiUrl +'/rutas-xvehiculos';
+const urlPage = environment.apiUrl +'/rutasxvehiculos';
 
 @Injectable({
   providedIn: 'root'

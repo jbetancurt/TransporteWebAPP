@@ -1,1 +1,54 @@
-<p>accesos-control-xpuntos works!</p>
+<form [formGroup]="FGAgregarAccesosControlXPuntos" (ngSubmit)="FGAgregarAccesosControlXPuntos.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-toolbar>
+            <h1  mat-dialog-title>Agregar Acceso Control Por Punto</h1>
+            <div class="menu-spacer"></div>
+            
+        </mat-toolbar>
+        
+        <div mat-dialog-content class="mat-typography">
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Empresa: </mat-label>
+                    <mat-select formControlName="idEmpresa"  >
+                        <mat-option *ngFor="let item of lstEmpresas" [value]="item.idEmpresa">{{ item.nombreEmpresa }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Rol: </mat-label>
+                    <mat-select formControlName="idRol"  >
+                        <mat-option *ngFor="let item of lstRoles" [value]="item.idRol">{{ item.nombreRol }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Control Por Punto: </mat-label>
+                    <mat-select formControlName="idControlXPunto"  >
+                        <mat-option *ngFor="let item of lstControlesXPuntos" [value]="item.idControlXPunto">{{ item.nombreControlXPunto }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            
+            <input type="hidden" formControlName="idAccesoControlXPunto" [readonly]="false">  
+        
+        </div>
+        
+        
+        
+        <div mat-dialog-actions align="end">
+            <button *ngIf="idAccesoControlXPunto <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
+                Agregar
+            </button> 
+            <button *ngIf="idAccesoControlXPunto > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
+                Editar
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+            
+        </div>
+        
+    </ng-container>
+</form>
+

@@ -1,1 +1,53 @@
-<p>sedes-empleados works!</p>
+<form [formGroup]="FGAgregarSedesEmpleados" (ngSubmit)="FGAgregarSedesEmpleados.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-toolbar>
+            <h1  mat-dialog-title>Agregar Sede Empleados</h1>
+            <div class="menu-spacer"></div>
+        </mat-toolbar>
+        
+        <div mat-dialog-content class="mat-typography">
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Sede:</mat-label>
+                    <mat-select formControlName="idSede"  >
+                        <mat-option *ngFor="let item of lstSedes" [value]="item.idSede">{{ item.nombreSede }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Empleado:</mat-label>
+                    <mat-select formControlName="idPersona"  >
+                        <mat-option *ngFor="let item of lstPersonas" [value]="item.idPersona">{{ item.nombreCompletoPersona }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Telefono Sede:</mat-label>
+                    <input matInput  formControlName="telefonoContactoSedeEmpleado" [readonly]="false">
+                </mat-form-field>  
+            </div>
+
+            <div  fxLayout="row" fxLayoutGap="1px" >
+                <div appearance="fill" >
+                    <mat-checkbox formControlName="estadoSedeEmpleado" fxFlex>Sede Activa</mat-checkbox>
+                </div>
+            </div>
+            <input type="hidden" formControlName="idSedeEmpleado" [readonly]="false">  
+            
+        </div>
+ 
+        <div mat-dialog-actions align="end">
+            <button *ngIf="idSedeEmpleado <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
+                Agregar
+            </button> 
+            <button *ngIf="idSedeEmpleado > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
+                Editar
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+        </div>
+    </ng-container>
+</form>
+

@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { RolesXEmpresas } from './roles-xempresas.model';
-const urlPage = environment.apiUrl +'/roles-xempresas';
+const urlPage = environment.apiUrl +'/rolesxempresas';
 
 @Injectable({
   providedIn: 'root'
 })
-export default class RolesXEmpresasService {
+export  class RolesXEmpresasService {
   _RolesXEmpresas? : RolesXEmpresas[];
   constructor(private httpClient : HttpClient) { }
   
@@ -19,6 +19,12 @@ export default class RolesXEmpresasService {
     return obj;
   }
 
+  public GetAll(): Observable<RolesXEmpresas[]>{
+    
+    return this.httpClient.get<RolesXEmpresas[]>(urlPage, environment.httpOptions);
+  }
+
+
   public Edit(_RolesXEmpresas : RolesXEmpresas): Observable<boolean>{
     return this.httpClient.put<boolean>(urlPage + '/' + (_RolesXEmpresas.idRolXEmpresa), _RolesXEmpresas, environment.httpOptions);
   }
@@ -27,8 +33,10 @@ export default class RolesXEmpresasService {
     return this.httpClient.post<number>(urlPage, _RolesXEmpresas, environment.httpOptions);
   }
 
-  public delete(idRolXEmpresa: string){
-     this.httpClient.delete(urlPage + '/' + idRolXEmpresa, environment.httpOptions);
- }
+
+  public delete(idRolXEmpresa: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/' + idRolXEmpresa, environment.httpOptions);
+  }
+  
 }
 

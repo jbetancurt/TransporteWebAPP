@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { SedesEmpleados } from './sedes-empleados.model';
-const urlPage = environment.apiUrl +'/sedes-empleados';
+const urlPage = environment.apiUrl +'/sedesempleados';
 
 @Injectable({
   providedIn: 'root'
 })
-export default class SedesEmpleadosService {
+export class SedesEmpleadosService {
   _SedesEmpleados? : SedesEmpleados[];
   constructor(private httpClient : HttpClient) { }
   
@@ -19,6 +19,11 @@ export default class SedesEmpleadosService {
     return obj;
   }
 
+  public GetAll(): Observable<SedesEmpleados[]>{
+    
+    return this.httpClient.get<SedesEmpleados[]>(urlPage, environment.httpOptions);
+  }
+
   public Edit(_SedesEmpleados : SedesEmpleados): Observable<boolean>{
     return this.httpClient.put<boolean>(urlPage + '/' + (_SedesEmpleados.idSedeEmpleado), _SedesEmpleados, environment.httpOptions);
   }
@@ -27,9 +32,10 @@ export default class SedesEmpleadosService {
     return this.httpClient.post<number>(urlPage, _SedesEmpleados, environment.httpOptions);
   }
 
-  public delete(idSedeEmpleado: string){
-     this.httpClient.delete(urlPage + '/' + idSedeEmpleado, environment.httpOptions);
- }
+  public delete(idSedeEmpleado: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/' + idSedeEmpleado, environment.httpOptions);
+  }
+  
 }
 
 
