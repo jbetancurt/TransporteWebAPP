@@ -20,16 +20,16 @@
       <mat-icon class="icon">input</mat-icon>
       <span class="label">LogOut</span>
     </a>
+    <a  mat-list-item type="button" (click)="sidenav.toggle()">
+      <mat-icon class="icon">menu</mat-icon>    
+      <span class="label">Toggle Menu</span>  
+    </a>
+    
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-     <div fxHide.gt-xs>
-       <button mat-icon-button (click)="sidenav.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-    </div>
-     <div>
+      <div>
        <a routerLink="/">
           Material Blog
        </a>
@@ -72,4 +72,5 @@
     </main>
   </mat-sidenav-content>
 </mat-sidenav-container>
-<app-listar-vehiculos></app-listar-vehiculos>
+
+<app-listar-vehiculos-xempresas></app-listar-vehiculos-xempresas>

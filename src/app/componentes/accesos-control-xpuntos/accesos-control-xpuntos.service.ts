@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AccesosControlXPuntos } from './accesos-control-xpuntos.model';
-const urlPage = environment.apiUrl +'/accesos-control-xpuntos';
+const urlPage = environment.apiUrl +'/accesoscontrolxpuntos';
 
 @Injectable({
   providedIn: 'root'
 })
-export default class AccesosControlXPuntosService {
+export class AccesosControlXPuntosService {
   _AccesosControlXPuntos? : AccesosControlXPuntos[];
   constructor(private httpClient : HttpClient) { }
   
@@ -19,6 +19,11 @@ export default class AccesosControlXPuntosService {
     return obj;
   }
 
+  public GetAll(): Observable<AccesosControlXPuntos[]>{
+    
+    return this.httpClient.get<AccesosControlXPuntos[]>(urlPage, environment.httpOptions);
+  }
+
   public Edit(_AccesosControlXPuntos : AccesosControlXPuntos): Observable<boolean>{
     return this.httpClient.put<boolean>(urlPage + '/' + (_AccesosControlXPuntos.idAccesoControlXPunto), _AccesosControlXPuntos, environment.httpOptions);
   }
@@ -26,8 +31,8 @@ export default class AccesosControlXPuntosService {
   public create(_AccesosControlXPuntos : AccesosControlXPuntos): Observable<number>{
     return this.httpClient.post<number>(urlPage, _AccesosControlXPuntos, environment.httpOptions);
   }
-
-  public delete(idAccesoControlXPunto : string){
-     this.httpClient.delete(urlPage + '/' + idAccesoControlXPunto, environment.httpOptions);
- }
+  public delete(idAccesoControlXPunto: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/' + idAccesoControlXPunto, environment.httpOptions);
+  }
+  
 }

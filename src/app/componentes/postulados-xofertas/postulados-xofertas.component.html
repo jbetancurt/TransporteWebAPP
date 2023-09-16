@@ -1,1 +1,52 @@
-<p>postulados-xofertas works!</p>
+
+<form [formGroup]="FGAgregarPostuladosXOfertas" (ngSubmit)="FGAgregarPostuladosXOfertas.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-toolbar>
+            <h1  mat-dialog-title>Agregar Postulado Por Oferta</h1>
+            <div class="menu-spacer"></div>
+            
+        </mat-toolbar>
+        
+        <div mat-dialog-content class="mat-typography">
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Oferta: </mat-label>
+                    <mat-select formControlName="idOferta"  >
+                        <mat-option *ngFor="let item of lstOfertas" [value]="item.idOferta">{{ item.tituloOferta }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Placa: </mat-label>
+                    <mat-select formControlName="idVehiculo"  >
+                        <mat-option *ngFor="let item of lstVehiculos" [value]="item.idVehiculo">{{ item.placaVehiculo}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+           
+          
+            
+            
+            <input type="hidden" formControlName="idPostuladoXOferta" [readonly]="false">  
+        
+        </div>
+        
+        
+        
+        <div mat-dialog-actions align="end">
+            <button *ngIf="idPostuladoXOferta <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
+                Agregar
+            </button> 
+            <button *ngIf="idPostuladoXOferta > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
+                Editar
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+            
+        </div>
+        
+    </ng-container>
+</form>
+
+

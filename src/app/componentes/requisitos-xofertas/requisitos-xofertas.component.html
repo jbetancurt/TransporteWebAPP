@@ -1,1 +1,50 @@
-<p>requisitos-xofertas works!</p>
+<form [formGroup]="FGAgregarRequisitosXOfertas" (ngSubmit)="FGAgregarRequisitosXOfertas.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-toolbar>
+            <h1  mat-dialog-title>Agregar Plantilla Requisito Por Ofertas</h1>
+            <div class="menu-spacer"></div>
+            
+        </mat-toolbar>
+        
+        <div mat-dialog-content class="mat-typography">
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Oferta: </mat-label>
+                    <mat-select formControlName="idOferta"  >
+                        <mat-option *ngFor="let item of lstOfertas" [value]="item.idOferta">{{ item.tituloOferta }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Requisito</mat-label>
+                    <mat-select formControlName="idRequisito"  >
+                        <mat-option *ngFor="let item of lstRequisitos" [value]="item.idRequisito">{{ item.nombreRequisito }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px" >
+                <div appearance="fill" >
+                    <mat-checkbox formControlName="requeridoRequisitoXOferta" fxFlex>Requiere Requisito</mat-checkbox>
+                </div>
+            </div>
+            <input type="hidden" formControlName="idRequisitoXOferta" [readonly]="false">  
+        
+        </div>
+        
+        
+        
+        <div mat-dialog-actions align="end">
+            <button *ngIf="idRequisitoXOferta <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
+                Agregar
+            </button> 
+            <button *ngIf="idRequisitoXOferta > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
+                Editar
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+            
+        </div>
+        
+    </ng-container>
+</form>
+

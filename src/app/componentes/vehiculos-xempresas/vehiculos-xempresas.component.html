@@ -1,1 +1,42 @@
-<p>vehiculos-xempresas works!</p>
+<form [formGroup]="FGAgregarVehiculosXEmpresas" (ngSubmit)="FGAgregarVehiculosXEmpresas.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-toolbar>
+            <h1  mat-dialog-title>Agregar Vehiculo Empresa</h1>
+            <div class="menu-spacer"></div>
+        </mat-toolbar>
+        
+        <div mat-dialog-content class="mat-typography">
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Empresa:</mat-label>
+                    <mat-select formControlName="idEmpresa"  >
+                        <mat-option *ngFor="let item of lstEmpresas" [value]="item.idEmpresa">{{ item.nombreEmpresa }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Vehiculo:</mat-label>
+                    <mat-select formControlName="idVehiculo"  >
+                        <mat-option *ngFor="let item of lstVehiculos" [value]="item.idVehiculo">{{ item.placaVehiculo }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            
+            <input type="hidden" formControlName="idVehiculoXEmpresa" [readonly]="false">  
+            
+        </div>
+ 
+        <div mat-dialog-actions align="end">
+            <button *ngIf="idVehiculoXEmpresa <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
+                Agregar
+            </button> 
+            <button *ngIf="idVehiculoXEmpresa > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
+                Editar
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+        </div>
+    </ng-container>
+</form>
+
+

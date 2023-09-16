@@ -35,13 +35,13 @@ export class DestinosComponent implements OnInit {
   });
     
   cargarNombresDestinos(destinos:Destinos){
-    this.personasService.Get(destinos.idContacto.toString()).subscribe({ 
-      next : (datapersonas:Personas) => {
-        if (datapersonas.idPersona>0){
+    this.destinosService.Get(destinos.idContacto.toString()).subscribe({ 
+      next : (datadestinos:Destinos) => {
+        if (datadestinos.idDestino>0){
           this.FGAgregarDestinos.patchValue({
             idDestino:destinos.idDestino,
             idCiudad:destinos.idCiudad,
-            idContacto:datapersonas.idPersona,
+            idContacto:datadestinos.idContacto,
             observacionDestino:destinos.observacionDestino,
             telefonoDestino:destinos.telefonoDestino,
             direccionDestino:destinos.direccionDestino

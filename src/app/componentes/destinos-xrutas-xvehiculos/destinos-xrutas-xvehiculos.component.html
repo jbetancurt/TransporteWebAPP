@@ -1,1 +1,94 @@
 <p>destinos-xrutas-xvehiculos works!</p>
+<form [formGroup]="FGAgregarDestinosXRutasXVehiculos" (ngSubmit)="FGAgregarDestinosXRutasXVehiculos.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-toolbar>
+            <h1  mat-dialog-title>Agregar Sede</h1>
+            <div class="menu-spacer"></div>
+            
+        </mat-toolbar>
+        
+        <div mat-dialog-content class="mat-typography">
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Ruta Por Vehiculo: </mat-label>
+                    <mat-select formControlName="idRutaXVehiculo"  >
+                        <mat-option *ngFor="let item of lstRutasXVehiculos" [value]="item.idRutaXVehiculo">{{ item.nombreRutaXVehiculo }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Tipo De Accion: </mat-label>
+                    <mat-select formControlName="idTipoDeAccionDestinoXRutaXVehiculo"  >
+                        <mat-option *ngFor="let item of lstTiposDeAccionesEnDestinoDeLaRuta" [value]="item.idTipoDeAccionEnDestinoDeLaRuta">{{ item.nombreTipoDeAccionEnDestinoDeLaRuta }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Ciudad: </mat-label>
+                    <mat-select formControlName="idCiudad"  >
+                        <mat-option *ngFor="let item of lstCiudades" [value]="item.idCiudad">{{ item.nombreCiudad }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px" >
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Fecha Destino Por Ruta Por Vehiculo:</mat-label>
+                    <input matInput  [matDatepicker]="fechaDestinoXRutaXVehiculo" formControlName="fechaDestinoXRutaXVehiculo">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="fechaDestinoXRutaXVehiculo"></mat-datepicker-toggle>
+                    <mat-datepicker #fechaDestinoXRutaXVehiculo></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Orden Destino Por Ruta Por Vehiculo</mat-label>
+                    <input matInput  formControlName="ordenDestinoXRutaXVehiculo" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Observacion </mat-label>
+                    <input matInput  formControlName="observacionDestinoXRutaXVehiculo" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Telefono</mat-label>
+                    <input matInput  formControlName="telefonoDestinoXRutaXVehiculo" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Direccion</mat-label>
+                    <input matInput  formControlName="direccionDestinoXRutaXVehiculo" [readonly]="false">
+                </mat-form-field>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Duracion</mat-label>
+                    <input matInput  formControlName="duracionEnDestinoXRutaXVehiculo" [readonly]="false">
+                </mat-form-field>
+            </div>
+            <input type="hidden" formControlName="idDestinoXRutaXVehiculo" [readonly]="false">  
+        
+        </div>
+        
+        
+        
+        <div mat-dialog-actions align="end">
+            <button *ngIf="idDestinoXRutaXVehiculo <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
+                Agregar
+            </button> 
+            <button *ngIf="idDestinoXRutaXVehiculo > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
+                Editar
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+            
+        </div>
+        
+    </ng-container>
+</form>
+

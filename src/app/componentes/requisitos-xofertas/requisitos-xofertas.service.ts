@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { RequisitosXOfertas } from './requisitos-xofertas.model';
-const urlPage = environment.apiUrl +'/requisitos-xofertas';
+const urlPage = environment.apiUrl +'/requisitosxofertas';
 
 @Injectable({
   providedIn: 'root'
 })
-export default class RequisitosXOfertasService {
+export class RequisitosXOfertasService {
   _RequisitosXOfertas? : RequisitosXOfertas[];
   constructor(private httpClient : HttpClient) { }
   
@@ -19,6 +19,11 @@ export default class RequisitosXOfertasService {
     return obj;
   }
 
+  public GetAll(): Observable<RequisitosXOfertas[]>{
+    
+    return this.httpClient.get<RequisitosXOfertas[]>(urlPage, environment.httpOptions);
+  }
+
   public Edit(_RequisitosXOfertas : RequisitosXOfertas): Observable<boolean>{
     return this.httpClient.put<boolean>(urlPage + '/' + (_RequisitosXOfertas.idRequisitoXOferta), _RequisitosXOfertas, environment.httpOptions);
   }
@@ -27,8 +32,9 @@ export default class RequisitosXOfertasService {
     return this.httpClient.post<number>(urlPage, _RequisitosXOfertas, environment.httpOptions);
   }
 
-  public delete(idRequisitoXOferta: string){
-     this.httpClient.delete(urlPage + '/' + idRequisitoXOferta, environment.httpOptions);
- }
+  public delete(idRequisitoXOferta: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/' + idRequisitoXOferta, environment.httpOptions);
+  }
+  
 }
 

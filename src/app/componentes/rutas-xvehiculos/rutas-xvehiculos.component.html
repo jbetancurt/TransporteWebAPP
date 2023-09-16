@@ -1,1 +1,123 @@
-<p>rutas-xvehiculos works!</p>
+<form [formGroup]="FGAgregarRutasXVehiculos" (ngSubmit)="FGAgregarRutasXVehiculos.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-toolbar>
+            <h1  mat-dialog-title>Agregar Oferta</h1>
+            <div class="menu-spacer"></div>
+            
+        </mat-toolbar>
+        
+        <div mat-dialog-content class="mat-typography">
+                        
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Empresa Logistica: </mat-label>
+                    <mat-select formControlName="idEmpresaLogistica"  >
+                        <mat-option *ngFor="let item of lstEmpresas" [value]="item.idEmpresa">{{ item.nombreEmpresa }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Empresa Contratante: </mat-label>
+                    <mat-select formControlName="idEmpresaContratante"  >
+                        <mat-option *ngFor="let item of lstEmpresas" [value]="item.idEmpresa">{{ item.nombreEmpresa }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Nombre De La Ruta:</mat-label>
+                    <input matInput  formControlName="nombreRutaXVehiculo" [readonly]="false">
+                </mat-form-field>  
+            </div>
+
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Descripcion De La Ruta:</mat-label>
+                    <input matInput  formControlName="descripcionRutaXVehiculo" [readonly]="false">
+                </mat-form-field>  
+            </div>
+
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Estado De La Ruta: </mat-label>
+                    <mat-select formControlName="idEstadoRuta"  >
+                        <mat-option *ngFor="let item of lstEstadosPorRutas" [value]="item.idEstadoPorRuta">{{ item.nombreEstadoPorRuta }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+                
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Vehiculo: </mat-label>
+                    <mat-select formControlName="idVehiculo"  >
+                        <mat-option *ngFor="let item of lstVehiculos" [value]="item.idVehiculo">{{ item.placaVehiculo }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            
+            <div  fxLayout="row" fxLayoutGap="1px" >
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Fecha Inicio Ruta:</mat-label>
+                    <input matInput  [matDatepicker]="fechaInicioRutaXVehiculo" formControlName="fechaInicioRutaXVehiculo">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="fechaInicioRutaXVehiculo"></mat-datepicker-toggle>
+                    <mat-datepicker #fechaInicioRutaXVehiculo></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+
+            <div  fxLayout="row" fxLayoutGap="1px" >
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Fecha Inicio Real Ruta:</mat-label>
+                    <input matInput  [matDatepicker]="fechaInicioRealRutaXVehiculo" formControlName="fechaInicioRealRutaXVehiculo">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="fechaInicioRealRutaXVehiculo"></mat-datepicker-toggle>
+                    <mat-datepicker #fechaInicioRealRutaXVehiculo></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div  fxLayout="row" fxLayoutGap="1px" >
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Fecha Final Ruta:</mat-label>
+                    <input matInput  [matDatepicker]="fechaFinRutaXVehiculo" formControlName="fechaFinRutaXVehiculo">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="fechaFinRutaXVehiculo"></mat-datepicker-toggle>
+                    <mat-datepicker #fechaFinRutaXVehiculo></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div  fxLayout="row" fxLayoutGap="1px" >
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Fecha Final Real Ruta:</mat-label>
+                    <input matInput  [matDatepicker]="fechaFinRealRutaXVehiculo" formControlName="fechaFinRealRutaXVehiculo">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="fechaFinRealRutaXVehiculo"></mat-datepicker-toggle>
+                    <mat-datepicker #fechaFinRealRutaXVehiculo></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+
+            <input type="hidden" formControlName="idRutaXVehiculo" [readonly]="false">  
+        
+        </div>
+        
+        
+        
+        <div mat-dialog-actions align="end">
+            <button *ngIf="idRutaXVehiculo <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
+                Agregar
+            </button> 
+            <button *ngIf="idRutaXVehiculo > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
+                Editar
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+            
+        </div>
+        
+    </ng-container>
+</form>
+

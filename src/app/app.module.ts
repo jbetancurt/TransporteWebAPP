@@ -34,6 +34,7 @@ import { PersonasXVehiculosComponent } from './componentes/personas-xvehiculos/p
 import { Plantillas_OfertasComponent } from './componentes/plantillas-ofertas/plantillas-ofertas.component';
 import { PlantillasRequisitosXOfertasComponent } from './componentes/plantillas-requisitos-xofertas/plantillas-requisitos-xofertas.component';
 import { PostuladosXOfertasComponent } from './componentes/postulados-xofertas/postulados-xofertas.component';
+import { RequisitosAdjuntosComponent } from './componentes/requisitos-adjuntos';
 import { RequisitosComponent } from './componentes/requisitos/requisitos.component';
 import { RequisitosXOfertasComponent } from './componentes/requisitos-xofertas/requisitos-xofertas.component';
 import { RolesComponent } from './componentes/roles/roles.component';
@@ -84,6 +85,21 @@ import { ListarRolXUsuariosComponent } from './componentes/rol-xusuarios/listar-
 import { ListarUsuariosComponent } from './componentes/usuarios/listar-usuarios/listar-usuarios.component';
 import { ListarSedesComponent } from './componentes/sedes/listar-sedes/listar-sedes.component';
 import { ListarVehiculosComponent } from './componentes/vehiculos/listar-vehiculos/listar-vehiculos.component';
+import { ListarAccesosControlXPuntosComponent } from './componentes/accesos-control-xpuntos/listar-accesos-control-xpuntos/listar-accesos-control-xpuntos.component';
+import { ListarDestinosXEmpresasComponent } from './componentes/destinos-xempresas/listar-destinos-xempresas/listar-destinos-xempresas.component';
+import { ListarDestinosXRutasXVehiculosComponent } from './componentes/destinos-xrutas-xvehiculos/listar-destinos-xrutas-xvehiculos/listar-destinos-xrutas-xvehiculos.component';
+import { ListarMenusComponent } from './componentes/menus/listar-menus/listar-menus.component';
+import { ListarOfertasComponent } from './componentes/ofertas/listar-ofertas/listar-ofertas.component';
+import { ListarPersonasXVehiculosComponent } from './componentes/personas-xvehiculos/listar-personas-xvehiculos/listar-personas-xvehiculos.component';
+import { ListarPlantillasOfertasComponent } from './componentes/plantillas-ofertas/listar-plantillas-ofertas/listar-plantillas-ofertas.component';
+import { ListarPlantillasRequisitosXOfertasComponent } from './componentes/plantillas-requisitos-xofertas/listar-plantillas-requisitos-xofertas/listar-plantillas-requisitos-xofertas.component';
+import { ListarPostuladosXOfertasComponent } from './componentes/postulados-xofertas/listar-postulados-xofertas/listar-postulados-xofertas.component';
+import { ListarRequisitosAdjuntosComponent } from './componentes/requisitos-adjuntos/listar-requisitos-adjuntos/listar-requisitos-adjuntos.component';
+import { ListarRequisitosXOfertasComponent } from './componentes/requisitos-xofertas/listar-requisitos-xofertas/listar-requisitos-xofertas.component';
+import { ListarRolesXEmpresasComponent } from './componentes/roles-xempresas/listar-roles-xempresas/listar-roles-xempresas.component';
+import { ListarRutasXVehiculosComponent } from './componentes/rutas-xvehiculos/listar-rutas-xvehiculos/listar-rutas-xvehiculos.component';
+import { ListarSedesEmpleadosComponent } from './componentes/sedes-empleados/listar-sedes-empleados/listar-sedes-empleados.component';
+import { ListarVehiculosXEmpresasComponent } from './componentes/vehiculos-xempresas/listar-vehiculos-xempresas/listar-vehiculos-xempresas.component';
 
 
 
@@ -115,6 +131,7 @@ import { ListarVehiculosComponent } from './componentes/vehiculos/listar-vehicul
     Plantillas_OfertasComponent,
     PlantillasRequisitosXOfertasComponent,
     PostuladosXOfertasComponent,
+    RequisitosAdjuntosComponent,
     RequisitosComponent,
     RequisitosXOfertasComponent,
     RolesComponent,
@@ -164,7 +181,22 @@ import { ListarVehiculosComponent } from './componentes/vehiculos/listar-vehicul
     ListarRolXUsuariosComponent,
     ListarUsuariosComponent,
     ListarSedesComponent,
-    ListarVehiculosComponent
+    ListarVehiculosComponent,
+    ListarAccesosControlXPuntosComponent,
+    ListarDestinosXEmpresasComponent,
+    ListarDestinosXRutasXVehiculosComponent,
+    ListarMenusComponent,
+    ListarOfertasComponent,
+    ListarPersonasXVehiculosComponent,
+    ListarPlantillasOfertasComponent,
+    ListarPlantillasRequisitosXOfertasComponent,
+    ListarPostuladosXOfertasComponent,
+    ListarRequisitosAdjuntosComponent,
+    ListarRequisitosXOfertasComponent,
+    ListarRolesXEmpresasComponent,
+    ListarRutasXVehiculosComponent,
+    ListarSedesEmpleadosComponent,
+    ListarVehiculosXEmpresasComponent
     
     
 

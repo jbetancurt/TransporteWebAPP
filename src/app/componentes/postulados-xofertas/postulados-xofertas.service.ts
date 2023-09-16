@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PostuladosXOfertas } from './postulados-xofertas.model';
-const urlPage = environment.apiUrl +'/postulados-xofertas';
+const urlPage = environment.apiUrl +'/postuladosxofertas';
 
 @Injectable({
   providedIn: 'root'
 })
-export default class PostuladosXOfertasService {
+export  class PostuladosXOfertasService {
   _PostuladosXOfertas? : PostuladosXOfertas[];
   constructor(private httpClient : HttpClient) { }
   
@@ -19,6 +19,11 @@ export default class PostuladosXOfertasService {
     return obj;
   }
 
+  public GetAll(): Observable<PostuladosXOfertas[]>{
+    
+    return this.httpClient.get<PostuladosXOfertas[]>(urlPage, environment.httpOptions);
+  }
+
   public Edit(_PostuladosXOfertas : PostuladosXOfertas): Observable<boolean>{
     return this.httpClient.put<boolean>(urlPage + '/' + (_PostuladosXOfertas.idPostuladoXOferta), _PostuladosXOfertas, environment.httpOptions);
   }
@@ -27,8 +32,9 @@ export default class PostuladosXOfertasService {
     return this.httpClient.post<number>(urlPage, _PostuladosXOfertas, environment.httpOptions);
   }
 
-  public delete(idPostuladoXOferta: string){
-     this.httpClient.delete(urlPage + '/' + idPostuladoXOferta, environment.httpOptions);
- }
+  public delete(idPostuladoXOferta: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/' + idPostuladoXOferta, environment.httpOptions);
+  }
+
 }
 
