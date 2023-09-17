@@ -100,6 +100,20 @@ import { ListarRolesXEmpresasComponent } from './componentes/roles-xempresas/lis
 import { ListarRutasXVehiculosComponent } from './componentes/rutas-xvehiculos/listar-rutas-xvehiculos/listar-rutas-xvehiculos.component';
 import { ListarSedesEmpleadosComponent } from './componentes/sedes-empleados/listar-sedes-empleados/listar-sedes-empleados.component';
 import { ListarVehiculosXEmpresasComponent } from './componentes/vehiculos-xempresas/listar-vehiculos-xempresas/listar-vehiculos-xempresas.component';
+import { OfertasGeneradasComponent } from './paginas/ofertas/ofertas-generadas/ofertas-generadas.component';
+
+import { CrearUsuariosComponent } from './paginas/configuracion/crear-usuarios/crear-usuarios.component';
+import { EnviarOfertaComponent } from './paginas/ofertas/enviar-oferta/enviar-oferta.component';
+import { OfertaPaqueteoComponent } from './paginas/ofertas/oferta-paqueteo/oferta-paqueteo.component';
+import { ContactosTodosComponent } from './paginas/contacto/contactos-todos/contactos-todos.component';
+import { ContactosClientesComponent } from './paginas/contacto/contactos-clientes/contactos-clientes.component';
+import { ContactosFlotaPropiaComponent } from './paginas/contacto/contactos-flota-propia/contactos-flota-propia.component';
+import { ContactosFlotaFidelizadaComponent } from './paginas/contacto/contactos-flota-fidelizada/contactos-flota-fidelizada.component';
+import { ConfiguracionDatosPersonalesComponent } from './paginas/configuracion/configuracion-datos-personales/configuracion-datos-personales.component';
+import { ConfiguracionDetalladaComponent } from './paginas/configuracion/configuracion-detallada/configuracion-detallada.component';
+import { OfertasConfiguracionDestinosComponent } from './paginas/ofertas/ofertas-configuracion/ofertas-configuracion-destinos/ofertas-configuracion-destinos.component';
+import { OfertasConfiguracionRequisitosComponent } from './paginas/ofertas/ofertas-configuracion/ofertas-configuracion-requisitos/ofertas-configuracion-requisitos.component';
+import { OfertasConfiguracionPlanillasComponent } from './paginas/ofertas/ofertas-configuracion/ofertas-configuracion-planillas/ofertas-configuracion-planillas.component';
 
 
 
@@ -196,7 +210,20 @@ import { ListarVehiculosXEmpresasComponent } from './componentes/vehiculos-xempr
     ListarRolesXEmpresasComponent,
     ListarRutasXVehiculosComponent,
     ListarSedesEmpleadosComponent,
-    ListarVehiculosXEmpresasComponent
+    ListarVehiculosXEmpresasComponent,
+    OfertasGeneradasComponent,
+    CrearUsuariosComponent,
+    EnviarOfertaComponent,
+    OfertaPaqueteoComponent,    
+    ContactosTodosComponent,
+    ContactosClientesComponent,
+    ContactosFlotaPropiaComponent,
+    ContactosFlotaFidelizadaComponent,
+    ConfiguracionDatosPersonalesComponent,
+    ConfiguracionDetalladaComponent,
+    OfertasConfiguracionDestinosComponent,
+    OfertasConfiguracionRequisitosComponent,
+    OfertasConfiguracionPlanillasComponent
     
     
 
