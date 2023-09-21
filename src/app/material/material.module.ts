@@ -22,6 +22,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [],
@@ -46,7 +48,9 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     MatPaginatorModule,
     MatTooltipModule,
     MatCheckboxModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    MatExpansionModule,
+    MatMenuModule
     
   ],
   exports: [
@@ -72,7 +76,9 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     MatPaginatorModule,
     MatTooltipModule,
     MatCheckboxModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    MatExpansionModule,
+    MatMenuModule
   ]
 })
 export class MaterialModule { }

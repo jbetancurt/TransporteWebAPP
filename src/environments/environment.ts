@@ -11,5 +11,6 @@ export const environment = {
         ClientId : "b694c6e2-e52e-48dc-8302-301ebd62592c",
         Scope : "https://graph.microsoft.com/User.Read",
         state : "1234567890",
-    }
+    },
+    NombreAplicacion :"Transporte de Carga"
 };

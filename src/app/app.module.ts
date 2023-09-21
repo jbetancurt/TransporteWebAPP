@@ -114,6 +114,8 @@ import { ConfiguracionDetalladaComponent } from './paginas/configuracion/configu
 import { OfertasConfiguracionDestinosComponent } from './paginas/ofertas/ofertas-configuracion/ofertas-configuracion-destinos/ofertas-configuracion-destinos.component';
 import { OfertasConfiguracionRequisitosComponent } from './paginas/ofertas/ofertas-configuracion/ofertas-configuracion-requisitos/ofertas-configuracion-requisitos.component';
 import { OfertasConfiguracionPlanillasComponent } from './paginas/ofertas/ofertas-configuracion/ofertas-configuracion-planillas/ofertas-configuracion-planillas.component';
+import { SidenavComponent } from './componentes/sidenav/sidenav.component';
+import { SidenavLinkComponent } from './componentes/sidenav-link/sidenav-link.component';
 import { EstadosDeLasOfertasComponent } from './componentes/estados-de-las-ofertas/estados-de-las-ofertas.component';
 
 
@@ -225,6 +227,8 @@ import { EstadosDeLasOfertasComponent } from './componentes/estados-de-las-ofert
     OfertasConfiguracionDestinosComponent,
     OfertasConfiguracionRequisitosComponent,
     OfertasConfiguracionPlanillasComponent,
+    SidenavComponent,
+    SidenavLinkComponent,
     EstadosDeLasOfertasComponent
     
     
