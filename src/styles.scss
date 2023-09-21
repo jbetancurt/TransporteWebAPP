@@ -35,7 +35,7 @@ body {
 }
 .mat-column-borrar {
   text-align: right;
-  max-width: 100px;
+  width: 160px;
   justify-content: flex-end;
   margin-right: 0;
 }
@@ -112,5 +112,9 @@ $angular-dark-theme: mat.define-dark-theme(
 .darkMode {
   @include mat.all-component-colors($angular-dark-theme);
 }
-mat-table{width:80vw;}
+.table 
+{
+    table-layout:fixed;
+    max-width: var(--sidenav-width);
+}
 

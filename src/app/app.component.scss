@@ -1,6 +1,9 @@
 mat-sidenav-container, mat-sidenav-content, mat-sidenav {
     height: 100%;
   }
+  .mat-sidenav-content{
+    width: var(--sidenav-width);
+  }
   
   /*ponemos el anchor de el menu que se despliega lateralmente al lado izquierdo*/
 
