@@ -55,14 +55,6 @@
                 </td>   
             </ng-container>
 
-            <ng-container matColumnDef="esNodo">
-                <th mat-header-cell *matHeaderCellDef> Es Nodo </th>
-                <td mat-cell *matCellDef="let element"> 
-                    <mat-icon *ngIf="element.esNodo" color="tiene">check</mat-icon>
-                    <mat-icon *ngIf="!element.esNodo" color="notiene">close</mat-icon>
-                </td>
-            </ng-container>
-
             <ng-container matColumnDef="activo"  >
                 <th mat-header-cell *matHeaderCellDef> Activo </th>
                 <td mat-cell *matCellDef="let element"> 
@@ -70,19 +62,11 @@
                     <mat-icon *ngIf="!element.activo" color="notiene">close</mat-icon>
                 </td>
             </ng-container>
-
-            
-
-            
-            <ng-container matColumnDef="editar" stickyEnd>
-                <th mat-header-cell *matHeaderCellDef >  </th>
-                <td  mat-cell *matCellDef="let element"> 
-                    <mat-button-toggle-group style="border: none;" >
-                        <button type="button" matTooltip="Editar"  mat-button  color="primary" aria-label="editar departamento" (click)="AbrirModalMenu(element.idMenu)">
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                    </mat-button-toggle-group>
-                    
+            <ng-container matColumnDef="esNodo">
+                <th mat-header-cell *matHeaderCellDef> Es Nodo </th>
+                <td mat-cell *matCellDef="let element"> 
+                    <mat-icon *ngIf="element.esNodo" color="tiene">check</mat-icon>
+                    <mat-icon *ngIf="!element.esNodo" color="notiene">close</mat-icon>
                 </td>
             </ng-container>
         
@@ -90,6 +74,9 @@
                 <th mat-header-cell *matHeaderCellDef >  </th>
                 <td  mat-cell *matCellDef="let element"> 
                     <mat-button-toggle-group style="border: none;" >
+                        <button type="button" matTooltip="Editar"  mat-button  color="primary" aria-label="editar departamento" (click)="AbrirModalMenu(element.idMenu)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
                         <button type="button"  matTooltip="Borrar" mat-button color="warn" aria-label="borrar Menu" (click)="borrarXId(element.idMenu)">
                             <mat-icon>delete</mat-icon>
                         </button>

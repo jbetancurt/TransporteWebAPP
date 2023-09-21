@@ -26,7 +26,7 @@ export class ListarMenusComponent implements OnInit {
       @ViewChild(MatPaginator) paginator!: MatPaginator;
       @ViewChild(MatSort) sort!: MatSort;
       
-      displayedColumns: string[] = ['nombre','idMenuPadre', 'nombreController' ,'nombreAction' ,'esNodo','activo', 'editar', 'borrar'];
+      displayedColumns: string[] = ['nombre','idMenuPadre', 'nombreController' ,'nombreAction','esNodo','activo', 'borrar'];
       public AbrirInformacion()
       {
             
