@@ -6,6 +6,10 @@ body {
   
 }
 
+:root {
+  --sidenav-width: 400px;
+}
+
 .btn-derecha{
   text-align: right;
   margin-right: 0;
