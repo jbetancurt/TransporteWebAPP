@@ -5,7 +5,7 @@ import { LoginCallBackService } from './login-call-back.service';
 @Component({
   selector: 'app-login-call-back',
   templateUrl: './login-call-back.component.html',
-  styleUrls: ['./login-call-back.component.css']
+  styleUrls: ['./login-call-back.component.scss']
 })
 export class LoginCallBackComponent implements OnInit {
   constructor(

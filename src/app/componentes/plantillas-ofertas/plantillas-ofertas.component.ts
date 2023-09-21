@@ -9,7 +9,7 @@ const myDate = new Date();
 @Component({
   selector: 'app-plantillas-ofertas',
   templateUrl: './plantillas-ofertas.component.html',
-  styleUrls: ['./plantillas-ofertas.component.css']
+  styleUrls: ['./plantillas-ofertas.component.scss']
 })
 
 export class Plantillas_OfertasComponent implements OnInit {

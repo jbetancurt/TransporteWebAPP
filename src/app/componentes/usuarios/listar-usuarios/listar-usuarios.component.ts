@@ -11,7 +11,7 @@ import { Personas, PersonasService } from '../../personas';
 @Component({
   selector: 'app-listar-usuarios',
   templateUrl: './listar-usuarios.component.html',
-  styleUrls: ['./listar-usuarios.component.css']
+  styleUrls: ['./listar-usuarios.component.scss']
 })
 
 export class ListarUsuariosComponent implements OnInit {

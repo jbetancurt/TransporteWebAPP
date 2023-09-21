@@ -12,7 +12,7 @@ import { Requisitos, RequisitosService } from '../../requisitos';
 @Component({
   selector: 'app-listar-requisitos-adjuntos',
   templateUrl: './listar-requisitos-adjuntos.component.html',
-  styleUrls: ['./listar-requisitos-adjuntos.component.css']
+  styleUrls: ['./listar-requisitos-adjuntos.component.scss']
 })
 
 export class ListarRequisitosAdjuntosComponent implements OnInit {

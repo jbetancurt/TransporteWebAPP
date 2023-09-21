@@ -13,7 +13,7 @@
   @Component({
     selector: 'app-listar-tipos-de-empresas',
     templateUrl: './listar-tipos-de-empresas.component.html',
-    styleUrls: ['./listar-tipos-de-empresas.component.css']
+    styleUrls: ['./listar-tipos-de-empresas.component.scss']
   })
     export class ListarTiposDeEmpresasComponent implements OnInit {
       arraypaginator=environment.paginator;

@@ -6,7 +6,7 @@ import { TiposDeRoles, TiposDeRolesService } from '../tipos-de-roles';
 @Component({
   selector: 'app-roles',
   templateUrl: './roles.component.html',
-  styleUrls: ['./roles.component.css']
+  styleUrls: ['./roles.component.scss']
 })
 
 

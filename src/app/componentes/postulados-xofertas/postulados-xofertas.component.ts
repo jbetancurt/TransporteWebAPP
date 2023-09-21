@@ -8,7 +8,7 @@ import { Vehiculos, VehiculosService } from '../vehiculos';
 @Component({
   selector: 'app-postulados-xofertas',
   templateUrl: './postulados-xofertas.component.html',
-  styleUrls: ['./postulados-xofertas.component.css']
+  styleUrls: ['./postulados-xofertas.component.scss']
 })
 
 

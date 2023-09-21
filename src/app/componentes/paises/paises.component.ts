@@ -6,7 +6,7 @@ import { Paises, PaisesService } from './';
 @Component({
   selector: 'app-paises',
   templateUrl: './paises.component.html',
-  styleUrls: ['./paises.component.css']
+  styleUrls: ['./paises.component.scss']
 })
 
 export class PaisesComponent implements OnInit {

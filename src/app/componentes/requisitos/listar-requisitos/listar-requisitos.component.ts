@@ -11,7 +11,7 @@ import { Empresas, EmpresasService } from '../../empresas';
 @Component({
   selector: 'app-listar-requisitos',
   templateUrl: './listar-requisitos.component.html',
-  styleUrls: ['./listar-requisitos.component.css']
+  styleUrls: ['./listar-requisitos.component.scss']
 })
 
 

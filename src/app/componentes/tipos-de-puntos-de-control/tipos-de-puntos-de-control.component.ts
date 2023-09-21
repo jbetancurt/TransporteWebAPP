@@ -6,7 +6,7 @@ import { TiposDePuntosDeControlService } from './tipos-de-puntos-de-control.serv
 @Component({
   selector: 'app-tipos-de-puntos-de-control',
   templateUrl: './tipos-de-puntos-de-control.component.html',
-  styleUrls: ['./tipos-de-puntos-de-control.component.css']
+  styleUrls: ['./tipos-de-puntos-de-control.component.scss']
 })
 export class TiposDePuntosDeControlComponent implements OnInit {
   

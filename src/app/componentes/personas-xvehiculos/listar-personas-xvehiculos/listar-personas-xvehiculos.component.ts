@@ -14,7 +14,7 @@ import { TiposDePersonasPorVehiculos, TiposDePersonasPorVehiculosService } from 
 @Component({
   selector: 'app-listar-personas-xvehiculos',
   templateUrl: './listar-personas-xvehiculos.component.html',
-  styleUrls: ['./listar-personas-xvehiculos.component.css']
+  styleUrls: ['./listar-personas-xvehiculos.component.scss']
 })
 
 

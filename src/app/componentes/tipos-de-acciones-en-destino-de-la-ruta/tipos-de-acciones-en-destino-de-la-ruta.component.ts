@@ -7,7 +7,7 @@ import { TiposDeAccionesEnDestinoDeLaRutaService } from './tipos-de-acciones-en-
 @Component({
   selector: 'app-tipos-de-acciones-en-destino-de-la-ruta',
   templateUrl: './tipos-de-acciones-en-destino-de-la-ruta.component.html',
-  styleUrls: ['./tipos-de-acciones-en-destino-de-la-ruta.component.css']
+  styleUrls: ['./tipos-de-acciones-en-destino-de-la-ruta.component.scss']
 })
 
   

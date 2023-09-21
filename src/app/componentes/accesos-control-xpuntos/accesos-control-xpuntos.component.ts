@@ -9,7 +9,7 @@ import { Roles, RolesService } from '../roles';
 @Component({
   selector: 'app-accesos-control-xpuntos',
   templateUrl: './accesos-control-xpuntos.component.html',
-  styleUrls: ['./accesos-control-xpuntos.component.css']
+  styleUrls: ['./accesos-control-xpuntos.component.scss']
 })
 
 export class AccesosControlXPuntosComponent implements OnInit {

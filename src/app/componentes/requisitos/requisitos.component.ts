@@ -6,7 +6,7 @@ import { Empresas, EmpresasService } from '../empresas';
 @Component({
   selector: 'app-requisitos',
   templateUrl: './requisitos.component.html',
-  styleUrls: ['./requisitos.component.css']
+  styleUrls: ['./requisitos.component.scss']
 })
 
 export class RequisitosComponent implements OnInit {

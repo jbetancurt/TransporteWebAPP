@@ -14,7 +14,7 @@ import { Adjuntos, AdjuntosService } from '../../adjuntos';
 @Component({
   selector: 'app-listar-controles-xpuntos',
   templateUrl: './listar-controles-xpuntos.component.html',
-  styleUrls: ['./listar-controles-xpuntos.component.css']
+  styleUrls: ['./listar-controles-xpuntos.component.scss']
 })
 
 export class ListarControlesXPuntosComponent implements OnInit {

@@ -8,7 +8,7 @@ import { Destinos, DestinosService } from '../destinos';
 @Component({
   selector: 'app-destinos-xempresas',
   templateUrl: './destinos-xempresas.component.html',
-  styleUrls: ['./destinos-xempresas.component.css']
+  styleUrls: ['./destinos-xempresas.component.scss']
 })
 
 export class DestinosXEmpresasComponent implements OnInit {

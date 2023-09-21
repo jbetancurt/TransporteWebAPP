@@ -6,7 +6,7 @@ import { TiposDeRolesService } from './tipos-de-roles.service';
 @Component({
   selector: 'app-tipos-de-roles',
   templateUrl: './tipos-de-roles.component.html',
-  styleUrls: ['./tipos-de-roles.component.css']
+  styleUrls: ['./tipos-de-roles.component.scss']
 })
 export class TiposDeRolesComponent implements OnInit {
   

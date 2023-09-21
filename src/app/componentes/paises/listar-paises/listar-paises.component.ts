@@ -12,7 +12,7 @@ import { MatSort } from '@angular/material/sort';
 @Component({
   selector: 'app-listar-paises',
   templateUrl: './listar-paises.component.html',
-  styleUrls: ['./listar-paises.component.css']
+  styleUrls: ['./listar-paises.component.scss']
 })
 
     export class ListarPaisesComponent implements OnInit {

@@ -10,7 +10,7 @@ import { MatSort } from '@angular/material/sort';
 @Component({
   selector: 'app-listar-estados-por-rutas',
   templateUrl: './listar-estados-por-rutas.component.html',
-  styleUrls: ['./listar-estados-por-rutas.component.css']
+  styleUrls: ['./listar-estados-por-rutas.component.scss']
 })
 
   export class ListarEstadosPorRutasComponent implements OnInit {

@@ -10,7 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-listar-tipos-de-vehiculos',
   templateUrl: './listar-tipos-de-vehiculos.component.html',
-  styleUrls: ['./listar-tipos-de-vehiculos.component.css']
+  styleUrls: ['./listar-tipos-de-vehiculos.component.scss']
 })
 
   

@@ -5,7 +5,7 @@ import { OfertasComponent } from 'src/app/componentes/ofertas';
 @Component({
   selector: 'app-enviar-oferta',
   templateUrl: './enviar-oferta.component.html',
-  styleUrls: ['./enviar-oferta.component.css']
+  styleUrls: ['./enviar-oferta.component.scss']
 })
 export class EnviarOfertaComponent implements OnInit {
   idOfertaInput: string = "1";

@@ -8,7 +8,7 @@ import { Adjuntos, AdjuntosService } from '../adjuntos';
 @Component({
   selector: 'app-requisitos-adjuntos',
   templateUrl: './requisitos-adjuntos.component.html',
-  styleUrls: ['./requisitos-adjuntos.component.css']
+  styleUrls: ['./requisitos-adjuntos.component.scss']
 })
 
 

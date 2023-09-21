@@ -11,7 +11,7 @@ import { MatSort } from '@angular/material/sort';
 @Component({
   selector: 'app-listar-tipos-de-carrocerias',
   templateUrl: './listar-tipos-de-carrocerias.component.html',
-  styleUrls: ['./listar-tipos-de-carrocerias.component.css']
+  styleUrls: ['./listar-tipos-de-carrocerias.component.scss']
 })
  
     

@@ -7,7 +7,7 @@ import { TiposDeEmpresas, TiposDeEmpresasService } from '../tipos-de-empresas';
 @Component({
   selector: 'app-empresas',
   templateUrl: './empresas.component.html',
-  styleUrls: ['./empresas.component.css']
+  styleUrls: ['./empresas.component.scss']
 })
 
 export class EmpresasComponent implements OnInit {

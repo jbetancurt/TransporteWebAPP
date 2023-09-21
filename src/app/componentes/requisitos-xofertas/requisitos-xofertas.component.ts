@@ -7,7 +7,7 @@ import { Requisitos, RequisitosService } from '../requisitos';
 @Component({
   selector: 'app-requisitos-xofertas',
   templateUrl: './requisitos-xofertas.component.html',
-  styleUrls: ['./requisitos-xofertas.component.css']
+  styleUrls: ['./requisitos-xofertas.component.scss']
 })
 
 export class RequisitosXOfertasComponent implements OnInit {

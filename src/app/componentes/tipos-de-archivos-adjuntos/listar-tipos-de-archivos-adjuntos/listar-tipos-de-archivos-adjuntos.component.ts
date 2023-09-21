@@ -11,7 +11,7 @@
   @Component({
     selector: 'app-listar-tipos-de-archivos-adjuntos',
     templateUrl: './listar-tipos-de-archivos-adjuntos.component.html',
-    styleUrls: ['./listar-tipos-de-archivos-adjuntos.component.css']
+    styleUrls: ['./listar-tipos-de-archivos-adjuntos.component.scss']
   })
   export class ListarTiposDeArchivosAdjuntosComponent implements OnInit {
     arraypaginator=environment.paginator;

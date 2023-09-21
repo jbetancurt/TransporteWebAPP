@@ -8,7 +8,7 @@ import { Requisitos, RequisitosService } from '../requisitos';
 @Component({
   selector: 'app-plantillas-requisitos-xofertas',
   templateUrl: './plantillas-requisitos-xofertas.component.html',
-  styleUrls: ['./plantillas-requisitos-xofertas.component.css']
+  styleUrls: ['./plantillas-requisitos-xofertas.component.scss']
 })
 
 

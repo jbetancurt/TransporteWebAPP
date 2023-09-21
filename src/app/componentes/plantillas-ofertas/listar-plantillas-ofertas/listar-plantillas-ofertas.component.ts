@@ -14,7 +14,7 @@ import { TiposOrientacionesDeLaOferta, TiposOrientacionesDeLaOfertaService } fro
 @Component({
   selector: 'app-listar-plantillas-ofertas',
   templateUrl: './listar-plantillas-ofertas.component.html',
-  styleUrls: ['./listar-plantillas-ofertas.component.css']
+  styleUrls: ['./listar-plantillas-ofertas.component.scss']
 })
 
 

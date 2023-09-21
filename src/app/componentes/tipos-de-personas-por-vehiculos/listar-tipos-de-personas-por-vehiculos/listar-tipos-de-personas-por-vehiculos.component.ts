@@ -11,7 +11,7 @@ import { MatSort } from '@angular/material/sort';
 @Component({
   selector: 'app-listar-tipos-de-personas-por-vehiculos',
   templateUrl: './listar-tipos-de-personas-por-vehiculos.component.html',
-  styleUrls: ['./listar-tipos-de-personas-por-vehiculos.component.css']
+  styleUrls: ['./listar-tipos-de-personas-por-vehiculos.component.scss']
 })
  
 export class ListarTiposDePersonasPorVehiculosComponent implements OnInit {

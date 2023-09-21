@@ -12,7 +12,7 @@
   @Component({
     selector: 'app-listar-tipos-de-acciones-en-destino-de-la-ruta',
     templateUrl: './listar-tipos-de-acciones-en-destino-de-la-ruta.component.html',
-    styleUrls: ['./listar-tipos-de-acciones-en-destino-de-la-ruta.component.css']
+    styleUrls: ['./listar-tipos-de-acciones-en-destino-de-la-ruta.component.scss']
   })
     
     

@@ -13,7 +13,7 @@ import { TiposDeVehiculos, TiposDeVehiculosService } from '../../tipos-de-vehicu
 @Component({
   selector: 'app-listar-vehiculos',
   templateUrl: './listar-vehiculos.component.html',
-  styleUrls: ['./listar-vehiculos.component.css']
+  styleUrls: ['./listar-vehiculos.component.scss']
 })
 
 export class ListarVehiculosComponent implements OnInit {

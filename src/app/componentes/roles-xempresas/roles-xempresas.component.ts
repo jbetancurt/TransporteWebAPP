@@ -7,7 +7,7 @@ import { Empresas, EmpresasService } from '../empresas';
 @Component({
   selector: 'app-roles-xempresas',
   templateUrl: './roles-xempresas.component.html',
-  styleUrls: ['./roles-xempresas.component.css']
+  styleUrls: ['./roles-xempresas.component.scss']
 })
 
 export class RolesXEmpresasComponent implements OnInit {

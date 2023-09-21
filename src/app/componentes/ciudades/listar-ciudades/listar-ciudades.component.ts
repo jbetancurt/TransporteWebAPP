@@ -12,7 +12,7 @@ import { Paises, PaisesService } from '../../paises';
 @Component({
   selector: 'app-listar-ciudades',
   templateUrl: './listar-ciudades.component.html',
-  styleUrls: ['./listar-ciudades.component.css']
+  styleUrls: ['./listar-ciudades.component.scss']
 })
 
 export class ListarCiudadesComponent implements OnInit {

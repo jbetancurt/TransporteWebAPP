@@ -13,7 +13,7 @@ import { Ofertas, OfertasService } from '../../ofertas';
 @Component({
   selector: 'app-listar-postulados-xofertas',
   templateUrl: './listar-postulados-xofertas.component.html',
-  styleUrls: ['./listar-postulados-xofertas.component.css']
+  styleUrls: ['./listar-postulados-xofertas.component.scss']
 })
 
 export class ListarPostuladosXOfertasComponent implements OnInit {

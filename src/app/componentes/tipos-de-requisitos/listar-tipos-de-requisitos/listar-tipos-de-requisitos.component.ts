@@ -11,7 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-listar-tipos-de-requisitos',
   templateUrl: './listar-tipos-de-requisitos.component.html',
-  styleUrls: ['./listar-tipos-de-requisitos.component.css']
+  styleUrls: ['./listar-tipos-de-requisitos.component.scss']
 })
   
 

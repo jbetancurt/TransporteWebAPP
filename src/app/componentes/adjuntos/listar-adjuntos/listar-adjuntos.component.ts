@@ -11,7 +11,7 @@ import { TiposDeArchivosAdjuntos, TiposDeArchivosAdjuntosService } from '../../t
 @Component({
   selector: 'app-listar-adjuntos',
   templateUrl: './listar-adjuntos.component.html',
-  styleUrls: ['./listar-adjuntos.component.css']
+  styleUrls: ['./listar-adjuntos.component.scss']
 })
 
 export class ListarAdjuntosComponent implements OnInit {

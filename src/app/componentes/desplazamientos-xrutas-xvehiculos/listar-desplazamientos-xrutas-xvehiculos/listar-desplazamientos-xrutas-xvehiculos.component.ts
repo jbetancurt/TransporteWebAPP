@@ -12,7 +12,7 @@ import { RutasXVehiculos, RutasXVehiculosService } from '../../rutas-xvehiculos'
 @Component({
   selector: 'app-listar-desplazamientos-xrutas-xvehiculos',
   templateUrl: './listar-desplazamientos-xrutas-xvehiculos.component.html',
-  styleUrls: ['./listar-desplazamientos-xrutas-xvehiculos.component.css']
+  styleUrls: ['./listar-desplazamientos-xrutas-xvehiculos.component.scss']
 })
 
 export class ListarDesplazamientosXRutasXVehiculosComponent implements OnInit {

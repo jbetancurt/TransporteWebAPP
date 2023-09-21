@@ -6,7 +6,7 @@ import { Menus, MenusService } from './';
 @Component({
   selector: 'app-menus',
   templateUrl: './menus.component.html',
-  styleUrls: ['./menus.component.css']
+  styleUrls: ['./menus.component.scss']
 })
 
 export class MenusComponent implements OnInit {

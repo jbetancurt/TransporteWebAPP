@@ -13,7 +13,7 @@ import { Ciudades, CiudadesService } from '../../ciudades';
 @Component({
   selector: 'app-listar-destinos-xrutas-xvehiculos',
   templateUrl: './listar-destinos-xrutas-xvehiculos.component.html',
-  styleUrls: ['./listar-destinos-xrutas-xvehiculos.component.css']
+  styleUrls: ['./listar-destinos-xrutas-xvehiculos.component.scss']
 })
 
 

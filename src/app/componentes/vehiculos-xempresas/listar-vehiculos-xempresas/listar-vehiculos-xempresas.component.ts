@@ -13,7 +13,7 @@ import { Ciudades, CiudadesService } from '../../ciudades';
 @Component({
   selector: 'app-listar-vehiculos-xempresas',
   templateUrl: './listar-vehiculos-xempresas.component.html',
-  styleUrls: ['./listar-vehiculos-xempresas.component.css']
+  styleUrls: ['./listar-vehiculos-xempresas.component.scss']
 })
 
 export class ListarVehiculosXEmpresasComponent implements OnInit {
