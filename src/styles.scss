@@ -92,6 +92,11 @@ $angular-default-theme: mat.define-light-theme(
   )
 );
 
+mat-sidenav-container{
+  height: 85vh;
+  max-height: 100%;
+}
+
 @include mat.all-component-themes($angular-default-theme);
 
 $angular-dark-theme: mat.define-dark-theme(
