@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Plantillas_Ofertas, Plantillas_OfertasService } from '../plantillas-ofertas';
-import { Destinos, DestinosService } from '../destinos';
+import { EstadosDeLasOfertas, EstadosDeLasOfertasService } from '../estados-de-las-ofertas';
 import { TiposOrientacionesDeLaOferta, TiposOrientacionesDeLaOfertaService } from '../tipos-orientaciones-de-la-oferta';
 import { Empresas, EmpresasService } from '../empresas';
 const myDate = new Date();
@@ -22,42 +22,32 @@ export class Plantillas_OfertasComponent implements OnInit {
   labelPosition = 'after';
   disabled = false;
 
-  lstDestinos:Destinos[]=[];
+  lstEstadosDeLasOfertas:EstadosDeLasOfertas[]=[];
   lstEmpresas:Empresas[]=[];
   lstTiposOrientacionesDeLaOferta : TiposOrientacionesDeLaOferta[]=[];
   lstPlantillas_Ofertas:Plantillas_Ofertas[]=[];
   //lstplantillas_ofertas:Plantillas_Ofertas[]=[];
   FGAgregarPlantillas_Ofertas : FormGroup = this.formBuilder.group({      
     idOferta: new FormControl('0'),
-    idDestinoInicio:new FormControl(0,Validators.required),
-    idDestinoFin:new FormControl(0,Validators.required),
     idEmpresa:new FormControl(0,Validators.required),
     idTipoOrientacionDeLaOferta:new FormControl(0,Validators.required),
-    codigoOferta:new FormControl('',Validators.required),
+    idEstadoDeLaOferta:new FormControl(0,Validators.required),
+    nombrePlantillaOferta:new FormControl('',Validators.required),
     tituloOferta:new FormControl('',Validators.required),
     descripcionOferta:new FormControl('',Validators.required),
-    altoOferta:new FormControl(0,Validators.required),
-    anchoOferta:new FormControl(0,Validators.required),
-    largoOferta:new FormControl(0,Validators.required),
-    toneladasOferta:new FormControl(0,Validators.required),
-    valorXToneladaOferta:new FormControl(0,Validators.required)
+    valorTotalDeLaOferta:new FormControl(0,Validators.required)
   });
    
   cargarNombresPlantillas_Ofertas(plantillas_ofertas:Plantillas_Ofertas){
     this.FGAgregarPlantillas_Ofertas.patchValue({
       idOferta:plantillas_ofertas.idOferta,
-      idDestinoInicio:plantillas_ofertas.idDestinoInicio,
-      idDestinoFin:plantillas_ofertas.idDestinoFin,
       idEmpresa:plantillas_ofertas.idEmpresa,
       idTipoOrientacionDeLaOferta:plantillas_ofertas.idTipoOrientacionDeLaOferta,
-      codigoOferta:plantillas_ofertas.codigoOferta,
+      idEstadoDeLaOferta:plantillas_ofertas.idEstadoDeLaOferta,
+      nombrePlantillaOferta:plantillas_ofertas.nombrePlantillaOferta,
       tituloOferta:plantillas_ofertas.tituloOferta,
       descripcionOferta:plantillas_ofertas.descripcionOferta,
-      altoOferta:plantillas_ofertas.altoOferta,
-      anchoOferta:plantillas_ofertas.anchoOferta,
-      largoOferta:plantillas_ofertas.largoOferta,
-      toneladasOferta:plantillas_ofertas.toneladasOferta,
-      valorXToneladaOferta:plantillas_ofertas.valorXToneladaOferta,
+      valorTotalDeLaOferta:plantillas_ofertas.valorTotalDeLaOferta
     
     });
   }  
@@ -84,14 +74,14 @@ export class Plantillas_OfertasComponent implements OnInit {
   ngOnInit() {
     this.AbrirInformacion();
     this.listarTiposOrientacionesDeLaOferta();
-    this.listarDestinos();
+    this.listarEstadosDeLasOfertas();
     this.listarEmpresas();
     this.listarPlantillas_Ofertas();
   }
 
   constructor(
     private tiposorientacionesdelaofertaService: TiposOrientacionesDeLaOfertaService,
-    private destinosService: DestinosService,
+    private estadosdelasofertasService: EstadosDeLasOfertasService,
     private empresasService: EmpresasService,
     private formBuilder: FormBuilder, 
     private plantillas_ofertasService: Plantillas_OfertasService) { }
@@ -106,10 +96,10 @@ export class Plantillas_OfertasComponent implements OnInit {
     }
 
   
-    listarDestinos(){ 
-      this.destinosService.GetAll().subscribe({
-        next : (lstdestinos:Destinos[]) => { 
-          this.lstDestinos=lstdestinos;
+    listarEstadosDeLasOfertas(){ 
+      this.estadosdelasofertasService.GetAll().subscribe({
+        next : (lstestadosdelasofertas:EstadosDeLasOfertas[]) => { 
+          this.lstEstadosDeLasOfertas=lstestadosdelasofertas;
         }
       });
     }
@@ -136,22 +126,16 @@ export class Plantillas_OfertasComponent implements OnInit {
     crearPlantillas_Ofertas(){
       let plantillas_ofertas : Plantillas_Ofertas = new Plantillas_Ofertas;
       
-      //agregamos los datos del formulario a la tabla destinos
+      //agregamos los datos del formulario a la tabla estadosdelasofertas
       
       plantillas_ofertas.idOferta=this.FGAgregarPlantillas_Ofertas.value.idOferta;
-     
-      plantillas_ofertas.idDestinoInicio=this.FGAgregarPlantillas_Ofertas.value.idDestinoInicio;
-      plantillas_ofertas.idDestinoFin=this.FGAgregarPlantillas_Ofertas.value.idDestinoFin;
       plantillas_ofertas.idEmpresa=this.FGAgregarPlantillas_Ofertas.value.idEmpresa;
       plantillas_ofertas.idTipoOrientacionDeLaOferta=this.FGAgregarPlantillas_Ofertas.value.idTipoOrientacionDeLaOferta;
-      plantillas_ofertas.codigoOferta=this.FGAgregarPlantillas_Ofertas.value.codigoOferta;
+      plantillas_ofertas.idEstadoDeLaOferta=this.FGAgregarPlantillas_Ofertas.value.idEstadoDeLaOferta;
+      plantillas_ofertas.nombrePlantillaOferta=this.FGAgregarPlantillas_Ofertas.value.nombrePlantillaOferta;
       plantillas_ofertas.tituloOferta=this.FGAgregarPlantillas_Ofertas.value.tituloOferta;
       plantillas_ofertas.descripcionOferta=this.FGAgregarPlantillas_Ofertas.value.descripcionOferta;
-      plantillas_ofertas.altoOferta=this.FGAgregarPlantillas_Ofertas.value.altoOferta;
-      plantillas_ofertas.anchoOferta=this.FGAgregarPlantillas_Ofertas.value.anchoOferta;
-      plantillas_ofertas.largoOferta=this.FGAgregarPlantillas_Ofertas.value.largoOferta;
-      plantillas_ofertas.toneladasOferta=this.FGAgregarPlantillas_Ofertas.value.toneladasOferta;
-      plantillas_ofertas.valorXToneladaOferta=this.FGAgregarPlantillas_Ofertas.value.valorXToneladaOferta;
+      plantillas_ofertas.valorTotalDeLaOferta=this.FGAgregarPlantillas_Ofertas.value.valorTotalDeLaOferta;
       
           
      //suscrubimos la guardada de los datos en la tabla ofertas
@@ -169,19 +153,13 @@ export class Plantillas_OfertasComponent implements OnInit {
       
   //agregamos los datos del formulario a la tabla ofertas
       plantillas_ofertas.idOferta=idOferta;
-     
-      plantillas_ofertas.idDestinoInicio=this.FGAgregarPlantillas_Ofertas.value.idDestinoInicio;
-      plantillas_ofertas.idDestinoFin=this.FGAgregarPlantillas_Ofertas.value.idDestinoFin;
       plantillas_ofertas.idEmpresa=this.FGAgregarPlantillas_Ofertas.value.idEmpresa;
       plantillas_ofertas.idTipoOrientacionDeLaOferta=this.FGAgregarPlantillas_Ofertas.value.idTipoOrientacionDeLaOferta;
-      plantillas_ofertas.codigoOferta=this.FGAgregarPlantillas_Ofertas.value.codigoOferta;
+      plantillas_ofertas.idEstadoDeLaOferta=this.FGAgregarPlantillas_Ofertas.value.idEstadoDeLaOferta;
+      plantillas_ofertas.nombrePlantillaOferta=this.FGAgregarPlantillas_Ofertas.value.nombrePlantillaOferta;
       plantillas_ofertas.tituloOferta=this.FGAgregarPlantillas_Ofertas.value.tituloOferta;
       plantillas_ofertas.descripcionOferta=this.FGAgregarPlantillas_Ofertas.value.descripcionOferta;
-      plantillas_ofertas.altoOferta=this.FGAgregarPlantillas_Ofertas.value.altoOferta;
-      plantillas_ofertas.anchoOferta=this.FGAgregarPlantillas_Ofertas.value.anchoOferta;
-      plantillas_ofertas.largoOferta=this.FGAgregarPlantillas_Ofertas.value.largoOferta;
-      plantillas_ofertas.toneladasOferta=this.FGAgregarPlantillas_Ofertas.value.toneladasOferta;
-      plantillas_ofertas.valorXToneladaOferta=this.FGAgregarPlantillas_Ofertas.value.valorXToneladaOferta;
+      plantillas_ofertas.valorTotalDeLaOferta=this.FGAgregarPlantillas_Ofertas.value.valorTotalDeLaOferta;
       
      
       //suscrubimos la guardada de los datos en la tabla ofertas

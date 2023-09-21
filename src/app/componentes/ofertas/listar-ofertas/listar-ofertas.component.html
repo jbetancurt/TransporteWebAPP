@@ -30,24 +30,17 @@
                 </td>
             </ng-container>
 
-            <ng-container matColumnDef="idDestinoInicio">
-                <th mat-header-cell *matHeaderCellDef> Destino Inicial </th>
-                <td mat-cell *matCellDef="let element"> 
-                    {{element.idDestinoInicio}}
-                </td>
-            </ng-container>
-
-            <ng-container matColumnDef="idDestinoFin">
-                <th mat-header-cell *matHeaderCellDef> Destino Final </th>
-                <td mat-cell *matCellDef="let element"> 
-                    {{element.idDestinoFin}}
-                </td>
-            </ng-container>
-
             <ng-container matColumnDef="idTipoOrientacionDeLaOferta">
-                <th mat-header-cell *matHeaderCellDef> Contacto </th>
+                <th mat-header-cell *matHeaderCellDef> Tipo Orientacion </th>
                 <td mat-cell *matCellDef="let element"> 
-                    {{encontrarNombreTipoOrientacionDeLaOferta(element.idTipoOrientacionDeLaOferta)}}
+                    {{element.idTipoOrientacionDeLaOferta}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="idEstadoDeLaOferta">
+                <th mat-header-cell *matHeaderCellDef> Estado De La Oferta </th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{element.idEstadoDeLaOferta}}
                 </td>
             </ng-container>
 
@@ -66,25 +59,7 @@
                 </td>
             </ng-container>
 
-            <ng-container matColumnDef="horaInicialOferta">
-                <th mat-header-cell *matHeaderCellDef> Hora Inicio Oferta </th>
-                <td mat-cell *matCellDef="let element"> 
-                    {{element.horaInicialOferta}}
-                </td>
-            </ng-container>
-
-            <ng-container matColumnDef="estadoOferta">
-                <th mat-header-cell *matHeaderCellDef><div fxFlexFill fxLayoutAlign="center center">
-                   Oferta Activa
-                </div>  </th>
-                <td mat-cell *matCellDef="let element"> 
-                    <div fxFlexFill fxLayoutAlign="center center">
-                        <mat-icon *ngIf="element.estadoOferta" color="tiene">check</mat-icon>
-                        <mat-icon *ngIf="!element.estadoOferta" color="notiene">close</mat-icon>
-                    </div>
-                </td>
-            </ng-container>
-           
+                      
         
             <ng-container matColumnDef="editar" >
                 <th mat-header-cell *matHeaderCellDef >  </th>
