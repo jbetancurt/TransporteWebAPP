@@ -24,6 +24,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [],
@@ -50,7 +51,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatCheckboxModule,
     NgxMaterialTimepickerModule,
     MatExpansionModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSlideToggleModule
     
   ],
   exports: [
@@ -78,7 +80,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatCheckboxModule,
     NgxMaterialTimepickerModule,
     MatExpansionModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSlideToggleModule
   ]
 })
 export class MaterialModule { }
