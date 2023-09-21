@@ -10,27 +10,18 @@
                         
             <div  fxLayout="row" fxLayoutGap="1px">
                 <mat-form-field appearance="fill" fxFlex>
-                    <mat-label>Destino Inicio: </mat-label>
-                    <mat-select formControlName="idDestinoInicio"  >
-                        <mat-option *ngFor="let item of lstDestinos" [value]="item.idDestino">{{ item.idDestino }}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-
-            <div  fxLayout="row" fxLayoutGap="1px">
-                <mat-form-field appearance="fill" fxFlex>
-                    <mat-label>Destino Fin: </mat-label>
-                    <mat-select formControlName="idDestinoFin"  >
-                        <mat-option *ngFor="let item of lstDestinos" [value]="item.idDestino">{{ item.idDestino }}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-
-            <div  fxLayout="row" fxLayoutGap="1px">
-                <mat-form-field appearance="fill" fxFlex>
                     <mat-label>Empresa: </mat-label>
                     <mat-select formControlName="idEmpresa"  >
                         <mat-option *ngFor="let item of lstEmpresas" [value]="item.idEmpresa">{{ item.nombreEmpresa}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Destino Inicio: </mat-label>
+                    <mat-select formControlName="idEstadoDeLaOferta"  >
+                        <mat-option *ngFor="let item of lstEstadosDeLasOfertas" [value]="item.idEstadoDeLaOferta">{{ item.nombreEstadoDeLaOferta }}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -58,39 +49,11 @@
                 </mat-form-field>  
             </div>
 
+            
             <div  fxLayout="row" fxLayoutGap="1px">
                 <mat-form-field appearance="fill"  fxFlex>
-                    <mat-label>Alto Oferta:</mat-label>
-                    <input matInput  formControlName="altoOferta" [readonly]="false">
-                </mat-form-field>  
-            </div>
-
-            <div  fxLayout="row" fxLayoutGap="1px">
-                <mat-form-field appearance="fill"  fxFlex>
-                    <mat-label>Ancho Oferta:</mat-label>
-                    <input matInput  formControlName="anchoOferta" [readonly]="false">
-                </mat-form-field>   
-            </div>
-
-
-            <div  fxLayout="row" fxLayoutGap="1px">
-                <mat-form-field appearance="fill"  fxFlex>
-                    <mat-label>Largo Oferta:</mat-label>
-                    <input matInput  formControlName="largoOferta" [readonly]="false">
-                </mat-form-field>   
-            </div>
-
-            <div  fxLayout="row" fxLayoutGap="1px">
-                <mat-form-field appearance="fill"  fxFlex>
-                    <mat-label>Toneladas Oferta:</mat-label>
-                    <input matInput  formControlName="toneladasOferta" [readonly]="false">
-                </mat-form-field>   
-            </div>
-
-            <div  fxLayout="row" fxLayoutGap="1px">
-                <mat-form-field appearance="fill"  fxFlex>
-                    <mat-label>Valor Tonelada Oferta:</mat-label>
-                    <input matInput  formControlName="valorXToneladaOferta" [readonly]="false">
+                    <mat-label>Valor Total Oferta:</mat-label>
+                    <input matInput  formControlName="valorTotalDeLaOferta" [readonly]="false">
                 </mat-form-field>   
             </div>
 
@@ -115,20 +78,7 @@
             </div>
 
 
-            <div  fxLayout="row" fxLayoutGap="1px">
-                <mat-form-field appearance="fill"  fxFlex>
-                    <mat-label>Hora Inicio Oferta:</mat-label>
-                    <input matInput type="time"  formControlName="horaInicialOferta">
-                    <mat-icon matSuffix>access_time</mat-icon>
-                </mat-form-field>  
-            </div>
-
-            <div  fxLayout="row" fxLayoutGap="1px" >
-                <div appearance="fill" >
-                    <mat-checkbox formControlName="estadoOferta" fxFlex>Oferta Activa</mat-checkbox>
-                </div>
-            </div>
-            
+                    
 
             <input type="hidden" formControlName="idOferta" [readonly]="false">  
         

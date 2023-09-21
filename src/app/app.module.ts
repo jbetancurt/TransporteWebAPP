@@ -116,6 +116,7 @@ import { OfertasConfiguracionRequisitosComponent } from './paginas/ofertas/ofert
 import { OfertasConfiguracionPlanillasComponent } from './paginas/ofertas/ofertas-configuracion/ofertas-configuracion-planillas/ofertas-configuracion-planillas.component';
 import { SidenavComponent } from './componentes/sidenav/sidenav.component';
 import { SidenavLinkComponent } from './componentes/sidenav-link/sidenav-link.component';
+import { EstadosDeLasOfertasComponent } from './componentes/estados-de-las-ofertas/estados-de-las-ofertas.component';
 
 
 
@@ -227,7 +228,8 @@ import { SidenavLinkComponent } from './componentes/sidenav-link/sidenav-link.co
     OfertasConfiguracionRequisitosComponent,
     OfertasConfiguracionPlanillasComponent,
     SidenavComponent,
-    SidenavLinkComponent
+    SidenavLinkComponent,
+    EstadosDeLasOfertasComponent
     
     
 
