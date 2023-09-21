@@ -91,7 +91,7 @@ export class MenusComponent implements OnInit {
     listarMenus(){
       this.menusService.GetAll().subscribe({
         next : (lstMenus:Menus[]) => {
-          this.lstMenus=lstMenus;
+          this.lstMenus=lstMenus.filter(x => x.esNodo && x.activo);
         }
       });
     }

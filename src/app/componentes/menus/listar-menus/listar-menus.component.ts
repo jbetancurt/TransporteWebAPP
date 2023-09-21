@@ -69,7 +69,7 @@ export class ListarMenusComponent implements OnInit {
       encontrarNombreMenuPadre(idMenuPadre:number):string{
         let menupadre:string="";
         this.lstMenus.forEach(element => {
-          if(element.idMenuPadre==idMenuPadre){
+          if(element.idMenu==idMenuPadre){
             menupadre=element.nombre;
           }
         });

@@ -5,57 +5,55 @@
         </button>
         {{titulo}} 
     </div>
+    
    <div fxFlex fxLayout fxLayoutAlign="flex-end"  fxHide.xs>
-        <ul fxLayout fxLayoutGap="20px" class="navigation-items">
-            <a class="mat-button-class" mat-button>
-                <mat-icon class="icon">input</mat-icon>
-                <span  > Iniciar </span>
-            </a>
-            
-            <ng-container *ngFor="let objMenu of filtrarMenu(0)">
-                <a class="mat-button-class" *ngIf="objMenu.esNodo" mat-button [matMenuTriggerFor]="menu">
-                    <mat-icon *ngIf="objMenu.nombreAction != ''" class="icon">{{objMenu.nombreAction}}</mat-icon>
-                    {{ objMenu.nombre }}
+    <a class="mat-button-class" mat-button>
+        <mat-icon class="icon">input</mat-icon>
+        <span  > Iniciar </span>
+    </a>
+    
+    <ng-container *ngFor="let objMenu of filtrarMenu(0)">
+        <a class="mat-button-class" *ngIf="objMenu.esNodo" mat-button [matMenuTriggerFor]="menu">
+            <mat-icon *ngIf="objMenu.nombreAction != ''" class="icon">{{objMenu.nombreAction}}</mat-icon>
+            {{ objMenu.nombre }}
+        </a>
+        <mat-menu #menu="matMenu">
+            <ng-container *ngFor="let subMenu of filtrarMenu(objMenu.idMenu); let i = index">
+                <ng-container *ngIf="subMenu.esNodo" >
+                    <ng-container *ngTemplateOutlet="menuItemTool; context: { objMenu: objMenu}"></ng-container>
+                </ng-container>
+                <a *ngIf="!subMenu.esNodo" mat-menu-item routerLink="/{{subMenu.nombreController}}/">
+                    <mat-icon *ngIf="subMenu.nombreAction != ''" class="icon">{{subMenu.nombreAction}}</mat-icon>
+                    <span>  {{subMenu.nombre}} </span>
+                    
                 </a>
-                <mat-menu #menu="matMenu">
-                    <ng-container *ngFor="let subMenu of filtrarMenu(objMenu.idMenu); let i = index">
-                        <ng-container *ngIf="subMenu.esNodo" >
-                            <ng-container *ngTemplateOutlet="menuItemTool; context: { objMenu: objMenu}"></ng-container>
-                        </ng-container>
-                        <a *ngIf="!subMenu.esNodo" mat-menu-item routerLink="/{{subMenu.nombreController}}/">
-                            <mat-icon *ngIf="subMenu.nombreAction != ''" class="icon">{{subMenu.nombreAction}}</mat-icon>
-                            <span>  {{subMenu.nombre}} </span>
-                            
-                        </a>
 
-                    </ng-container>
-                </mat-menu>
             </ng-container>
-            <a routerLink="/" class="mat-button-class" mat-button>
-                <mat-icon class="icon">home</mat-icon>
-                <span > Inicio </span>
-            </a>
-            <a routerLink="/dashboard" class="mat-button-class" mat-button>
-                <mat-icon class="icon">dashboard</mat-icon>
-                <span > Dashboard </span>
-            </a>
-            <a class="mat-button-class" mat-button>
-                <mat-icon class="icon">input</mat-icon>
-                <span > Cerrar </span>
-            </a>
-            
-            <div class="flex-stretch"></div>
-            <mat-icon class="mr-8">brightness_5</mat-icon>
-            <mat-slide-toggle [formControl]="toggleControl" class="mr-8">
-            </mat-slide-toggle>
-            <mat-icon>bedtime</mat-icon>
-        </ul>
+        </mat-menu>
+    </ng-container>
+    <a routerLink="/" class="mat-button-class" mat-button>
+        <mat-icon class="icon">home</mat-icon>
+        <span > Inicio </span>
+    </a>
+    <a routerLink="/dashboard" class="mat-button-class" mat-button>
+        <mat-icon class="icon">dashboard</mat-icon>
+        <span > Dashboard </span>
+    </a>
+    <a class="mat-button-class" mat-button>
+        <mat-icon class="icon">input</mat-icon>
+        <span > Cerrar </span>
+    </a>
+    
    </div>
 </mat-toolbar>
 <mat-sidenav-container autosize>
     <mat-sidenav  #sidenav mode="side">
         <mat-nav-list>
-            <div style="padding: 1rem">    
+            <div style="padding: 1rem">  
+                <mat-icon class="mr-8">brightness_5</mat-icon>
+                <mat-slide-toggle [formControl]="toggleControl" class="mr-8">
+                </mat-slide-toggle>
+                <mat-icon>bedtime</mat-icon>  
             </div>
             <app-sidenav-link routerLink="/">
                 <mat-icon class="icon">home</mat-icon>

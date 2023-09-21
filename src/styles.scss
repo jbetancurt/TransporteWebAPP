@@ -12,7 +12,7 @@ body {
 }
 
 :root {
-  --sidenav-width: 400px;
+  --sidenav-width: 300px;
 }
 
 .btn-derecha{
@@ -29,21 +29,18 @@ body {
 }
 .mat-column-editar {
   text-align: right;
-  max-width: 5px;
+  max-width: 50px;
   justify-content: flex-end;
   margin-right: 0;
 }
 .mat-column-borrar {
   text-align: right;
-  max-width: 10px;
+  max-width: 100px;
   justify-content: flex-end;
   margin-right: 0;
 }
 
-.table-container {
-  
-  overflow: auto;
-}
+
 
 .Tamanho100Porciento{
   width: 100%;
@@ -110,3 +107,5 @@ $angular-dark-theme: mat.define-dark-theme(
 .darkMode {
   @include mat.all-component-colors($angular-dark-theme);
 }
+mat-table{width:80vw;}
+
