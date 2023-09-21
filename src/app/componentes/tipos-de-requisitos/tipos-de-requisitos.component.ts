@@ -6,7 +6,7 @@ import { TiposDeRequisitosService } from './tipos-de-requisitos.service';
 @Component({
   selector: 'app-tipos-de-requisitos',
   templateUrl: './tipos-de-requisitos.component.html',
-  styleUrls: ['./tipos-de-requisitos.component.css']
+  styleUrls: ['./tipos-de-requisitos.component.scss']
 })
 export class TiposDeRequisitosComponent implements OnInit {
   

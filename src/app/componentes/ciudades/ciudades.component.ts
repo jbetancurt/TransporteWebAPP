@@ -7,7 +7,7 @@ import { Paises, PaisesService } from '../paises';
 @Component({
   selector: 'app-ciudades',
   templateUrl: './ciudades.component.html',
-  styleUrls: ['./ciudades.component.css']
+  styleUrls: ['./ciudades.component.scss']
 })
 
 export class CiudadesComponent implements OnInit {

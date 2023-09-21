@@ -7,7 +7,7 @@ import { TiposDeDocumentos, TiposDeDocumentosService } from '../tipos-de-documen
 @Component({
   selector: 'app-personas',
   templateUrl: './personas.component.html',
-  styleUrls: ['./personas.component.css']
+  styleUrls: ['./personas.component.scss']
 })
 
 export class PersonasComponent implements OnInit {

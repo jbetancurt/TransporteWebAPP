@@ -7,7 +7,7 @@ import { Usuarios, UsuariosService } from '../usuarios';
 @Component({
   selector: 'app-rol-xusuarios',
   templateUrl: './rol-xusuarios.component.html',
-  styleUrls: ['./rol-xusuarios.component.css']
+  styleUrls: ['./rol-xusuarios.component.scss']
 })
 
 export class RolXUsuariosComponent implements OnInit {

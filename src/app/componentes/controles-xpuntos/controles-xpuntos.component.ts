@@ -9,7 +9,7 @@ import { Menus, MenusService } from '../menus';
 @Component({
   selector: 'app-controles-xpuntos',
   templateUrl: './controles-xpuntos.component.html',
-  styleUrls: ['./controles-xpuntos.component.css']
+  styleUrls: ['./controles-xpuntos.component.scss']
 })
 
 export class ControlesXPuntosComponent implements OnInit {

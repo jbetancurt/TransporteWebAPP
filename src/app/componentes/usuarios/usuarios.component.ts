@@ -6,7 +6,7 @@ import { Personas, PersonasService } from '../personas';
 @Component({
   selector: 'app-usuarios',
   templateUrl: './usuarios.component.html',
-  styleUrls: ['./usuarios.component.css']
+  styleUrls: ['./usuarios.component.scss']
 })
 
 

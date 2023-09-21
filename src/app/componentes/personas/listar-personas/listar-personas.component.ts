@@ -11,7 +11,7 @@ import { TiposDeDocumentos, TiposDeDocumentosService } from '../../tipos-de-docu
 @Component({
   selector: 'app-listar-personas',
   templateUrl: './listar-personas.component.html',
-  styleUrls: ['./listar-personas.component.css']
+  styleUrls: ['./listar-personas.component.scss']
 })
 
 export class ListarPersonasComponent implements OnInit {

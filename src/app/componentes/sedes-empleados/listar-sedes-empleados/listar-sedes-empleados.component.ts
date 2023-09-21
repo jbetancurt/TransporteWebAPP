@@ -12,7 +12,7 @@ import { Sedes, SedesService } from '../../sedes';
 @Component({
   selector: 'app-listar-sedes-empleados',
   templateUrl: './listar-sedes-empleados.component.html',
-  styleUrls: ['./listar-sedes-empleados.component.css']
+  styleUrls: ['./listar-sedes-empleados.component.scss']
 })
 
 

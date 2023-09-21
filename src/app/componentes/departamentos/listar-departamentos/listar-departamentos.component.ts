@@ -11,7 +11,7 @@ import { Paises, PaisesService } from '../../paises';
 @Component({
   selector: 'app-listar-departamentos',
   templateUrl: './listar-departamentos.component.html',
-  styleUrls: ['./listar-departamentos.component.css']
+  styleUrls: ['./listar-departamentos.component.scss']
 })
 
 export class ListarDepartamentosComponent implements OnInit {

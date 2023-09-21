@@ -13,7 +13,7 @@ import { EstadosPorRutas, EstadosPorRutasService } from '../../estados-por-rutas
 @Component({
   selector: 'app-listar-rutas-xvehiculos',
   templateUrl: './listar-rutas-xvehiculos.component.html',
-  styleUrls: ['./listar-rutas-xvehiculos.component.css']
+  styleUrls: ['./listar-rutas-xvehiculos.component.scss']
 })
 
 export class ListarRutasXVehiculosComponent implements OnInit {

@@ -12,7 +12,7 @@ import { Empresas, EmpresasService } from '../../empresas';
 @Component({
   selector: 'app-listar-roles-xempresas',
   templateUrl: './listar-roles-xempresas.component.html',
-  styleUrls: ['./listar-roles-xempresas.component.css']
+  styleUrls: ['./listar-roles-xempresas.component.scss']
 })
 export class ListarRolesXEmpresasComponent implements OnInit {
       arraypaginator=environment.paginator;

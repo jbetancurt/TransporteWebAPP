@@ -12,7 +12,7 @@ import { Destinos, DestinosService } from '../../destinos';
 @Component({
   selector: 'app-listar-destinos-xempresas',
   templateUrl: './listar-destinos-xempresas.component.html',
-  styleUrls: ['./listar-destinos-xempresas.component.css']
+  styleUrls: ['./listar-destinos-xempresas.component.scss']
 })
 
 

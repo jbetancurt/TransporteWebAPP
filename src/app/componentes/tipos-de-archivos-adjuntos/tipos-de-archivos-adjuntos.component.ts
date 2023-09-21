@@ -7,7 +7,7 @@ import { TiposDeArchivosAdjuntosService } from './tipos-de-archivos-adjuntos.ser
 @Component({
   selector: 'app-tipos-de-archivos-adjuntos',
   templateUrl: './tipos-de-archivos-adjuntos.component.html',
-  styleUrls: ['./tipos-de-archivos-adjuntos.component.css']
+  styleUrls: ['./tipos-de-archivos-adjuntos.component.scss']
 })
 export class TiposDeArchivosAdjuntosComponent implements OnInit {
   

@@ -8,7 +8,7 @@ const myDate = new Date();
 @Component({
   selector: 'app-desplazamientos-xrutas-xvehiculos',
   templateUrl: './desplazamientos-xrutas-xvehiculos.component.html',
-  styleUrls: ['./desplazamientos-xrutas-xvehiculos.component.css']
+  styleUrls: ['./desplazamientos-xrutas-xvehiculos.component.scss']
 })
 
 export class DesplazamientosXRutasXVehiculosComponent implements OnInit {

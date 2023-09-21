@@ -7,7 +7,7 @@ import { Sedes, SedesService } from '../sedes';
 @Component({
   selector: 'app-sedes-empleados',
   templateUrl: './sedes-empleados.component.html',
-  styleUrls: ['./sedes-empleados.component.css']
+  styleUrls: ['./sedes-empleados.component.scss']
 })
 
 export class SedesEmpleadosComponent implements OnInit {

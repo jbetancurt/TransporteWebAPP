@@ -9,7 +9,7 @@ const myDate = new Date();
 @Component({
   selector: 'app-rutas-xvehiculos',
   templateUrl: './rutas-xvehiculos.component.html',
-  styleUrls: ['./rutas-xvehiculos.component.css']
+  styleUrls: ['./rutas-xvehiculos.component.scss']
 })
 
 

@@ -11,7 +11,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 @Component({
   selector: 'app-listar-tipos-de-puntos-de-control',
   templateUrl: './listar-tipos-de-puntos-de-control.component.html',
-  styleUrls: ['./listar-tipos-de-puntos-de-control.component.css']
+  styleUrls: ['./listar-tipos-de-puntos-de-control.component.scss']
 })
     export class ListarTiposDePuntosDeControlComponent implements OnInit {
       arraypaginator=environment.paginator;

@@ -11,7 +11,7 @@ import { MatSort } from '@angular/material/sort';
 @Component({
   selector: 'app-listar-tipos-de-documentos',
   templateUrl: './listar-tipos-de-documentos.component.html',
-  styleUrls: ['./listar-tipos-de-documentos.component.css']
+  styleUrls: ['./listar-tipos-de-documentos.component.scss']
 })
   export class ListarTiposDeDocumentosComponent implements OnInit {
     arraypaginator=environment.paginator;

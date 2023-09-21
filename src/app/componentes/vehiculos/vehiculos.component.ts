@@ -9,7 +9,7 @@ import { TiposDeVehiculos, TiposDeVehiculosService } from '../tipos-de-vehiculos
 @Component({
   selector: 'app-vehiculos',
   templateUrl: './vehiculos.component.html',
-  styleUrls: ['./vehiculos.component.css']
+  styleUrls: ['./vehiculos.component.scss']
 })
 
 

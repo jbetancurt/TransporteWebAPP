@@ -12,7 +12,7 @@ import { TiposDeEmpresas, TiposDeEmpresasService } from '../../tipos-de-empresas
 @Component({
   selector: 'app-listar-empresas',
   templateUrl: './listar-empresas.component.html',
-  styleUrls: ['./listar-empresas.component.css']
+  styleUrls: ['./listar-empresas.component.scss']
 })
 
 export class ListarEmpresasComponent implements OnInit {

@@ -8,7 +8,7 @@ import { TiposOrientacionesDeLaOfertaService } from './tipos-orientaciones-de-la
 @Component({
   selector: 'app-tipos-orientaciones-de-la-oferta',
   templateUrl: './tipos-orientaciones-de-la-oferta.component.html',
-  styleUrls: ['./tipos-orientaciones-de-la-oferta.component.css']
+  styleUrls: ['./tipos-orientaciones-de-la-oferta.component.scss']
 })
 export class TiposOrientacionesDeLaOfertaComponent implements OnInit {
   

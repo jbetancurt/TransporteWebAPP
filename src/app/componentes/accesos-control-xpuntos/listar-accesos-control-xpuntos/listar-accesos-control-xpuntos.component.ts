@@ -14,7 +14,7 @@ import { Roles, RolesService } from '../../roles';
 @Component({
   selector: 'app-listar-accesos-control-xpuntos',
   templateUrl: './listar-accesos-control-xpuntos.component.html',
-  styleUrls: ['./listar-accesos-control-xpuntos.component.css']
+  styleUrls: ['./listar-accesos-control-xpuntos.component.scss']
 })
 
 export class ListarAccesosControlXPuntosComponent implements OnInit {

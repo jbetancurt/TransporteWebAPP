@@ -11,7 +11,7 @@ import { TiposDeRoles, TiposDeRolesService } from '../../tipos-de-roles';
 @Component({
   selector: 'app-listar-roles',
   templateUrl: './listar-roles.component.html',
-  styleUrls: ['./listar-roles.component.css']
+  styleUrls: ['./listar-roles.component.scss']
 })
 
     export class ListarRolesComponent implements OnInit {

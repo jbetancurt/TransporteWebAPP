@@ -6,7 +6,7 @@ import { EstadosPorRutasService } from './estados-por-rutas.service';
 @Component({
   selector: 'app-estados-por-rutas',
   templateUrl: './estados-por-rutas.component.html',
-  styleUrls: ['./estados-por-rutas.component.css']
+  styleUrls: ['./estados-por-rutas.component.scss']
 })
 
 export class EstadosPorRutasComponent implements OnInit {

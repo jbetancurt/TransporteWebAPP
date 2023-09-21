@@ -6,7 +6,7 @@ import { TiposDeArchivosAdjuntos, TiposDeArchivosAdjuntosService } from '../tipo
 @Component({
   selector: 'app-adjuntos',
   templateUrl: './adjuntos.component.html',
-  styleUrls: ['./adjuntos.component.css']
+  styleUrls: ['./adjuntos.component.scss']
 })
 
 

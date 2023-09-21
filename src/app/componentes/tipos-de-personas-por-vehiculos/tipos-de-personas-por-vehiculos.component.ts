@@ -8,7 +8,7 @@ import { TiposDePersonasPorVehiculosService } from './tipos-de-personas-por-vehi
 @Component({
   selector: 'app-tipos-de-personas-por-vehiculos',
   templateUrl: './tipos-de-personas-por-vehiculos.component.html',
-  styleUrls: ['./tipos-de-personas-por-vehiculos.component.css']
+  styleUrls: ['./tipos-de-personas-por-vehiculos.component.scss']
 })
 export class TiposDePersonasPorVehiculosComponent implements OnInit {
   

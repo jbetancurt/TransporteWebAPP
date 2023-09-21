@@ -13,7 +13,7 @@ import { Ciudades, CiudadesService } from '../../ciudades';
 @Component({
   selector: 'app-listar-sedes',
   templateUrl: './listar-sedes.component.html',
-  styleUrls: ['./listar-sedes.component.css']
+  styleUrls: ['./listar-sedes.component.scss']
 })
 
 export class ListarSedesComponent implements OnInit {

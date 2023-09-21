@@ -11,7 +11,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 @Component({
   selector: 'app-listar-menus',
   templateUrl: './listar-menus.component.html',
-  styleUrls: ['./listar-menus.component.css']
+  styleUrls: ['./listar-menus.component.scss']
 })
 
 

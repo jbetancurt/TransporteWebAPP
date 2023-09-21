@@ -11,7 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-listar-tipos-de-roles',
   templateUrl: './listar-tipos-de-roles.component.html',
-  styleUrls: ['./listar-tipos-de-roles.component.css']
+  styleUrls: ['./listar-tipos-de-roles.component.scss']
 })
 
 export class ListarTiposDeRolesComponent implements OnInit {

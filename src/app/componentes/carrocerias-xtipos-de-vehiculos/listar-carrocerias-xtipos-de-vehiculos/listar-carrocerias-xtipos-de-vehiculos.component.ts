@@ -12,7 +12,7 @@ import { TiposDeVehiculos, TiposDeVehiculosService } from '../../tipos-de-vehicu
 @Component({
   selector: 'app-listar-carrocerias-xtipos-de-vehiculos',
   templateUrl: './listar-carrocerias-xtipos-de-vehiculos.component.html',
-  styleUrls: ['./listar-carrocerias-xtipos-de-vehiculos.component.css']
+  styleUrls: ['./listar-carrocerias-xtipos-de-vehiculos.component.scss']
 })
 
 export class ListarCarroceriasXTiposDeVehiculosComponent implements OnInit {

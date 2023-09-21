@@ -10,7 +10,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   @Component({
   selector: 'app-listar-tipos-orientaciones-de-la-oferta',
   templateUrl: './listar-tipos-orientaciones-de-la-oferta.component.html',
-  styleUrls: ['./listar-tipos-orientaciones-de-la-oferta.component.css']
+  styleUrls: ['./listar-tipos-orientaciones-de-la-oferta.component.scss']
 })
 
 

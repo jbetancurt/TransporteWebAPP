@@ -7,7 +7,7 @@ import { Vehiculos, VehiculosService } from '../vehiculos';
 @Component({
   selector: 'app-vehiculos-xempresas',
   templateUrl: './vehiculos-xempresas.component.html',
-  styleUrls: ['./vehiculos-xempresas.component.css']
+  styleUrls: ['./vehiculos-xempresas.component.scss']
 })
 
 export class VehiculosXEmpresasComponent implements OnInit {

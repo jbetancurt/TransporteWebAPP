@@ -13,7 +13,7 @@ import { Ciudades, CiudadesService } from '../../ciudades';
 @Component({
   selector: 'app-listar-destinos',
   templateUrl: './listar-destinos.component.html',
-  styleUrls: ['./listar-destinos.component.css']
+  styleUrls: ['./listar-destinos.component.scss']
 })
 
 export class ListarDestinosComponent implements OnInit {

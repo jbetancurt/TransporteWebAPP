@@ -13,7 +13,7 @@ import { Ciudades, CiudadesService } from '../../ciudades';
 @Component({
   selector: 'app-listar-plantillas-requisitos-xofertas',
   templateUrl: './listar-plantillas-requisitos-xofertas.component.html',
-  styleUrls: ['./listar-plantillas-requisitos-xofertas.component.css']
+  styleUrls: ['./listar-plantillas-requisitos-xofertas.component.scss']
 })
 
 
