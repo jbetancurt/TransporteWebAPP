@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Ofertas , OfertasComponent, OfertasService } from '../';
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
@@ -7,7 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Empresas, EmpresasService } from '../../empresas';
-import { Destinos, DestinosService } from '../../destinos';
+import { EstadosDeLasOfertas, EstadosDeLasOfertasService } from '../../estados-de-las-ofertas';
 import { TiposOrientacionesDeLaOferta, TiposOrientacionesDeLaOfertaService } from '../../tipos-orientaciones-de-la-oferta';
 
 @Component({
@@ -21,7 +21,7 @@ import { TiposOrientacionesDeLaOferta, TiposOrientacionesDeLaOfertaService } fro
 export class ListarOfertasComponent implements OnInit {
       arraypaginator=environment.paginator;
       lstEmpresas : Empresas[]=[];
-      lstDestinos : Destinos[]=[];
+      lstEstadosDeLasOfertas : EstadosDeLasOfertas[]=[];
       lstTiposOrientacionesDeLaOferta : TiposOrientacionesDeLaOferta[]=[];
       lstofertas:Ofertas[]=[];
       lstofertasTodos:Ofertas[]=[];
@@ -30,8 +30,9 @@ export class ListarOfertasComponent implements OnInit {
       filtroBusqueda: string = "";
       @ViewChild(MatPaginator) paginator!: MatPaginator;
       @ViewChild(MatSort) sort!: MatSort;
+      @Input() idOfertaInput: string = "";
       
-      displayedColumns: string[] = ['idEmpresa','idDestinoInicio','idDestinoFin','idTipoOrientacionDeLaOferta', 'tituloOferta' ,'fechaInicialOferta','horaInicialOferta','estadoOferta', 'editar', 'borrar'];
+      displayedColumns: string[] = ['idEmpresa','idTipoOrientacionDeLaOferta','idEstadoDeLaOferta','tituloOferta' ,'fechaInicialOferta', 'editar', 'borrar'];
       public AbrirInformacion()
       {
             
@@ -63,8 +64,10 @@ export class ListarOfertasComponent implements OnInit {
       }
     
       ngOnInit() {
+        console.log(this.idOfertaInput);
+        
         this.listarEmpresas();
-        this.listarDestinos();
+        this.listarEstadosDeLasOfertas();
         this.listarTiposOrientacionesDeLaOferta();
         this.AbrirInformacion();
         if (this.dataSource != null){
@@ -91,20 +94,20 @@ export class ListarOfertasComponent implements OnInit {
         });
       }
 
-      encontrarNombreDestino(idDestino:number):string{
-        let destino:string="";
-        this.lstDestinos.forEach(element => {
-          if(element.idDestino==idDestino){
-            destino=element.observacionDestino;
+      encontrarNombreEstadoDeLaOferta(idEstadoDeLaOferta:number):string{
+        let estadodelaoferta:string="";
+        this.lstEstadosDeLasOfertas.forEach(element => {
+          if(element.idEstadoDeLaOferta==idEstadoDeLaOferta){
+            estadodelaoferta=element.nombreEstadoDeLaOferta;
           }
         });
-        return destino;
+        return estadodelaoferta;
       }
 
-      listarDestinos(){
-        this.destinosService.GetAll().subscribe({
-          next : (lstdestinos:Destinos[]) => {
-            this.lstDestinos=lstdestinos;
+      listarEstadosDeLasOfertas(){
+        this.estadosdelasofertasService.GetAll().subscribe({
+          next : (lstestadosdelasofertas:EstadosDeLasOfertas[]) => {
+            this.lstEstadosDeLasOfertas=lstestadosdelasofertas;
           }
         });
       }
@@ -140,7 +143,7 @@ export class ListarOfertasComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
           this.AbrirInformacion();
         });
-       }
+      }
     
         borrarXId(idOferta:number){
         this.ofertasService.delete(idOferta.toString()).subscribe({ 
@@ -152,7 +155,7 @@ export class ListarOfertasComponent implements OnInit {
       constructor(
         private ofertasService: OfertasService,
         private empresasService: EmpresasService,
-        private destinosService: DestinosService,
+        private estadosdelasofertasService: EstadosDeLasOfertasService,
         private tiposorientacionesdelaofertaService: TiposOrientacionesDeLaOfertaService,
         private modalService: MatDialog
         ) { }

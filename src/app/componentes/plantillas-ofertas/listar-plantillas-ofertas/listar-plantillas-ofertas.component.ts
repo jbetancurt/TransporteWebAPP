@@ -7,7 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Empresas, EmpresasService } from '../../empresas';
-import { Destinos, DestinosService } from '../../destinos';
+import { EstadosDeLasOfertas, EstadosDeLasOfertasService } from '../../estados-de-las-ofertas';
 import { TiposOrientacionesDeLaOferta, TiposOrientacionesDeLaOfertaService } from '../../tipos-orientaciones-de-la-oferta';
 
 
@@ -21,7 +21,7 @@ import { TiposOrientacionesDeLaOferta, TiposOrientacionesDeLaOfertaService } fro
 export class ListarPlantillasOfertasComponent implements OnInit {
       arraypaginator=environment.paginator;
       lstEmpresas : Empresas[]=[];
-      lstDestinos : Destinos[]=[];
+      lstEstadosDeLasOfertas : EstadosDeLasOfertas[]=[];
       lstTiposOrientacionesDeLaOferta : TiposOrientacionesDeLaOferta[]=[];
       lstofertas:Plantillas_Ofertas[]=[];
       lstofertasTodos:Plantillas_Ofertas[]=[];
@@ -31,7 +31,7 @@ export class ListarPlantillasOfertasComponent implements OnInit {
       @ViewChild(MatPaginator) paginator!: MatPaginator;
       @ViewChild(MatSort) sort!: MatSort;
       
-      displayedColumns: string[] = ['idEmpresa','idDestinoInicio','idDestinoFin','idTipoOrientacionDeLaOferta','codigoOferta', 'tituloOferta' , 'editar', 'borrar'];
+      displayedColumns: string[] = ['idEmpresa','nombrePlantillaOferta','idEstadoDeLaOferta','idTipoOrientacionDeLaOferta','tituloOferta' , 'editar', 'borrar'];
       public AbrirInformacion()
       {
             
@@ -50,7 +50,7 @@ export class ListarPlantillasOfertasComponent implements OnInit {
         
         this.lstofertas = this.lstofertasTodos.filter(
             (val) => (
-              ((val.tituloOferta ?? "").trim() ?? "").toLowerCase().includes(value.toLowerCase().replace(/\s/g, ""))
+              ((val.nombrePlantillaOferta ?? "").trim() ?? "").toLowerCase().includes(value.toLowerCase().replace(/\s/g, ""))
         ));
         this.dataSource = new MatTableDataSource(this.lstofertas);
         
@@ -64,7 +64,7 @@ export class ListarPlantillasOfertasComponent implements OnInit {
     
       ngOnInit() {
         this.listarEmpresas();
-        this.listarDestinos();
+        this.listarEstadosDeLasOfertas();
         this.listarTiposOrientacionesDeLaOferta();
         this.AbrirInformacion();
         if (this.dataSource != null){
@@ -91,20 +91,20 @@ export class ListarPlantillasOfertasComponent implements OnInit {
         });
       }
 
-      encontrarNombreDestino(idDestino:number):string{
-        let destino:string="";
-        this.lstDestinos.forEach(element => {
-          if(element.idDestino==idDestino){
-            destino=element.observacionDestino;
+      encontrarNombreEstadoDeLaOferta(idEstadoDeLaOferta:number):string{
+        let estadodelaoferta:string="";
+        this.lstEstadosDeLasOfertas.forEach(element => {
+          if(element.idEstadoDeLaOferta==idEstadoDeLaOferta){
+            estadodelaoferta=element.nombreEstadoDeLaOferta;
           }
         });
-        return destino;
+        return estadodelaoferta;
       }
 
-      listarDestinos(){
-        this.destinosService.GetAll().subscribe({
-          next : (lstdestinos:Destinos[]) => {
-            this.lstDestinos=lstdestinos;
+      listarEstadosDeLasOfertas(){
+        this.estadosdelasofertasService.GetAll().subscribe({
+          next : (lstestadosdelasofertas:EstadosDeLasOfertas[]) => {
+            this.lstEstadosDeLasOfertas=lstestadosdelasofertas;
           }
         });
       }
@@ -152,7 +152,7 @@ export class ListarPlantillasOfertasComponent implements OnInit {
       constructor(
         private plantillas_ofertasService: Plantillas_OfertasService,
         private empresasService: EmpresasService,
-        private destinosService: DestinosService,
+        private estadosdelasofertasService: EstadosDeLasOfertasService,
         private tiposorientacionesdelaofertaService: TiposOrientacionesDeLaOfertaService,
         private modalService: MatDialog
         ) { }
