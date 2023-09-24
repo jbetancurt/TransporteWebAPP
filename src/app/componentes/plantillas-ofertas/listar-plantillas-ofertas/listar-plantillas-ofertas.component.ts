@@ -31,7 +31,7 @@ export class ListarPlantillasOfertasComponent implements OnInit {
       @ViewChild(MatPaginator) paginator!: MatPaginator;
       @ViewChild(MatSort) sort!: MatSort;
       
-      displayedColumns: string[] = ['idEmpresa','nombrePlantillaOferta','idEstadoDeLaOferta','idTipoOrientacionDeLaOferta','tituloOferta' , 'editar', 'borrar'];
+      displayedColumns: string[] = ['idEmpresa','nombrePlantillaOferta','idEstadoDeLaOferta','idTipoOrientacionDeLaOferta','tituloOferta','valorTotalDeLaOferta' , 'editar', 'borrar'];
       public AbrirInformacion()
       {
             

@@ -1,7 +1,7 @@
 import { HttpHeaders } from "@angular/common/http";
 
 export const environment = {
-    
+    UsuarioLoguiadoKey: 'usuario-autenticado',
     production: true,
     paginator: [5,10, 25, 50, 100],
     httpOptions : { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) },

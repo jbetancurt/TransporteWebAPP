@@ -31,8 +31,8 @@ export class Plantillas_OfertasService {
   public create(_Plantillas_Ofertas : Plantillas_Ofertas): Observable<number>{
     return this.httpClient.post<number>(urlPage, _Plantillas_Ofertas, environment.httpOptions);
   }
-  public delete(idPlanillaOferta: string): Observable<void> {
-    return this.httpClient.delete<void>(urlPage + '/' + idPlanillaOferta, environment.httpOptions);
+  public delete(idOferta: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/' + idOferta, environment.httpOptions);
   }
  
 }

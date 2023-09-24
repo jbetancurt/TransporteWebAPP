@@ -19,7 +19,7 @@
             
             <div  fxLayout="row" fxLayoutGap="1px">
                 <mat-form-field appearance="fill" fxFlex>
-                    <mat-label>Destino Inicio: </mat-label>
+                    <mat-label>Estado De La Oferta: </mat-label>
                     <mat-select formControlName="idEstadoDeLaOferta"  >
                         <mat-option *ngFor="let item of lstEstadosDeLasOfertas" [value]="item.idEstadoDeLaOferta">{{ item.nombreEstadoDeLaOferta }}</mat-option>
                     </mat-select>

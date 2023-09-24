@@ -27,6 +27,8 @@ cargarNombresEstadosPorRutas(estadosporrutas:EstadosPorRutas){
     idEstadoPorRuta:estadosporrutas.idEstadoPorRuta
   })
 }  
+
+
 public asignarid(idEstadoPorRuta:number){
   this.idEstadoPorRuta=idEstadoPorRuta;
   this.editar=true;

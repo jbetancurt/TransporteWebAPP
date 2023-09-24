@@ -4,6 +4,9 @@ import { Ofertas, OfertasService } from '../ofertas';
 import { EstadosDeLasOfertas, EstadosDeLasOfertasService } from '../estados-de-las-ofertas';
 import { TiposOrientacionesDeLaOferta, TiposOrientacionesDeLaOfertaService } from '../tipos-orientaciones-de-la-oferta';
 import { Empresas, EmpresasService } from '../empresas';
+import { Lugares, LugaresService } from '../lugares';
+import { LugaresXOfertas, LugaresXOfertasService } from '../lugares-xofertas';
+import { LoginService } from 'src/app/paginas/login';
 const myDate = new Date();
 
 @Component({
@@ -14,6 +17,7 @@ const myDate = new Date();
 
 export class OfertasComponent implements OnInit {
   onAdd = new EventEmitter(); 
+  idEmpresaLogueado = 0;
   @Input() idOferta = 0;
   editar:boolean=false;
   myTimeString = myDate.toTimeString().slice(0, 5);
@@ -26,6 +30,7 @@ export class OfertasComponent implements OnInit {
   lstEmpresas:Empresas[]=[];
   lstTiposOrientacionesDeLaOferta : TiposOrientacionesDeLaOferta[]=[];
   lstOfertas:Ofertas[]=[];
+  lstLugaresXOfertasTemporales:LugaresXOfertas[]=[];
   //lstofertas:Ofertas[]=[];
   FGAgregarOfertas : FormGroup = this.formBuilder.group({      
     idOferta: new FormControl('0'),
@@ -39,6 +44,15 @@ export class OfertasComponent implements OnInit {
     fechaFinalOferta:new FormControl(new Date,Validators.required),
   });
    
+  guardarLugaresTemporales(){
+    let lugaresXOfertas : LugaresXOfertas = new LugaresXOfertas;
+    //asignación de los datos del formulario a la tabla lugaresXOfertas
+    lugaresXOfertas.idOferta=0;
+    //lugaresXOfertas.direccionLugarXOferta=this.FGAgregarOfertas.value.idLugar;
+    //lugaresXOfertas.direccionLugarXOferta=this.FGAgregarOfertas.value.idLugar;
+    this.lstLugaresXOfertasTemporales.push(lugaresXOfertas);
+  }
+
   cargarNombresOfertas(ofertas:Ofertas){
     this.FGAgregarOfertas.patchValue({
       idOferta:ofertas.idOferta,
@@ -78,14 +92,22 @@ export class OfertasComponent implements OnInit {
     this.listarEstadosDeLasOfertas();
     this.listarEmpresas();
     this.listarOfertas();
+    let usr=this.loginservice.getUser();
+    this.idEmpresaLogueado=usr.idEmpresa;
+    console.log(this.idEmpresaLogueado);
+    
   }
 
   constructor(
     private tiposorientacionesdelaofertaService: TiposOrientacionesDeLaOfertaService,
     private estadosdelasofertasService: EstadosDeLasOfertasService,
     private empresasService: EmpresasService,
+    private lugaresxofertasService: LugaresXOfertasService,
+    private lugaresService: LugaresService,
     private formBuilder: FormBuilder, 
+    private loginservice: LoginService,
     private ofertasService: OfertasService) { }
+    
 
     
     listarTiposOrientacionesDeLaOferta(){ 
@@ -137,13 +159,21 @@ export class OfertasComponent implements OnInit {
       ofertas.fechaInicialOferta=this.FGAgregarOfertas.value.fechaInicialOferta;
       ofertas.fechaFinalOferta=this.FGAgregarOfertas.value.fechaFinalOferta;
             
-      console.log(ofertas);      
+      this.ofertasService.create(ofertas).subscribe({
+        next : ((valueIdOferta : number) => {
+          if (valueIdOferta > 0) {
+            this.lstLugaresXOfertasTemporales.forEach(lugaresxofertas => {
+                lugaresxofertas.idOferta = valueIdOferta;
+                this.lugaresxofertasService.create(lugaresxofertas).subscribe(
+                  idlugaresxofertas => {
+                  }
+                );
+              this.onAdd.emit();
+             });
+            }})
+        });
+         
      //suscrubimos la guardada de los datos en la tabla ofertas
-      this.ofertasService.create(ofertas).subscribe(
-        data => {
-          this.onAdd.emit();
-        }
-      ); 
       
     }
     

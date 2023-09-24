@@ -1,0 +1,32 @@
+<form [formGroup]="FGAgregarTiposDeLugaresXOfertas" (ngSubmit)="FGAgregarTiposDeLugaresXOfertas.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-toolbar>
+            <h1 mat-dialog-title>Agregar Tipo De Lugar Por Oferta </h1>
+            <div class="menu-spacer"></div>
+            
+        </mat-toolbar>
+        
+        <mat-dialog-content class="mat-typography">
+            <mat-form-field appearance="fill"  class="Tamanho100Porciento">
+                <mat-label>Nombre Tipo De Lugar Por Oferta:</mat-label>
+                <input matInput class="Tamanho100Porciento"  formControlName="nombreTipoDeLugarXOferta" [readonly]="false">
+            </mat-form-field>
+            <input type="hidden" formControlName="idTipoDeLugarXOferta" [readonly]="false">
+            
+        </mat-dialog-content>
+        
+        
+        <mat-dialog-actions align="end">
+            <button *ngIf="idTipoDeLugarXOferta <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
+                Agregar
+            </button> 
+            <button *ngIf="idTipoDeLugarXOferta > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
+                Editar
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+            
+        </mat-dialog-actions>
+        
+    </ng-container>
+</form>
+

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
-
+const UsuarioLoguiadoKey= 'usuario-autenticado';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,5 +15,18 @@ export class LoginService {
     window.location.href = s;
     
     //this.router.navigate([s])
+  }
+
+  public saveUser(): void {
+    window.sessionStorage.removeItem(UsuarioLoguiadoKey);
+    window.sessionStorage.setItem(UsuarioLoguiadoKey, JSON.stringify({"idEmpresa": 4}));
+  }
+  
+  public getUser() {
+    let user = window.sessionStorage.getItem(UsuarioLoguiadoKey);
+    if (user) {
+      return JSON.parse(user);
+    }
+    return JSON.parse('{}');
   }
 }

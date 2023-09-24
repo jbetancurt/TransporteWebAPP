@@ -33,14 +33,14 @@
             <ng-container matColumnDef="idTipoOrientacionDeLaOferta">
                 <th mat-header-cell *matHeaderCellDef> Tipo Orientacion </th>
                 <td mat-cell *matCellDef="let element"> 
-                    {{element.idTipoOrientacionDeLaOferta}}
+                    {{encontrarNombreTipoOrientacionDeLaOferta(element.idTipoOrientacionDeLaOferta)}}
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="idEstadoDeLaOferta">
                 <th mat-header-cell *matHeaderCellDef> Estado De La Oferta </th>
                 <td mat-cell *matCellDef="let element"> 
-                    {{element.idEstadoDeLaOferta}}
+                    {{encontrarNombreEstadoDeLaOferta(element.idEstadoDeLaOferta)}}
                 </td>
             </ng-container>
 
@@ -50,7 +50,22 @@
                     {{element.tituloOferta}}
                 </td>
             </ng-container>
+           
+            <ng-container matColumnDef="descripcionOferta">
+                <th mat-header-cell *matHeaderCellDef> Descripcion Oferta </th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{element.descripcionOferta}}
+                </td>
+            </ng-container>
 
+
+            <ng-container matColumnDef="valorTotalDeLaOferta">
+                <th mat-header-cell *matHeaderCellDef> Valor Total Oferta </th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{element.valorTotalDeLaOferta}}
+                </td>
+            </ng-container>
+            
             <ng-container matColumnDef="fechaInicialOferta">
                 <th mat-header-cell *matHeaderCellDef>Fecha Inicio Oferta </th>
                 <td mat-cell *matCellDef="let element"> 
@@ -58,6 +73,15 @@
                     
                 </td>
             </ng-container>
+
+            <ng-container matColumnDef="fechaFinalOferta">
+                <th mat-header-cell *matHeaderCellDef>Fecha Final Oferta </th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{element.fechaFinalOferta}}
+                    
+                </td>
+            </ng-container>
+
 
                       
         

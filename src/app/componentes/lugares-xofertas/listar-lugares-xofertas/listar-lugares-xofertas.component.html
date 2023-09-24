@@ -1,0 +1,123 @@
+<mat-card class="example-card" >
+    <mat-card-header >
+      <mat-card-title >
+        <mat-toolbar>
+            <span>Administrar Lugares Por Ofertas</span>
+            <div class="menu-spacer"></div>
+            <span  class="btn-derecha" >
+                <button   mat-raised-button color="primary" (click)="AbrirModalLugarXOferta(0)">Agregar</button>
+            </span>
+        </mat-toolbar>
+        
+        
+        
+      </mat-card-title>
+      <mat-card-subtitle >
+        <br>
+        <form>
+            <mat-form-field class="Tamanho100Porciento" >
+                <mat-label>Filtro de Busqueda:</mat-label>
+                <input matInput #txtFiltro name="txtFiltro" [(ngModel)]="filtroBusqueda" (input)="search($any($event))">
+            </mat-form-field>
+        </form>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <ng-container matColumnDef="idEmpresa">
+                <th mat-header-cell *matHeaderCellDef> Empresa</th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{encontrarNombreEmpresa(element.idEmpresa)}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="idCiudad">
+                <th mat-header-cell *matHeaderCellDef> Ciudad</th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{encontrarNombreCiudad(element.idCiudad)}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="idOferta">
+                <th mat-header-cell *matHeaderCellDef> Oferta</th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{encontrarNombreOferta(element.idOferta)}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="idPersona">
+                <th mat-header-cell *matHeaderCellDef>Nombre Contacto</th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{encontrarNombrePersona(element.idPersona)}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="idTipoDeLugarXOferta">
+                <th mat-header-cell *matHeaderCellDef>Tipo De Lugar Por Oferta</th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{encontrarNombreTipoDeLugarXOferta(element.idTipoDeLugarXOferta)}}
+                </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="nombreLugarXOferta">
+                <th mat-header-cell *matHeaderCellDef> Nombre Lugar Por Oferta </th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{element.nombreLugarXOferta}}
+                </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="direccionLugarXOferta">
+                <th mat-header-cell *matHeaderCellDef> Direccion Lugar Por Oferta </th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{element.direccionLugarXOferta}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="telefonoLugarXOferta">
+                <th mat-header-cell *matHeaderCellDef> Telefono Lugar Por Oferta </th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{element.telefonoLugarXOferta}}
+                </td>
+            </ng-container>
+
+            
+        
+            <ng-container matColumnDef="editar" >
+                <th mat-header-cell *matHeaderCellDef >  </th>
+                <td  mat-cell *matCellDef="let element"> 
+                    <mat-button-toggle-group style="border: none;" >
+                        <button type="button" matTooltip="Editar"  mat-button  color="primary" aria-label="editar destino" (click)="AbrirModalLugarXOferta(element.idLugarXOferta)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </mat-button-toggle-group>
+                    
+                </td>
+            </ng-container>
+        
+            <ng-container matColumnDef="borrar" >
+                <th mat-header-cell *matHeaderCellDef >  </th>
+                <td  mat-cell *matCellDef="let element"> 
+                    <mat-button-toggle-group style="border: none;" >
+                        <button type="button"  matTooltip="Borrar" mat-button color="warn" aria-label="borrar destino" (click)="borrarXId(element.idLugarXOferta)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </mat-button-toggle-group>
+                    
+                </td>
+            </ng-container>
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">No data matching the filter "{{txtFiltro.value}}"</td>
+            </tr>
+        </table>
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <mat-paginator [pageSizeOptions]="arraypaginator" aria-label="Select pagePayer of _Payers"></mat-paginator>
+        
+    </mat-card-actions>
+  </mat-card>
+
+
+
+
