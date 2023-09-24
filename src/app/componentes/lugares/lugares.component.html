@@ -1,0 +1,72 @@
+<form [formGroup]="FGAgregarLugares" (ngSubmit)="FGAgregarLugares.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-toolbar>
+            <h1  mat-dialog-title>Agregar Lugar</h1>
+            <div class="menu-spacer"></div>
+        </mat-toolbar>
+        
+        <div mat-dialog-content class="mat-typography">
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Nombre Empresa:</mat-label>
+                    <mat-select formControlName="idEmpresa"  >
+                        <mat-option *ngFor="let item of lstEmpresas" [value]="item.idEmpresa">{{ item.nombreEmpresa }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Ciudad:</mat-label>
+                    <mat-select formControlName="idCiudad"  >
+                        <mat-option *ngFor="let item of lstCiudades" [value]="item.idCiudad">{{ item.nombreCiudad }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Nombre Contacto:</mat-label>
+                    <mat-select formControlName="idPersona"  >
+                        <mat-option *ngFor="let item of lstPersonas" [value]="item.idPersona">{{ item.nombreCompletoPersona }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Nombre Lugar:</mat-label>
+                    <input matInput  formControlName="nombreLugar" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Observacion Lugar:</mat-label>
+                    <input matInput  formControlName="observacionLugar" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Direccion Lugar:</mat-label>
+                    <input matInput  formControlName="direccionLugar" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Telefono Lugar:</mat-label>
+                    <input matInput  formControlName="telefonoLugar" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            <input type="hidden" formControlName="idLugar" [readonly]="false">  
+            
+        </div>
+ 
+        <div mat-dialog-actions align="end">
+            <button *ngIf="idLugar <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
+                Agregar
+            </button> 
+            <button *ngIf="idLugar > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
+                Editar
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+        </div>
+    </ng-container>
+</form>
+

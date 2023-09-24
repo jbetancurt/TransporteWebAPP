@@ -117,8 +117,24 @@ import { OfertasConfiguracionPlanillasComponent } from './paginas/ofertas/oferta
 import { SidenavComponent } from './componentes/sidenav/sidenav.component';
 import { SidenavLinkComponent } from './componentes/sidenav-link/sidenav-link.component';
 import { EstadosDeLasOfertasComponent } from './componentes/estados-de-las-ofertas/estados-de-las-ofertas.component';
-
-
+import { LugaresComponent, ListarLugaresComponent } from './componentes/lugares';
+import { EstadosDeLasNotificacionesComponent } from './componentes/estados-de-las-notificaciones/estados-de-las-notificaciones.component';
+import { ListarEstadosDeLasNotificacionesComponent } from './componentes/estados-de-las-notificaciones/listar-estados-de-las-notificaciones/listar-estados-de-las-notificaciones.component';
+import { TiposDeNotificacionesComponent } from './componentes/tipos-de-notificaciones/tipos-de-notificaciones.component';
+import { ListarTiposDeNotificacionesComponent } from './componentes/tipos-de-notificaciones/listar-tipos-de-notificaciones/listar-tipos-de-notificaciones.component';
+import { LugaresXOfertasComponent } from './componentes/lugares-xofertas/lugares-xofertas.component';
+import { CargasXOfertasComponent } from './componentes/cargas-xofertas/cargas-xofertas.component';
+import { HistorialesDeLasOfertasComponent } from './componentes/historiales-de-las-ofertas/historiales-de-las-ofertas.component';
+import { PlantillasCargasXOfertasComponent } from './componentes/plantillas-cargas-xofertas';
+import { ListarPlantillasCargasXOfertasComponent } from './componentes/plantillas-cargas-xofertas/listar-plantillas-cargas-xofertas/listar-plantillas-cargas-xofertas.component';
+import { PlantillasCarroceriasXTiposDeVehiculosXOfertasComponent } from './componentes/plantillas-carrocerias-xtipos-de-vehiculos-xofertas/plantillas-carrocerias-xtipos-de-vehiculos-xofertas.component';
+import { ListarPlantillasCarroceriasXTiposDeVehiculosXOfertasComponent } from './componentes/plantillas-carrocerias-xtipos-de-vehiculos-xofertas/listar-plantillas-carrocerias-xtipos-de-vehiculos-xofertas/listar-plantillas-carrocerias-xtipos-de-vehiculos-xofertas.component';
+import { PlantillasLugaresXOfertasComponent } from './componentes/plantillas-lugares-xofertas/plantillas-lugares-xofertas.component';
+import { ListarPlantillasLugaresXOfertasComponent } from './componentes/plantillas-lugares-xofertas/listar-plantillas-lugares-xofertas/listar-plantillas-lugares-xofertas.component';
+import { TiposDeLugaresXOfertasComponent } from './componentes/tipos-de-lugares-xofertas/tipos-de-lugares-xofertas.component';
+import { ListarTiposDeLugaresXOfertasComponent } from './componentes/tipos-de-lugares-xofertas/listar-tipos-de-lugares-xofertas/listar-tipos-de-lugares-xofertas.component';
+import { ListarLugaresXOfertasComponent } from './componentes/lugares-xofertas/listar-lugares-xofertas/listar-lugares-xofertas.component';
+import { ListarEstadosDeLasOfertasComponent } from './componentes/estados-de-las-ofertas/listar-estados-de-las-ofertas/listar-estados-de-las-ofertas.component';
 
 
 @NgModule({
@@ -229,7 +245,28 @@ import { EstadosDeLasOfertasComponent } from './componentes/estados-de-las-ofert
     OfertasConfiguracionPlanillasComponent,
     SidenavComponent,
     SidenavLinkComponent,
-    EstadosDeLasOfertasComponent
+    EstadosDeLasOfertasComponent,
+    LugaresComponent,
+    ListarLugaresComponent,
+    EstadosDeLasNotificacionesComponent,
+    ListarEstadosDeLasNotificacionesComponent,
+    TiposDeNotificacionesComponent,
+    ListarTiposDeNotificacionesComponent,
+    LugaresXOfertasComponent,
+    CargasXOfertasComponent,
+    HistorialesDeLasOfertasComponent,
+    PlantillasCargasXOfertasComponent,
+    ListarPlantillasCargasXOfertasComponent,
+    PlantillasCarroceriasXTiposDeVehiculosXOfertasComponent,
+    ListarPlantillasCarroceriasXTiposDeVehiculosXOfertasComponent,
+    PlantillasLugaresXOfertasComponent,
+    ListarPlantillasLugaresXOfertasComponent,
+    TiposDeLugaresXOfertasComponent,
+    ListarTiposDeLugaresXOfertasComponent,
+    ListarLugaresXOfertasComponent,
+    ListarEstadosDeLasOfertasComponent
+    
+    
     
     
 

@@ -32,7 +32,7 @@ export class ListarOfertasComponent implements OnInit {
       @ViewChild(MatSort) sort!: MatSort;
       @Input() idOfertaInput: string = "";
       
-      displayedColumns: string[] = ['idEmpresa','idTipoOrientacionDeLaOferta','idEstadoDeLaOferta','tituloOferta' ,'fechaInicialOferta', 'editar', 'borrar'];
+      displayedColumns: string[] = ['idEmpresa','idTipoOrientacionDeLaOferta','idEstadoDeLaOferta','tituloOferta','descripcionOferta','valorTotalDeLaOferta','fechaInicialOferta', 'fechaFinalOferta','editar', 'borrar'];
       public AbrirInformacion()
       {
             
@@ -133,7 +133,7 @@ export class ListarOfertasComponent implements OnInit {
 
     
       AbrirModalOferta(idOferta:number){
-        const dialogRef = this.modalService.open(OfertasComponent).updateSize('80%');
+        const dialogRef = this.modalService.open(OfertasComponent).updateSize('100%','100%');
             
         dialogRef.componentInstance.idOferta=idOferta;
         dialogRef.componentInstance.asignarid(idOferta);

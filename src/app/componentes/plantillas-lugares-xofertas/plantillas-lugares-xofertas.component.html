@@ -1,0 +1,97 @@
+<form [formGroup]="FGAgregarPlantillasLugaresXOfertas" (ngSubmit)="FGAgregarPlantillasLugaresXOfertas.valid &&  enviarDatos()" #formulario>
+    <ng-container >
+        <mat-toolbar>
+            <h1  mat-dialog-title>Agregar Plantilla Lugar Por Oferta</h1>
+            <div class="menu-spacer"></div>
+        </mat-toolbar>
+        
+        <div mat-dialog-content class="mat-typography">
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Nombre Empresa:</mat-label>
+                    <mat-select formControlName="idEmpresa"  >
+                        <mat-option *ngFor="let item of lstEmpresas" [value]="item.idEmpresa">{{ item.nombreEmpresa }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Nombre Plantilla Oferta:</mat-label>
+                    <mat-select formControlName="idOferta"  >
+                        <mat-option *ngFor="let item of lstPlantillas_Ofertas" [value]="item.idOferta">{{ item.nombrePlantillaOferta }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Ciudad:</mat-label>
+                    <mat-select formControlName="idCiudad"  >
+                        <mat-option *ngFor="let item of lstCiudades" [value]="item.idCiudad">{{ item.nombreCiudad }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Nombre Contacto:</mat-label>
+                    <mat-select formControlName="idPersona"  >
+                        <mat-option *ngFor="let item of lstPersonas" [value]="item.idPersona">{{ item.nombreCompletoPersona }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Tipo De Lugar:</mat-label>
+                    <mat-select formControlName="idTipoDeLugarXOferta"  >
+                        <mat-option *ngFor="let item of lstTiposDeLugaresXOfertas" [value]="item.idTipoDeLugarXOferta">{{ item.nombreTipoDeLugarXOferta }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Nombre Lugar Por Oferta:</mat-label>
+                    <input matInput  formControlName="nombreLugarXOferta" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Observacion Lugar Por Oferta:</mat-label>
+                    <input matInput  formControlName="observacionLugarXOferta" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Telefono Lugar Por Oferta:</mat-label>
+                    <input matInput  formControlName="telefonoLugarXOferta" [readonly]="false">
+                </mat-form-field>  
+            </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Direccion Lugar Por Oferta:</mat-label>
+                    <input matInput  formControlName="direccionLugarXOferta" [readonly]="false">
+                </mat-form-field>  
+            </div>
+
+       
+
+            <input type="hidden" formControlName="idLugarXOferta" [readonly]="false">  
+            
+        </div>
+ 
+        <div mat-dialog-actions align="end">
+            <button *ngIf="idLugarXOferta <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
+                Agregar
+            </button> 
+            <button *ngIf="idLugarXOferta > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
+                Editar
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+        </div>
+    </ng-container>
+</form>
+
+
+
