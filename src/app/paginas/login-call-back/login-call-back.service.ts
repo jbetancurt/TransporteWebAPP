@@ -11,10 +11,7 @@ export class LoginCallBackService {
 
   constructor(private httpClient : HttpClient) { }
 
-  public Post(code : string, state : string): Observable<any>{ 
-    console.log(11);
-    
+  public Post(code : string, state : string): Observable<any>{
     return this.httpClient.post<any>(urlPage, {"code":code, "state" : state} , environment.httpOptions);
-   //return this.httpClient.post<string>(urlPage, {"code":code, "state" : state} , environment.httpOptions);
   }
 }

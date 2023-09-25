@@ -5,97 +5,93 @@
             <div class="menu-spacer"></div>
             
         </mat-toolbar>
-        
-        <div mat-dialog-content class="mat-typography">
+        <mat-card>
+            <mat-card-content>
+                      
+                <div  fxLayout="row" fxLayoutGap="1px">
+                    <mat-form-field appearance="fill" fxFlex>
+                        <mat-label>Empresa: </mat-label>
+                        <mat-select formControlName="idEmpresa"  >
+                            <mat-option *ngFor="let item of lstEmpresas" [value]="item.idEmpresa">{{ item.nombreEmpresa}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                
+                <div  fxLayout="row" fxLayoutGap="1px">
+                    <mat-form-field appearance="fill" fxFlex>
+                        <mat-label>Estado De La Oferta: </mat-label>
+                        <mat-select formControlName="idEstadoDeLaOferta"  >
+                            <mat-option *ngFor="let item of lstEstadosDeLasOfertas" [value]="item.idEstadoDeLaOferta">{{ item.nombreEstadoDeLaOferta }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div  fxLayout="row" fxLayoutGap="1px">
+                    <mat-form-field appearance="fill" fxFlex>
+                        <mat-label>Tipo Orientacion De La Oferta: </mat-label>
+                        <mat-select formControlName="idTipoOrientacionDeLaOferta"  >
+                            <mat-option *ngFor="let item of lstTiposOrientacionesDeLaOferta" [value]="item.idTipoOrientacionDeLaOferta">{{ item.nombreTipoOrientacionDeLaOferta}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div  fxLayout="row" fxLayoutGap="1px">
+                    <mat-form-field appearance="fill"  fxFlex>
+                        <mat-label>Titulo Oferta:</mat-label>
+                        <input matInput  formControlName="tituloOferta" [readonly]="false">
+                    </mat-form-field>  
+                </div>
+
+                <div  fxLayout="row" fxLayoutGap="1px">
+                    <mat-form-field appearance="fill"  fxFlex>
+                        <mat-label>Descripcion Oferta:</mat-label>
+                        <input matInput  formControlName="descripcionOferta" [readonly]="false">
+                    </mat-form-field>  
+                </div>
+
+                
+                <div  fxLayout="row" fxLayoutGap="1px">
+                    <mat-form-field appearance="fill"  fxFlex>
+                        <mat-label>Valor Total Oferta:</mat-label>
+                        <input matInput  formControlName="valorTotalDeLaOferta" [readonly]="false">
+                    </mat-form-field>   
+                </div>
+
+                <div  fxLayout="row" fxLayoutGap="1px" >
+                    <mat-form-field appearance="fill"  fxFlex>
+                        <mat-label>Fecha Inicio Oferta:</mat-label>
+                        <input matInput  [matDatepicker]="fechaInicialOferta" formControlName="fechaInicialOferta">
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="fechaInicialOferta"></mat-datepicker-toggle>
+                        <mat-datepicker #fechaInicialOferta></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <div  fxLayout="row" fxLayoutGap="1px" >
+                    <mat-form-field appearance="fill"  fxFlex>
+                        <mat-label>Fecha Final Oferta:</mat-label>
+                        <input matInput  [matDatepicker]="fechaFinalOferta" formControlName="fechaFinalOferta">
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="fechaFinalOferta"></mat-datepicker-toggle>
+                        <mat-datepicker #fechaFinalOferta></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+
                         
-            <div  fxLayout="row" fxLayoutGap="1px">
-                <mat-form-field appearance="fill" fxFlex>
-                    <mat-label>Empresa: </mat-label>
-                    <mat-select formControlName="idEmpresa"  >
-                        <mat-option *ngFor="let item of lstEmpresas" [value]="item.idEmpresa">{{ item.nombreEmpresa}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            
-            <div  fxLayout="row" fxLayoutGap="1px">
-                <mat-form-field appearance="fill" fxFlex>
-                    <mat-label>Estado De La Oferta: </mat-label>
-                    <mat-select formControlName="idEstadoDeLaOferta"  >
-                        <mat-option *ngFor="let item of lstEstadosDeLasOfertas" [value]="item.idEstadoDeLaOferta">{{ item.nombreEstadoDeLaOferta }}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
 
-            <div  fxLayout="row" fxLayoutGap="1px">
-                <mat-form-field appearance="fill" fxFlex>
-                    <mat-label>Tipo Orientacion De La Oferta: </mat-label>
-                    <mat-select formControlName="idTipoOrientacionDeLaOferta"  >
-                        <mat-option *ngFor="let item of lstTiposOrientacionesDeLaOferta" [value]="item.idTipoOrientacionDeLaOferta">{{ item.nombreTipoOrientacionDeLaOferta}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-
-            <div  fxLayout="row" fxLayoutGap="1px">
-                <mat-form-field appearance="fill"  fxFlex>
-                    <mat-label>Titulo Oferta:</mat-label>
-                    <input matInput  formControlName="tituloOferta" [readonly]="false">
-                </mat-form-field>  
-            </div>
-
-            <div  fxLayout="row" fxLayoutGap="1px">
-                <mat-form-field appearance="fill"  fxFlex>
-                    <mat-label>Descripcion Oferta:</mat-label>
-                    <input matInput  formControlName="descripcionOferta" [readonly]="false">
-                </mat-form-field>  
-            </div>
-
-            
-            <div  fxLayout="row" fxLayoutGap="1px">
-                <mat-form-field appearance="fill"  fxFlex>
-                    <mat-label>Valor Total Oferta:</mat-label>
-                    <input matInput  formControlName="valorTotalDeLaOferta" [readonly]="false">
-                </mat-form-field>   
-            </div>
-
-            <div  fxLayout="row" fxLayoutGap="1px" >
-                <mat-form-field appearance="fill"  fxFlex>
-                    <mat-label>Fecha Inicio Oferta:</mat-label>
-                    <input matInput  [matDatepicker]="fechaInicialOferta" formControlName="fechaInicialOferta">
-                    <mat-hint>MM/DD/YYYY</mat-hint>
-                    <mat-datepicker-toggle matIconSuffix [for]="fechaInicialOferta"></mat-datepicker-toggle>
-                    <mat-datepicker #fechaInicialOferta></mat-datepicker>
-                </mat-form-field>
-            </div>
-
-            <div  fxLayout="row" fxLayoutGap="1px" >
-                <mat-form-field appearance="fill"  fxFlex>
-                    <mat-label>Fecha Final Oferta:</mat-label>
-                    <input matInput  [matDatepicker]="fechaFinalOferta" formControlName="fechaFinalOferta">
-                    <mat-hint>MM/DD/YYYY</mat-hint>
-                    <mat-datepicker-toggle matIconSuffix [for]="fechaFinalOferta"></mat-datepicker-toggle>
-                    <mat-datepicker #fechaFinalOferta></mat-datepicker>
-                </mat-form-field>
-            </div>
-
-
-                    
-
-            <input type="hidden" formControlName="idOferta" [readonly]="false">  
-        
-        </div>
-        
-        
-        
-        <div mat-dialog-actions align="end">
-            <button *ngIf="idOferta <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
-                Agregar
-            </button> 
-            <button *ngIf="idOferta > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
-                Editar
-            </button>
-            <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
-            
-        </div>
+                <input type="hidden" formControlName="idOferta" [readonly]="false">  
+            </mat-card-content>
+            <mat-card-actions align="end">
+                <button *ngIf="idOferta <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
+                    Agregar
+                </button> 
+                <button *ngIf="idOferta > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
+                    Editar
+                </button>
+                <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+            </mat-card-actions>
+        </mat-card>
         
     </ng-container>
 </form>
