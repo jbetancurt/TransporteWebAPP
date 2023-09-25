@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LoginService } from './login.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -8,10 +9,10 @@ import { LoginService } from './login.service';
 })
 export class LoginComponent {
   constructor(
-    private servicio : LoginService
+    private loginService : LoginService
     ) {}
 
   loginMSN(){
-    this.servicio.redirectToMSNLogin();
+    this.loginService.redirectToMSNLogin();
   }
 }

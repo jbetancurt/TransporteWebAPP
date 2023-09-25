@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoginCallBackService } from './login-call-back.service';
+import { LoginService } from '../login/login.service';
 
 @Component({
   selector: 'app-login-call-back',
@@ -10,19 +11,24 @@ import { LoginCallBackService } from './login-call-back.service';
 export class LoginCallBackComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
-    private servicio : LoginCallBackService
+    private loginCallBackService : LoginCallBackService,
+    private loginService : LoginService,
+    public router: Router
     ) {}
 
   ngOnInit() {
-    this.route.queryParams
-      .subscribe((params : any) => {
+    
+    this.route.queryParams.subscribe((params : any) => {
+        
         if (params.code){
-          console.log(params.code);
-          this.servicio.Post(params.code, params.state ?? "").subscribe({
+          //console.log(params.code);
+          this.loginCallBackService.Post(params.code, params.state ?? "").subscribe({
             next: (data : any) => { 
-              console.log(data);
-              
-              
+              if (data.autenticado && data.respuesta != null && data.respuesta != ""){
+                this.loginService.saveToken(data.respuesta);
+                window.location.href="/"
+                //window.location.reload();
+              }
             },
             error: (err : string) => { console.error(err); }
           }); 

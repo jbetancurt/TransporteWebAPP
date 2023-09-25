@@ -4,6 +4,9 @@ import { environment } from 'src/environments/environment';
 import { Menus, MenusService } from '../menus';
 import { FormControl } from '@angular/forms';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { LoginService } from 'src/app/paginas/login';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-sidenav',
@@ -15,16 +18,41 @@ export class SidenavComponent implements OnInit {
   titulo = environment.NombreAplicacion;
   toggleControl = new FormControl(false);
   @HostBinding('class') className = '';
+  logeado = false;
+  route = "";
 
   lstMenus : Menus[] = [];
   constructor(
+    private location1: Location, 
+    private router: Router,
     public sidenavService: SidenavService,
     public menusService : MenusService,
-    private overlay: OverlayContainer
-    ) {}
+    private overlay: OverlayContainer,
+    private loginService:LoginService  
+    ) {
+    }
   
+  cerrarSesion(){
+      this.loginService.signOut();
+    }
   ngOnInit() {
-    this.listarMenus();
+    this.logeado = this.loginService.IsSingned();
+    if (this.logeado){
+      this.listarMenus();
+
+    }
+    else{
+      
+      this.router.events.subscribe((val) => {
+        if(this.location1.path() != ''){
+          this.route = this.location1.path();
+        } 
+        if (this.route == ""){
+          this.loginService.signOut();
+        }
+      });
+      
+    }
     this.toggleControl.valueChanges.subscribe((darkMode) => {
         const darkClassName = 'darkMode';
         this.className = darkMode ? darkClassName : '';

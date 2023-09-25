@@ -8,14 +8,19 @@ import { LoginService } from './paginas/login';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements  OnInit  {
+  logeado = false;
   ngOnInit(): void {
-    this.loginService.saveUser();
+    //alert(this.loginService.GetTokenString())
+    this.logeado = this.loginService.IsSingned();
+
+    //this.loginService.saveUser();
   }
   
-  title = environment.NombreAplicacion;
+  titulo = environment.NombreAplicacion;
   public obteneridEmpresa():number{
     return 4;
   }
+
 
   constructor(
     private loginService:LoginService

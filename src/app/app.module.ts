@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -135,6 +135,10 @@ import { TiposDeLugaresXOfertasComponent } from './componentes/tipos-de-lugares-
 import { ListarTiposDeLugaresXOfertasComponent } from './componentes/tipos-de-lugares-xofertas/listar-tipos-de-lugares-xofertas/listar-tipos-de-lugares-xofertas.component';
 import { ListarLugaresXOfertasComponent } from './componentes/lugares-xofertas/listar-lugares-xofertas/listar-lugares-xofertas.component';
 import { ListarEstadosDeLasOfertasComponent } from './componentes/estados-de-las-ofertas/listar-estados-de-las-ofertas/listar-estados-de-las-ofertas.component';
+import { LogoutComponent } from './paginas/logout/logout.component';
+import { SpinnerComponent } from './componentes/spinner/spinner.component';
+import { HttpInterceptorApp } from './Interceptores/http-interceptor-app'
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -264,7 +268,9 @@ import { ListarEstadosDeLasOfertasComponent } from './componentes/estados-de-las
     TiposDeLugaresXOfertasComponent,
     ListarTiposDeLugaresXOfertasComponent,
     ListarLugaresXOfertasComponent,
-    ListarEstadosDeLasOfertasComponent
+    ListarEstadosDeLasOfertasComponent,
+    LogoutComponent,
+    SpinnerComponent
     
     
     
@@ -281,7 +287,10 @@ import { ListarEstadosDeLasOfertasComponent } from './componentes/estados-de-las
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    DatePipe,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorApp, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
