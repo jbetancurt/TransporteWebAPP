@@ -139,6 +139,9 @@ import { LogoutComponent } from './paginas/logout/logout.component';
 import { SpinnerComponent } from './componentes/spinner/spinner.component';
 import { HttpInterceptorApp } from './Interceptores/http-interceptor-app'
 import { DatePipe } from '@angular/common';
+import { PanelLugaresXOfertasComponent } from './componentes/lugares-xofertas/panel-lugares-xofertas/panel-lugares-xofertas.component';
+import { PanelOrigenDestinoComponent } from './componentes/lugares-xofertas/panel-origen-destino/panel-origen-destino.component';
+import { PanelVehiculosOfertasComponent } from './componentes/carrocerias-xtipos-de-vehiculos/panel-vehiculos-ofertas/panel-vehiculos-ofertas.component';
 
 
 @NgModule({
@@ -270,7 +273,10 @@ import { DatePipe } from '@angular/common';
     ListarLugaresXOfertasComponent,
     ListarEstadosDeLasOfertasComponent,
     LogoutComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    PanelLugaresXOfertasComponent,
+    PanelOrigenDestinoComponent,
+    PanelVehiculosOfertasComponent
     
     
     

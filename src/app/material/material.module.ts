@@ -25,6 +25,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatExpansionPanel } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [],
@@ -54,6 +55,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatMenuModule,
     MatSlideToggleModule
     
+    
   ],
   exports: [
     MatSidenavModule,
@@ -80,6 +82,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatCheckboxModule,
     NgxMaterialTimepickerModule,
     MatExpansionModule,
+    MatExpansionPanel,
     MatMenuModule,
     MatSlideToggleModule
   ]

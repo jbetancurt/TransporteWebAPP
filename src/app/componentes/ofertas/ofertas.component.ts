@@ -19,6 +19,7 @@ export class OfertasComponent implements OnInit {
   onAdd = new EventEmitter(); 
   idEmpresaLogueado = 0;
   @Input() idOferta = 0;
+  @Input() pruebaIdentificadorOferta = 0;
   editar:boolean=false;
   myTimeString = myDate.toTimeString().slice(0, 5);
   checked = false;
@@ -148,7 +149,7 @@ export class OfertasComponent implements OnInit {
 
     crearOfertas(){
       let ofertas : Ofertas = new Ofertas;
-      
+      this.pruebaIdentificadorOferta=this.FGAgregarOfertas.value.idOferta;
       ofertas.idOferta=this.FGAgregarOfertas.value.idOferta;
       ofertas.idEmpresa=this.FGAgregarOfertas.value.idEmpresa;
       ofertas.idTipoOrientacionDeLaOferta=this.FGAgregarOfertas.value.idTipoOrientacionDeLaOferta;
