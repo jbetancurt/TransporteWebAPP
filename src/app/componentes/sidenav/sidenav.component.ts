@@ -36,19 +36,24 @@ export class SidenavComponent implements OnInit {
       this.loginService.signOut();
     }
   ngOnInit() {
+    
     this.logeado = this.loginService.IsSingned();
     if (this.logeado){
       this.listarMenus();
 
     }
     else{
-      
       this.router.events.subscribe((val) => {
-        if(this.location1.path() != ''){
-          this.route = this.location1.path();
-        } 
-        if (this.route == ""){
-          this.loginService.signOut();
+        let rutaActual = this.location1.path();
+        this.route = "";
+        if (this.loginService.rutasAnonimas.filter(x => x === rutaActual).length <= 0){
+          //this.loginService.signOut();
+          
+        }
+        
+        
+        else {
+          //this.loginService.signOut();
         }
       });
       

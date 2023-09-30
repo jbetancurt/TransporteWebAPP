@@ -10,11 +10,15 @@ export const environment = {
         "secret": "1baa1a52-4a19-4942-b7cc-c626dcf31a96"
     },
     OAuth: {
-        AuthCodeEndPoint : "https://login.microsoftonline.com/68e0f309-f4a3-48cb-9bc9-377be6679da7/oauth2/v2.0/authorize",
+        AuthCodeEndPoint : "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
         RedirectURI : "https://localhost:4200/auth/login-callback",
-        ClientId : "b694c6e2-e52e-48dc-8302-301ebd62592c",
+        ClientId : "2c9695c3-e82a-4112-a6bf-dd4beea8d27d",
         Scope : "https://graph.microsoft.com/User.Read",
         state : "1234567890",
+    },
+    OAuthGoogle: {
+        ClientId : "761745688293-jra72nltsoor2g7enfjsu79te8pnnsdq.apps.googleusercontent.com",
+        RedirectURI : "https://localhost:4200/auth/login-callback-google",
     },
     NombreAplicacion :"Transporte de Carga"
 };

@@ -4,6 +4,7 @@ import { DashboardComponent } from './componentes/dashboard/dashboard.component'
 import { WelcomeComponent } from './componentes/welcome/welcome.component';
 import { LoginComponent } from './paginas/login';
 import { LoginCallBackComponent } from './paginas/login-call-back';
+import { LoginCallbackGoogleComponent } from './paginas/login-callback-google';
 import { OfertasGeneradasComponent} from './paginas/ofertas/ofertas-generadas';
 import { OfertaPaqueteoComponent } from './paginas/ofertas/oferta-paqueteo';
 import { OfertasConfiguracionDestinosComponent } from './paginas/ofertas/ofertas-configuracion/ofertas-configuracion-destinos';
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
   {path: 'login', component: LoginComponent},
   {path: 'auth/login-callback', component: LoginCallBackComponent },
+  {path: 'auth/login-callback-google', component: LoginCallbackGoogleComponent },
   {path: 'ofertas/ofertas-generadas', component: OfertasGeneradasComponent },
   {path: 'ofertas/oferta-paqueteo', component: OfertaPaqueteoComponent },
   {path: 'ofertas/ofertas-configuracion/ofertas-configuracion-destinos', component: OfertasConfiguracionDestinosComponent },
