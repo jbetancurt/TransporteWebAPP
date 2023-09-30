@@ -139,6 +139,7 @@ import { LogoutComponent } from './paginas/logout/logout.component';
 import { SpinnerComponent } from './componentes/spinner/spinner.component';
 import { HttpInterceptorApp } from './Interceptores/http-interceptor-app'
 import { DatePipe } from '@angular/common';
+import { LoginCallbackGoogleComponent } from './paginas/login-callback-google/login-callback-google.component';
 
 
 @NgModule({
@@ -270,7 +271,8 @@ import { DatePipe } from '@angular/common';
     ListarLugaresXOfertasComponent,
     ListarEstadosDeLasOfertasComponent,
     LogoutComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    LoginCallbackGoogleComponent
     
     
     
@@ -285,7 +287,7 @@ import { DatePipe } from '@angular/common';
     MaterialModule,
     FlexLayoutModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [
     DatePipe,

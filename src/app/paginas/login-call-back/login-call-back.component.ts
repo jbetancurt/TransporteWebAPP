@@ -33,7 +33,7 @@ export class LoginCallBackComponent implements OnInit {
             error: (err : string) => { console.error(err); }
           }); 
         }
-      });
+    });
   }
 
 }

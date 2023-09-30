@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoginService } from './login.service';
 import { environment } from 'src/environments/environment';
 
@@ -7,10 +7,24 @@ import { environment } from 'src/environments/environment';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+
+
   constructor(
-    private loginService : LoginService
-    ) {}
+    private loginService : LoginService,
+    //private gapi : Gapi
+  ) {}
+  ngOnInit(): void {
+    
+  }
+
+  
+
+  loginGoolge(){
+    this.loginService.redirectToGoogleLogin();
+  }
+
+
 
   loginMSN(){
     this.loginService.redirectToMSNLogin();
