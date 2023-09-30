@@ -1,0 +1,170 @@
+<form>
+    
+      
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Lista de Lugares
+            </mat-panel-title>
+            <mat-panel-description>
+              Estado Del Panel {{panelOpenState ? 'open' : 'closed'}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <ng-container matColumnDef="idEmpresa">
+                <th mat-header-cell *matHeaderCellDef> Empresa</th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{encontrarNombreEmpresa(element.idEmpresa)}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="idCiudad">
+                <th mat-header-cell *matHeaderCellDef> Ciudad</th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{encontrarNombreCiudad(element.idCiudad)}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="idOferta">
+                <th mat-header-cell *matHeaderCellDef> Oferta</th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{encontrarNombreOferta(element.idOferta)}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="idPersona">
+                <th mat-header-cell *matHeaderCellDef>Nombre Contacto</th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{encontrarNombrePersona(element.idPersona)}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="idTipoDeLugarXOferta">
+                <th mat-header-cell *matHeaderCellDef>Tipo De Lugar Por Oferta</th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{encontrarNombreTipoDeLugarXOferta(element.idTipoDeLugarXOferta)}}
+                </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="nombreLugarXOferta">
+                <th mat-header-cell *matHeaderCellDef> Nombre Lugar Por Oferta </th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{element.nombreLugarXOferta}}
+                </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="direccionLugarXOferta">
+                <th mat-header-cell *matHeaderCellDef> Direccion Lugar Por Oferta </th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{element.direccionLugarXOferta}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="telefonoLugarXOferta">
+                <th mat-header-cell *matHeaderCellDef> Telefono Lugar Por Oferta </th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{element.telefonoLugarXOferta}}
+                </td>
+            </ng-container>
+
+            
+        
+            <ng-container matColumnDef="editar" >
+                <th mat-header-cell *matHeaderCellDef >  </th>
+                <td  mat-cell *matCellDef="let element"> 
+                    <mat-button-toggle-group style="border: none;" >
+                        <button type="button" matTooltip="Editar"  mat-button  color="primary" aria-label="editar destino" (click)="AbrirModalLugarXOferta(element.idLugarXOferta)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </mat-button-toggle-group>
+                    
+                </td>
+            </ng-container>
+        
+            <ng-container matColumnDef="borrar" >
+                <th mat-header-cell *matHeaderCellDef >  </th>
+                <td  mat-cell *matCellDef="let element"> 
+                    <mat-button-toggle-group style="border: none;" >
+                        <button type="button"  matTooltip="Borrar" mat-button color="warn" aria-label="borrar destino" (click)="borrarXId(element.idLugarXOferta)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </mat-button-toggle-group>
+                    
+                </td>
+            </ng-container>
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>          
+        <br>  
+        
+        <ng-container >
+            <div mat-dialog-content class="mat-typography">
+                <mat-toolbar>
+                    <h1  mat-dialog-title>Agregar Lugar</h1>
+                    <div class="menu-spacer"></div>
+                </mat-toolbar>
+            </div>
+            <div mat-dialog-content class="mat-typography">
+                
+                
+                            <div  fxLayout="row" fxLayoutGap="1px">
+                                
+                                <mat-form-field appearance="fill" fxFlex>
+                                    <mat-label>Ciudad:</mat-label>
+                                    <mat-select formControlName="idCiudad"  >
+                                        <mat-option *ngFor="let item of lstCiudades" [value]="item.idCiudad">{{ item.nombreCiudad }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field appearance="fill" fxFlex>
+                                    <mat-label>Nombre Contacto:</mat-label>
+                                    <mat-select formControlName="idPersona"  >
+                                        <mat-option *ngFor="let item of lstPersonas" [value]="item.idPersona">{{ item.nombreCompletoPersona }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field appearance="fill"  fxFlex>
+                                    <mat-label>Nombre Lugar:</mat-label>
+                                    <input matInput  formControlName="nombreLugarXOferta" [readonly]="false">
+                                </mat-form-field>  
+                                <mat-form-field appearance="fill"  fxFlex>
+                                    <mat-label>Direccion:</mat-label>
+                                    <input matInput  formControlName="direccionLugarXOferta" [readonly]="false">
+                                </mat-form-field>  
+                                <mat-form-field appearance="fill"  fxFlex>
+                                    <mat-label>Telefono:</mat-label>
+                                    <input matInput  formControlName="telefonoLugarXOferta" [readonly]="false">
+                                </mat-form-field> 
+                                
+                            </div>
+                            <div  fxLayout="row" fxLayoutGap="1px">
+                                <mat-form-field appearance="fill"  fxFlex>
+                                    <mat-label>Observacion Lugar Por Oferta:</mat-label>
+                                    <input matInput  formControlName="observacionLugarXOferta" [readonly]="false">
+                                </mat-form-field>  
+                            </div>
+                        
+                            <input type="hidden" formControlName="idLugarXOferta" [readonly]="false">  
+                            
+                        </div>
+                
+                        <div mat-dialog-actions align="end">
+                            <button *ngIf="idLugarXOferta <= 0" mat-raised-button color="primary"   (submit)="enviarDatos()">
+                                Agregar
+                            </button> 
+                            <button *ngIf="idLugarXOferta > 0" mat-raised-button color="primary" (submit)="enviarDatos()" >
+                                Editar
+                            </button>
+                            <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+                        </div>
+        </ng-container>
+    
+
+
+
+
+
+
+
+        </mat-expansion-panel>
+      </mat-accordion>
+    
+</form>
