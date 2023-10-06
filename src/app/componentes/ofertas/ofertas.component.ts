@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Ofertas, OfertasService } from '../ofertas';
 import { EstadosDeLasOfertas, EstadosDeLasOfertasService } from '../estados-de-las-ofertas';
@@ -18,7 +18,7 @@ const myDate = new Date();
 export class OfertasComponent implements OnInit {
   onAdd = new EventEmitter(); 
   idEmpresaLogueado = 0;
-  @Input() idOferta = 0;
+  @Output() idOferta = 1;
   @Input() pruebaIdentificadorOferta = 0;
   editar:boolean=false;
   myTimeString = myDate.toTimeString().slice(0, 5);
@@ -34,7 +34,7 @@ export class OfertasComponent implements OnInit {
   lstLugaresXOfertasTemporales:LugaresXOfertas[]=[];
   //lstofertas:Ofertas[]=[];
   FGAgregarOfertas : FormGroup = this.formBuilder.group({      
-    idOferta: new FormControl('0'),
+    idOferta: new FormControl(this.idOferta),
     idEmpresa:new FormControl(0,Validators.required),
     idTipoOrientacionDeLaOferta:new FormControl(0,Validators.required),
     idEstadoDeLaOferta:new FormControl(0,Validators.required),
@@ -48,7 +48,7 @@ export class OfertasComponent implements OnInit {
   guardarLugaresTemporales(){
     let lugaresXOfertas : LugaresXOfertas = new LugaresXOfertas;
     //asignación de los datos del formulario a la tabla lugaresXOfertas
-    lugaresXOfertas.idOferta=0;
+    lugaresXOfertas.idOferta= this.idOferta;
     //lugaresXOfertas.direccionLugarXOferta=this.FGAgregarOfertas.value.idLugar;
     //lugaresXOfertas.direccionLugarXOferta=this.FGAgregarOfertas.value.idLugar;
     this.lstLugaresXOfertasTemporales.push(lugaresXOfertas);
@@ -94,7 +94,14 @@ export class OfertasComponent implements OnInit {
     this.listarEmpresas();
     this.listarOfertas();
     let usr=this.loginservice.getUser();
-    this.idEmpresaLogueado=usr.idEmpresa;
+      if (usr){
+        this.idEmpresaLogueado=usr.idEmpresa;
+
+    } 
+    else{
+      this.idEmpresaLogueado=2;
+    }
+    console.log(this.idOferta);
     console.log(this.idEmpresaLogueado);
     
   }
