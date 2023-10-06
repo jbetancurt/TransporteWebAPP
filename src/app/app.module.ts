@@ -142,7 +142,9 @@ import { DatePipe } from '@angular/common';
 import { LoginCallbackGoogleComponent } from './paginas/login-callback-google/login-callback-google.component';
 import { PanelLugaresXOfertasComponent } from './componentes/lugares-xofertas/panel-lugares-xofertas/panel-lugares-xofertas.component';
 import { PanelOrigenDestinoComponent } from './componentes/lugares-xofertas/panel-origen-destino/panel-origen-destino.component';
-import { PanelVehiculosOfertasComponent } from './componentes/carrocerias-xtipos-de-vehiculos/panel-vehiculos-ofertas/panel-vehiculos-ofertas.component';
+import { PanelVehiculosOfertasComponent } from './componentes/carrocerias-xtipos-de-vehiculos-xofertas/panel-vehiculos-ofertas/panel-vehiculos-ofertas.component';
+import { CarroceriasXTiposDeVehiculosXOfertasComponent } from './componentes/carrocerias-xtipos-de-vehiculos-xofertas/carrocerias-xtipos-de-vehiculos-xofertas.component';
+import { PanelCargasOfertasComponent } from './componentes/cargas-xofertas/panel-cargas-ofertas/panel-cargas-ofertas.component';
 
 
 
@@ -279,7 +281,9 @@ import { PanelVehiculosOfertasComponent } from './componentes/carrocerias-xtipos
     LoginCallbackGoogleComponent,
     PanelLugaresXOfertasComponent,
     PanelOrigenDestinoComponent,
-    PanelVehiculosOfertasComponent
+    CarroceriasXTiposDeVehiculosXOfertasComponent,
+    PanelVehiculosOfertasComponent,
+    PanelCargasOfertasComponent,
     
     
     

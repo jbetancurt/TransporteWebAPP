@@ -30,18 +30,21 @@ export class PanelOrigenDestinoComponent implements OnInit   {
   panelOpenState = false;
   nombres = "";
   
-  @Input() editaroAgregar = "agregar";
-  @Input() indexEditar = 0;
-  @Input() tituloDelPanel = "Destino";
+  editaroAgregar = "agregar";
+  indexEditar = 0;
   tipoDeLugar: number=0;
 
-  descripcionPanel:LugaresXOfertas[] = [];
   descripcionPanelPorComas :  string = "";
   
   datosGuardados: any[] = [];
   
   datosTemporales:any[]=[];
   dataSource = new MatTableDataSource<any>(this.datosGuardados);  
+  tituloDelPanel = "";
+  @Input() idOferta = 0;
+  
+  @Input() idEmpresa = 0;
+  @Input() enumeradorTipoLugarXOferta = "";
 
  
 
@@ -95,9 +98,8 @@ guardarDatos() {
   this.dataSource.data = this.datosGuardados;
 
   this.FGAgregarLugares.reset();
-  this.descripcionPanel = this.datosGuardados.map(dato => dato.nombreLugarXOferta);
-  //this.descripcionPanelPorComas = this.descripcionPanel.join(', ');
-  console.log(this.datosGuardados);
+  
+  this.refrescarResumenPanel();
 }
 
 listarOrigenes(){
@@ -121,7 +123,8 @@ listarDestinos(){
 eliminarFila(index: number) { 
   this.datosGuardados.splice(index, 1);
   this.dataSource.data = this.datosGuardados;
-  this.descripcionPanel = this.datosGuardados.map(dato => dato.nombreLugarXOferta);
+  
+  this.refrescarResumenPanel();
   
 }
 
@@ -129,9 +132,16 @@ editarFila(index: number) {
   this.datosGuardados[index] = this.FGAgregarLugares.value;
   this.dataSource.data = this.datosGuardados;
   this.FGAgregarLugares.reset();
-  this.descripcionPanel = this.datosGuardados.map(dato => dato.nombreLugarXOferta);
+  
+  this.refrescarResumenPanel();
   this.editaroAgregar="agregar";
 }
+
+cancelarEdicion(){
+  this.FGAgregarLugares.reset();  
+  this.editaroAgregar="agregar";
+}
+
 
 cargarDatosParaEditar(index: number) {
   console.log(index);
@@ -182,17 +192,27 @@ cargarDatosParaEditar(index: number) {
   }
 
   listarLugaresXOfertas(){
-    this.lugaresxofertasService.GetAll().subscribe({
+    this.lugaresxofertasService.ConsultarXOferta(this.idOferta.toString() , this.idTipoDeLugarXOferta.toString()).subscribe({
       next : (lstlugaresxofertas:LugaresXOfertas[]) => { 
         this.lstLugaresXOfertas=lstlugaresxofertas;
-        this.datosGuardados = this.lstLugaresXOfertas.filter(lugar => lugar.idTipoDeLugarXOferta==this.tipoDeLugar);
+        this.datosGuardados = this.lstLugaresXOfertas;
         
         this.dataSource.data = this.datosGuardados;
-        this.descripcionPanelPorComas = this.datosGuardados.map(x => 
-            "* " + x.nombreLugarXOferta + "(" + this.encontrarNombreCiudad(x.idCiudad) + ")").join(', ');
+        this.refrescarResumenPanel();
+        console.log(this.idOferta);
+        console.log(lstlugaresxofertas);
         
+        console.log(this.idEmpresa);
       }
     });
+  }
+  
+  
+
+  refrescarResumenPanel(){    
+    this.descripcionPanelPorComas = this.datosGuardados.map(x => 
+      "* " + x.nombreLugarXOferta + "(" + this.encontrarNombreCiudad(x.idCiudad) + ")").join(', ');
+  
   }
 
 
@@ -219,24 +239,37 @@ cargarDatosParaEditar(index: number) {
     }
   }
 
-  ngOnInit() {
-    this.asignarTipoDeLugar();
-    this.listarCiudades();
-    this.listarPersonas();
-    this.listarLugaresXOfertas();
-    
-    
-    //this.cargarLugaresXOfertasAdatosGuardados();
-    
-    this.descripcionPanel = this.datosGuardados.map(dato => dato.nombreLugarXOferta);
-    
+  
 
+  ngOnInit() {
+    if (this.enumeradorTipoLugarXOferta != ""){
+      console.log(this.enumeradorTipoLugarXOferta);
+      
+      this.tiposDeLugaresXOfertasService.ConsultarPorEnum(this.enumeradorTipoLugarXOferta).subscribe({
+        next : (objTiposDeLugaresXOfertas:TiposDeLugaresXOfertas) => { 
+          if (objTiposDeLugaresXOfertas.idTipoDeLugarXOferta > 0){
+            //console.log(this.idOferta);
+            
+            this.tituloDelPanel = objTiposDeLugaresXOfertas.nombreTipoDeLugarXOferta;
+            this.idTipoDeLugarXOferta = objTiposDeLugaresXOfertas.idTipoDeLugarXOferta;
+            this.asignarTipoDeLugar();
+            this.listarCiudades();
+            this.listarPersonas();
+            this.listarLugaresXOfertas();
+            
+  
+          }
+        }
+      });
+    }
+    
   }
  
   constructor(
     private ciudadesService: CiudadesService,
     private personasService: PersonasService,
     private lugaresxofertasService: LugaresXOfertasService,
+    private tiposDeLugaresXOfertasService: TiposDeLugaresXOfertasService,
     private formBuilder: FormBuilder
     
     ) { }

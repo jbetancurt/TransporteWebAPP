@@ -26,6 +26,10 @@ export class TiposDeLugaresXOfertasService {
     
     return this.httpClient.get<TiposDeLugaresXOfertas[]>(urlPage, environment.httpOptions);
   }
+  public ConsultarPorEnum(enumerador : string): Observable<TiposDeLugaresXOfertas>{
+    let ruta = urlPage + "/ConsultarPorEnum/" + enumerador;
+    return this.httpClient.get<TiposDeLugaresXOfertas>(ruta, environment.httpOptions);
+  }
 
 
   public Edit(_TiposDeLugaresXOfertas : TiposDeLugaresXOfertas): Observable<boolean>{

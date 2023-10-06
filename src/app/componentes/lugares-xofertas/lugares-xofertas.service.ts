@@ -15,7 +15,6 @@ export class LugaresXOfertasService {
   
   public Get(id : string): Observable<LugaresXOfertas>{ 
     let url = urlPage + "/" + id; 
-    console.log(url);  
     let obj =this.httpClient.get<LugaresXOfertas>(url, environment.httpOptions);
     return obj;
   }
@@ -23,6 +22,11 @@ export class LugaresXOfertasService {
   public GetAll(): Observable<LugaresXOfertas[]>{
     
     return this.httpClient.get<LugaresXOfertas[]>(urlPage, environment.httpOptions);
+  }
+
+  public ConsultarXOferta(idOferta : string, idTipoDeLugarXOferta : string): Observable<LugaresXOfertas[]>{
+    let ruta = urlPage + "/consultarxoferta/" + idOferta + "/" + idTipoDeLugarXOferta;
+    return this.httpClient.get<LugaresXOfertas[]>(ruta, environment.httpOptions);
   }
 
   public Edit(_LugaresXOfertas : LugaresXOfertas): Observable<boolean>{

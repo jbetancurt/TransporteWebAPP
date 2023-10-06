@@ -61,6 +61,6 @@ export class LoginService {
     if (user) {
       return JSON.parse(user);
     }
-    return JSON.parse('{}');
+    else return null;
   }
 }

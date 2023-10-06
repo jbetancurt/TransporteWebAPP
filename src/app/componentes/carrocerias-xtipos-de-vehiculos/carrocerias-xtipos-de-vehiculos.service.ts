@@ -20,6 +20,11 @@ export  class CarroceriasXTiposDeVehiculosService {
     return obj;
   }
 
+  public ConsultarPorTipoDeVehiculo(idTipoDeVehiculo : string): Observable<CarroceriasXTiposDeVehiculos[] >{
+    let ruta = urlPage + "/ConsultarPorTipoDeVehiculo/" + idTipoDeVehiculo;
+    return this.httpClient.get<CarroceriasXTiposDeVehiculos[]>(ruta, environment.httpOptions);
+  }
+
   public GetAll(): Observable<CarroceriasXTiposDeVehiculos[]>{
     
     return this.httpClient.get<CarroceriasXTiposDeVehiculos[]>(urlPage, environment.httpOptions);
