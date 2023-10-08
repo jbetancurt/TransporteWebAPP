@@ -28,6 +28,7 @@ export class PanelOrigenDestinoComponent implements OnInit   {
   lstPersonas : Personas[]=[];
   lstLugaresXOfertas : LugaresXOfertas[]=[];
   panelOpenState = false;
+  openorclose = false;
   nombres = "";
   
   editaroAgregar = "agregar";
@@ -81,25 +82,30 @@ export class PanelOrigenDestinoComponent implements OnInit   {
   
 
 guardarDatos() {
-  const datos = {
-    idCiudad:this.FGAgregarLugares.value.idCiudad,
-    idPersona: this.FGAgregarLugares.value.idPersona, 
-    //idEmpresa:0,
-    idTipoDeLugarXOferta:this.tipoDeLugar,
-    
-    //ordenLugarXOferta: this.ordenLugarXOferta,
-    nombreLugarXOferta: this.FGAgregarLugares.value.nombreLugarXOferta,  
-    observacionLugarXOferta: this.FGAgregarLugares.value.observacionLugarXOferta,
-    telefonoLugarXOferta: this.FGAgregarLugares.value.telefonoLugarXOferta,
-    direccionLugarXOferta: this.FGAgregarLugares.value.direccionLugarXOferta
-    
-  };
-  this.datosGuardados.push(datos);
-  this.dataSource.data = this.datosGuardados;
+  if(this.FGAgregarLugares.value.idCiudad == null || this.FGAgregarLugares.value.idPersona == null){
+    alert("Debe seleccionar una Ciudad y un Contacto");
+  }
+  else{ 
+    const datos = {
+      idCiudad:this.FGAgregarLugares.value.idCiudad,
+      idPersona: this.FGAgregarLugares.value.idPersona, 
+      //idEmpresa:0,
+      idTipoDeLugarXOferta:this.tipoDeLugar,
+      
+      //ordenLugarXOferta: this.ordenLugarXOferta,
+      nombreLugarXOferta: this.FGAgregarLugares.value.nombreLugarXOferta,  
+      observacionLugarXOferta: this.FGAgregarLugares.value.observacionLugarXOferta,
+      telefonoLugarXOferta: this.FGAgregarLugares.value.telefonoLugarXOferta,
+      direccionLugarXOferta: this.FGAgregarLugares.value.direccionLugarXOferta
+      
+    };
+    this.datosGuardados.push(datos);
+    this.dataSource.data = this.datosGuardados;
 
-  this.FGAgregarLugares.reset();
-  
-  this.refrescarResumenPanel();
+    this.FGAgregarLugares.reset();
+    
+    this.refrescarResumenPanel();
+  }  
 }
 
 listarOrigenes(){
@@ -123,6 +129,7 @@ listarDestinos(){
 eliminarFila(index: number) { 
   this.datosGuardados.splice(index, 1);
   this.dataSource.data = this.datosGuardados;
+  this.FGAgregarLugares.reset();
   
   this.refrescarResumenPanel();
   
@@ -138,9 +145,15 @@ editarFila(index: number) {
 }
 
 cancelarEdicion(){
-  this.FGAgregarLugares.reset();  
-  this.editaroAgregar="agregar";
-}
+  if (this.editaroAgregar="agregar"){
+    this.FGAgregarLugares.reset();
+    this.openorclose = !this.openorclose;
+  }
+  else{
+    this.FGAgregarLugares.reset(); 
+    this.editaroAgregar="agregar";
+  }
+} 
 
 
 cargarDatosParaEditar(index: number) {
@@ -207,7 +220,9 @@ cargarDatosParaEditar(index: number) {
     });
   }
   
-  
+  panelOpen(){
+    this.openorclose = true
+  }
 
   refrescarResumenPanel(){    
     this.descripcionPanelPorComas = this.datosGuardados.map(x => 

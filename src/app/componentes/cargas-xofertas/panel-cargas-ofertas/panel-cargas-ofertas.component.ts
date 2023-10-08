@@ -20,6 +20,7 @@ export class PanelCargasOfertasComponent implements OnInit {
   @Input() indexEditar = 0;
   @Input() idOferta = 0;
   panelOpenState = false;
+  openorclose = false;
   descripcionPanel:any[] = [];
   descripcionPanelPorComas :  string = "";
   datosGuardados: any[] = [];
@@ -47,7 +48,7 @@ export class PanelCargasOfertasComponent implements OnInit {
   
   ngOnInit() {
     this.listarCargasXOfertas();
-    this.refrescarResumenPanel();
+    //this.refrescarResumenPanel();
   }
 
   FGAgregarCargas : FormGroup = this.formBuilder.group({   
@@ -70,34 +71,49 @@ export class PanelCargasOfertasComponent implements OnInit {
     }
   }
 
+  panelOpen(){
+    this.openorclose = true
+  }
+
   cancelarEdicion(){
-    this.FGAgregarCargas.reset();  
-    this.editaroAgregar="agregar";
+    if (this.editaroAgregar="agregar"){
+      this.FGAgregarCargas.reset();
+      this.openorclose = !this.openorclose;
+    }
+    else{
+      this.FGAgregarCargas.reset(); 
+      this.editaroAgregar="agregar";
+    }
   }
 
   guardarDatos() {
-    const datos = {
+    if(this.FGAgregarCargas.value.altoCargaXOferta == null || this.FGAgregarCargas.value.anchoCargaXOferta == null){
+      alert("Debe seleccionar Alto Carga y Ancho Carga");
+    }
+    else{ 
+      const datos = {
 
-      altoCargaXOferta:this.FGAgregarCargas.value.altoCargaXOferta,
-      anchoCargaXOferta:this.FGAgregarCargas.value.anchoCargaXOferta,
-      largoCargaXOferta:this.FGAgregarCargas.value.largoCargaXOferta,
-      toneladaCargaXOferta:this.FGAgregarCargas.value.toneladaCargaXOferta,
-      tarifaCargaXOferta:this.FGAgregarCargas.value.tarifaCargaXOferta,
-      totalCargaXOferta:this.FGAgregarCargas.value.totalCargaXOferta
+        altoCargaXOferta:this.FGAgregarCargas.value.altoCargaXOferta,
+        anchoCargaXOferta:this.FGAgregarCargas.value.anchoCargaXOferta,
+        largoCargaXOferta:this.FGAgregarCargas.value.largoCargaXOferta,
+        toneladaCargaXOferta:this.FGAgregarCargas.value.toneladaCargaXOferta,
+        tarifaCargaXOferta:this.FGAgregarCargas.value.tarifaCargaXOferta,
+        totalCargaXOferta:this.FGAgregarCargas.value.totalCargaXOferta
+        
+      };
+      this.datosGuardados.push(datos);
+      this.dataSource.data = this.datosGuardados;
+      this.FGAgregarCargas.reset();
       
-    };
-    this.datosGuardados.push(datos);
-    this.dataSource.data = this.datosGuardados;
-    this.FGAgregarCargas.reset();
-    
-    this.refrescarResumenPanel();
-
+      this.refrescarResumenPanel();
+    }
   }
 
   eliminarFila(index: number) { 
     this.datosGuardados.splice(index, 1);
     this.dataSource.data = this.datosGuardados;
     this.refrescarResumenPanel();
+    this.FGAgregarCargas.reset();
     
   }
 
@@ -163,6 +179,7 @@ export class PanelCargasOfertasComponent implements OnInit {
       //this.datosGuardados.map(dato => this.encontrarNombreTipoDeVehiculo(dato.idTipoDeVehiculo));
       
     });
+    this.refrescarResumenPanel();
   }
 
 }
