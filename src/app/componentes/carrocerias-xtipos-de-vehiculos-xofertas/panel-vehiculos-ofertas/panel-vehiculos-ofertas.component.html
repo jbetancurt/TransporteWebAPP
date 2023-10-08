@@ -1,5 +1,5 @@
 <mat-accordion>
-    <mat-expansion-panel (opened)="panelOpenState = true"(closed)="panelOpenState = false">
+    <mat-expansion-panel [expanded]="openorclose" (opened)="panelOpen()">
         <mat-expansion-panel-header *ngIf="tituloDelPanel">
             <mat-panel-title>
                 {{tituloDelPanel}}
@@ -87,11 +87,15 @@
                                 <mat-option *ngFor="let item of lstTiposDeCarroceriasFiltrado" [value]="item.idTipoDeCarroceria">{{ item.nombreTipoDeCarroceria }}</mat-option>
                             </mat-select>
                             </mat-form-field>
+                                                     
+
+
                             <mat-form-field appearance="fill" fxFlex>
-                                <mat-label>Tiene Trailer:</mat-label>
+                                <mat-label></mat-label>
                                 <input hidden=true matInput>
-                                <mat-checkbox formControlName="tieneTrailer" name="tieneTrailer" ></mat-checkbox>
+                                <mat-checkbox formControlName="tieneTrailer" name="tieneTrailer" >Tiene Trailer:</mat-checkbox>
                             </mat-form-field>
+                            
                         </div>
                         <div  fxLayout="row" fxLayoutGap="1px">
                             <mat-form-field appearance="fill"  fxFlex>

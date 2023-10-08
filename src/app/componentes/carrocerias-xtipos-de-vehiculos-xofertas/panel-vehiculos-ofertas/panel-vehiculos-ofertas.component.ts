@@ -19,11 +19,12 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 
 export class PanelVehiculosOfertasComponent implements OnInit {
   
-  @Input() tituloDelPanel = "VEHICULO";
+  @Input() tituloDelPanel = "VEHICULOS ACEPTADOS";
   @Input() editaroAgregar = "agregar";
   @Input() indexEditar = 0;
   @Input() idOferta = 0;
   panelOpenState = false;
+  openorclose =false;
   descripcionPanel:any[] = [];
   descripcionPanelPorComas :  string = "";
   datosGuardados: any[] = [];
@@ -44,7 +45,7 @@ export class PanelVehiculosOfertasComponent implements OnInit {
   tieneTrailer: boolean=false;
   descripcion: string='';
 
-
+  
   constructor 
   (
     private formBuilder: FormBuilder,
@@ -55,13 +56,13 @@ export class PanelVehiculosOfertasComponent implements OnInit {
   ) { }
   
   ngOnInit() {
-   
+    this.FGAgregarVehiculos.reset();
     this.listarCarroceriaXTipoDeVehiculo();
     this.listarTiposDeVehiculos();
     this.listarTiposDeCarrocerias();
     this.listarCarroceriasXTiposDeVehiculosXOfertas();    
     //this.descripcionPanel = this.datosGuardados.map(dato => this.encontrarNombreTipoDeVehiculo(dato.idTipoDeVehiculo));
-    this.refrescarResumenPanel();
+    //this.refrescarResumenPanel();
    // this.descripcionPanelPorComas = this.descripcionPanel.join(', ');
 
   }
@@ -87,24 +88,34 @@ export class PanelVehiculosOfertasComponent implements OnInit {
     }
   }
 
+  panelOpen(){
+    this.openorclose = true
+  }
 
   guardarDatos() {
-    const datos = {
-     // idOferta:this.FGAgregarLugares.value.idCiudad,
-     //idEmpresa:0,
-     // idCarroceriaXTipoDeVehiculo: this.FGAgregarVehiculos.value.idCarroceriaXTipoDeVehiculo, 
-      idTipoDeVehiculo:this.FGAgregarVehiculos.value.idTipoDeVehiculo,
-      idTipoDeCarroceria:this.FGAgregarVehiculos.value.idTipoDeCarroceria,
-      tieneTrailer:this.FGAgregarVehiculos.value.tieneTrailer,
-      descripcion:this.FGAgregarVehiculos.value.descripcion
-    };
-    this.datosGuardados.push(datos);
-    this.dataSource.data = this.datosGuardados;
-    this.FGAgregarVehiculos.reset();
-    this.descripcionPanel = this.datosGuardados.map(dato => this.encontrarNombreTipoDeVehiculo(dato.idTipoDeVehiculo));
-    //this.descripcionPanelPorComas = this.descripcionPanel.join(', ');
-    this.refrescarResumenPanel();
-
+    
+   // console.log(this.FGAgregarVehiculos.value.idTipoDeVehiculo);
+   // console.log(this.FGAgregarVehiculos.value.idTipoDeCarroceria);
+    if(this.FGAgregarVehiculos.value.idTipoDeVehiculo == null || this.FGAgregarVehiculos.value.idTipoDeCarroceria == null){
+      alert("Debe seleccionar un tipo de vehiculo y un tipo de carroceria");
+    }
+    else{  
+      const datos = {
+      // idOferta:this.FGAgregarLugares.value.idCiudad,
+      //idEmpresa:0,
+      // idCarroceriaXTipoDeVehiculo: this.FGAgregarVehiculos.value.idCarroceriaXTipoDeVehiculo, 
+        idTipoDeVehiculo:this.FGAgregarVehiculos.value.idTipoDeVehiculo,
+        idTipoDeCarroceria:this.FGAgregarVehiculos.value.idTipoDeCarroceria,
+        tieneTrailer:this.FGAgregarVehiculos.value.tieneTrailer,
+        descripcion:this.FGAgregarVehiculos.value.descripcion
+      };
+      this.datosGuardados.push(datos);
+      this.dataSource.data = this.datosGuardados;
+      this.FGAgregarVehiculos.reset();
+      this.descripcionPanel = this.datosGuardados.map(dato => this.encontrarNombreTipoDeVehiculo(dato.idTipoDeVehiculo));
+      //this.descripcionPanelPorComas = this.descripcionPanel.join(', ');
+      this.refrescarResumenPanel();
+    }
   }
 
   eliminarFila(index: number) { 
@@ -112,12 +123,21 @@ export class PanelVehiculosOfertasComponent implements OnInit {
     this.dataSource.data = this.datosGuardados;
     this.descripcionPanel = this.datosGuardados.map(dato => this.encontrarNombreTipoDeVehiculo(dato.idTipoDeVehiculo));
     this.refrescarResumenPanel();
+    this.FGAgregarVehiculos.reset();
     
   }
 
   cancelarEdicion(){
-    this.FGAgregarVehiculos.reset();  
-    this.editaroAgregar="agregar";
+    if (this.editaroAgregar="agregar"){
+      this.FGAgregarVehiculos.reset();
+      this.openorclose = !this.openorclose;
+    }
+    else{
+      this.FGAgregarVehiculos.reset(); 
+      this.editaroAgregar="agregar";
+    }
+    
+    
   }
 
   editarFila(index: number) {
@@ -134,12 +154,14 @@ export class PanelVehiculosOfertasComponent implements OnInit {
     this.editaroAgregar="editar";
     this.indexEditar=index;
     let filaSeleccionada = this.datosGuardados[index];
+    
     this.listarCarroceriasParaElVehiculo(filaSeleccionada.idTipoDeVehiculo)
     console.log(filaSeleccionada);
     this.FGAgregarVehiculos.patchValue({
       //idCarroceriaXTipoDeVehiculo: filaSeleccionada.idCarroceriaXTipoDeVehiculo,
       idTipoDeVehiculo:filaSeleccionada.idTipoDeVehiculo,
       idTipoDeCarroceria:filaSeleccionada.idTipoDeCarroceria,
+     
       tieneTrailer:filaSeleccionada.tieneTrailer,
       descripcion:filaSeleccionada.descripcion
 
@@ -155,6 +177,8 @@ export class PanelVehiculosOfertasComponent implements OnInit {
       //  this.refrescarResumenPanel();
       }
     });
+    this.refrescarResumenPanel();
+    
   }
 
    
@@ -215,6 +239,7 @@ export class PanelVehiculosOfertasComponent implements OnInit {
         this.lstCarroceriasXTiposDeVehiculos = lstcarroceriasxtiposdevehiculos;
       }
     });
+    
   }
 
 
@@ -243,6 +268,7 @@ export class PanelVehiculosOfertasComponent implements OnInit {
       this.datosGuardados.map(dato => this.encontrarNombreTipoDeVehiculo(dato.idTipoDeVehiculo));
       
     });
+    this.refrescarResumenPanel();
   }
 
 }
