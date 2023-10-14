@@ -20,16 +20,25 @@
 
             <div  fxLayout="row" fxLayoutGap="1px">
                 <mat-form-field appearance="fill" fxFlex>
-                    <mat-label>Nombre Carroceria Por Tipo De Vehiculo: </mat-label>
-                    <mat-select formControlName="idCarroceriaXTipoDeVehiculo"  >
-                        <mat-option *ngFor="let item of lstCarroceriasXTiposDeVehiculos" [value]="item.idCarroceriaXTipoDeVehiculo">{{ item.idCarroceriaXTipoDeVehiculo}}</mat-option>
+                    <mat-label> Tipo De Vehiculo: </mat-label>
+                    <mat-select formControlName="idTipoDeVehiculo"  >
+                        <mat-option *ngFor="let item of lstTiposDeVehiculos" [value]="item.idTipoDeVehiculo">{{ item.idTipoDeVehiculo}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label> Tipo De Vehiculo: </mat-label>
+                    <mat-select formControlName="idTipoDeCarroceria"  >
+                        <mat-option *ngFor="let item of lstTiposDeCarrocerias" [value]="item.idTipoDeCarroceria">{{ item.idTipoDeCarroceria}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
 
             <div  fxLayout="row" fxLayoutGap="1px">
                 <mat-form-field appearance="fill"  fxFlex>
-                    <mat-label>Nombre Plantilla Cargas Por Oferta:</mat-label>
+                    <mat-label>Nombre Plantilla :</mat-label>
                     <input matInput  formControlName="nombrePlantillaCarroceriaXTipoDeVehiculoXOferta" [readonly]="false">
                 </mat-form-field>  
             </div>

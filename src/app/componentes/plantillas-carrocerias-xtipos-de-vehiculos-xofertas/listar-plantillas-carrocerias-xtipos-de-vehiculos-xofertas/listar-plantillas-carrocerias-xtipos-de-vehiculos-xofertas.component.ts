@@ -8,6 +8,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Plantillas_Ofertas, Plantillas_OfertasService } from '../../plantillas-ofertas';
 import { CarroceriasXTiposDeVehiculos, CarroceriasXTiposDeVehiculosService } from '../../carrocerias-xtipos-de-vehiculos';
+import { TiposDeVehiculos, TiposDeVehiculosService } from '../../tipos-de-vehiculos';
+import { TiposDeCarrocerias, TiposDeCarroceriasService } from '../../tipos-de-carrocerias';
 
 
 @Component({
@@ -20,6 +22,8 @@ export class ListarPlantillasCarroceriasXTiposDeVehiculosXOfertasComponent imple
       arraypaginator=environment.paginator;
       lstPlantillas_Ofertas : Plantillas_Ofertas[]=[];
       lstCarroceriasXTiposDeVehiculos : CarroceriasXTiposDeVehiculos[]=[];
+      lstTiposDeVehiculos : TiposDeVehiculos[]=[];
+      lstTiposDeCarrocerias : TiposDeCarrocerias[]=[];
       lstplantillascarroceriasxtiposdevehiculosxofertas:PlantillasCarroceriasXTiposDeVehiculosXOfertas[]=[];
       lstplantillascarroceriasxtiposdevehiculosxofertasTodos:PlantillasCarroceriasXTiposDeVehiculosXOfertas[]=[];
       dataSource!: MatTableDataSource<PlantillasCarroceriasXTiposDeVehiculosXOfertas>;
@@ -28,7 +32,7 @@ export class ListarPlantillasCarroceriasXTiposDeVehiculosXOfertasComponent imple
       @ViewChild(MatPaginator) paginator!: MatPaginator;
       @ViewChild(MatSort) sort!: MatSort;
       
-      displayedColumns: string[] = ['idOferta','idCarroceriaXTipoDeVehiculo','nombrePlantillaCarroceriaXTipoDeVehiculoXOferta', 'editar', 'borrar'];
+      displayedColumns: string[] = ['idOferta','idTipoDeVehiculo','idTipoDeCarroceria','tieneTrailer','nombrePlantillaCarroceriaXTipoDeVehiculoXOferta', 'editar', 'borrar'];
       public AbrirInformacion()
       {
         this.plantillascarroceriasxtiposdevehiculosxofertasService.GetAll().subscribe({
@@ -60,6 +64,7 @@ export class ListarPlantillasCarroceriasXTiposDeVehiculosXOfertasComponent imple
     
       ngOnInit() {
         this.listarPlantillas_Ofertas();
+        
         this.listarCarroceriasXTiposDeVehiculos();
         this.AbrirInformacion();
         if (this.dataSource != null){
@@ -93,6 +98,22 @@ export class ListarPlantillasCarroceriasXTiposDeVehiculosXOfertasComponent imple
           }
         });
       }
+
+      listarTiposDeVehiculos(){
+        this.tiposdevehiculosService.GetAll().subscribe({
+          next : (lsttiposdevehiculos:TiposDeVehiculos[]) => { 
+            this.lstTiposDeVehiculos=lsttiposdevehiculos;
+          }
+        });
+      }
+
+      listarTiposDeCarrocerias(){
+        this.tiposdecarroceriasService.GetAll().subscribe({
+          next : (lsttiposdecarrocerias:TiposDeCarrocerias[]) => { 
+            this.lstTiposDeCarrocerias=lsttiposdecarrocerias;
+          }
+        });
+      }
     
       AbrirModalPlantillaCarroceriaXTipoDeVehiculoXOferta(idCarroceriaXTipoDeVehiculoXOferta:number){
         const dialogRef = this.modalService.open(PlantillasCarroceriasXTiposDeVehiculosXOfertasComponent).updateSize('80%');
@@ -118,6 +139,8 @@ export class ListarPlantillasCarroceriasXTiposDeVehiculosXOfertasComponent imple
         private plantillascarroceriasxtiposdevehiculosxofertasService: PlantillasCarroceriasXTiposDeVehiculosXOfertasService,
         private plantillas_ofertasService: Plantillas_OfertasService,
         private carroceriasxtiposdevehiculosService: CarroceriasXTiposDeVehiculosService,
-        private modalService: MatDialog
+        private modalService: MatDialog,
+        private tiposdevehiculosService: TiposDeVehiculosService,
+        private tiposdecarroceriasService: TiposDeCarroceriasService
         ) { }
     }  

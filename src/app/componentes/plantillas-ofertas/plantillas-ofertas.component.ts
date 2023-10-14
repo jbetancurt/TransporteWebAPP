@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Plantillas_Ofertas, Plantillas_OfertasService } from '../plantillas-ofertas';
 import { EstadosDeLasOfertas, EstadosDeLasOfertasService } from '../estados-de-las-ofertas';
@@ -14,13 +14,19 @@ const myDate = new Date();
 
 export class Plantillas_OfertasComponent implements OnInit {
   onAdd = new EventEmitter(); 
-  @Input() idOferta = 0;
+  idEmpresaLogueado = 0;
+  @Output() idOferta = 1;
+  @Input() pruebaIdentificadorOferta = 0;
+ 
   editar:boolean=false;
   myTimeString = myDate.toTimeString().slice(0, 5);
   checked = false;
   indeterminate = false;
   labelPosition = 'after';
   disabled = false;
+
+ 
+  
 
   lstEstadosDeLasOfertas:EstadosDeLasOfertas[]=[];
   lstEmpresas:Empresas[]=[];

@@ -1,0 +1,140 @@
+<mat-accordion>
+    <mat-expansion-panel [expanded]="openorclose" (opened)="panelOpen()">
+        <mat-expansion-panel-header *ngIf="tituloDelPanel">
+            <mat-panel-title>
+                {{tituloDelPanel}}
+            </mat-panel-title>
+            <mat-panel-description>
+                {{descripcionPanelPorComas}}
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        
+    
+        <table mat-table [dataSource]="dataSource"  class="mat-elevation-z8">
+                <!-- Define las columnas de la tabla -->
+                
+                                                
+                <ng-container matColumnDef="idTipoDeVehiculo">
+                    <th mat-header-cell *matHeaderCellDef> Vehiculo</th>
+                    <td mat-cell *matCellDef="let dato"> 
+                        {{encontrarNombreTipoDeVehiculo(dato.idTipoDeVehiculo)}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="idTipoDeCarroceria">
+                    <th mat-header-cell *matHeaderCellDef> Carroceria</th>
+                    <td mat-cell *matCellDef="let dato"> 
+                        {{encontrarNombreTipoDeCarroceria(dato.idTipoDeCarroceria)}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="tieneTrailer">
+                    <th mat-header-cell *matHeaderCellDef><div fxFlexFill fxLayoutAlign="center center">
+                        Tiene Trailer
+                    </div>  </th>
+                    <td mat-cell *matCellDef="let dato"> 
+                        <div fxFlexFill fxLayoutAlign="center center">
+                            <mat-icon *ngIf="dato.tieneTrailer" color="tiene">check</mat-icon>
+                            <mat-icon *ngIf="!dato.tieneTrailer" color="notiene">close</mat-icon>
+                        </div>
+                    </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="descripcion">
+                    <th mat-header-cell *matHeaderCellDef> Observacion</th>
+                    <td mat-cell *matCellDef="let dato"> 
+                        {{dato.descripcion}}
+                    </td>
+                </ng-container>
+                
+                        
+    
+                <ng-container matColumnDef="editar" >
+                    <th mat-header-cell *matHeaderCellDef >  </th>
+                    <td  mat-cell *matCellDef="let element; let i = index"> 
+                        <mat-button-toggle-group style="border: none;" >
+                            <button type="button" matTooltip="Editar"  mat-button  color="primary" aria-label="editar destino" (click)="cargarDatosParaEditar(i)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </mat-button-toggle-group>
+                        
+                    </td>
+                </ng-container>
+            
+                <ng-container matColumnDef="borrar" >
+                    <th mat-header-cell *matHeaderCellDef >  </th>
+                    <td  mat-cell *matCellDef="let element let i = index"> 
+                        <mat-button-toggle-group style="border: none;" >
+                            <button type="button"  matTooltip="Borrar" mat-button color="warn" aria-label="borrar destino" (click)="eliminarFila(i)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </mat-button-toggle-group>
+                    </td>
+                </ng-container>
+                     
+            <ng-container matColumnDef="ftAgregar">
+                <td mat-footer-cell *matFooterCellDef colspan="100%">
+                    <form [formGroup]="FGAgregarVehiculos" (ngSubmit)="FGAgregarVehiculos.valid" #formulario>            
+                            
+                        <div  fxLayout="row" fxLayoutGap="6px">
+                            <mat-form-field appearance="fill" fxFlex>
+                                <mat-label>Tipo De Vehiculo:</mat-label>
+                                <mat-select formControlName="idTipoDeVehiculo" name="idTipoDeVehiculo" (selectionChange)="listarCarroceriasParaElVehiculo($event.value)" >
+                                <mat-option *ngFor="let item of lstTiposDeVehiculos" [value]="item.idTipoDeVehiculo">{{ item.nombreTipoDeVehiculo }}</mat-option>
+                            </mat-select>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" fxFlex>
+                                <mat-label>Tipo De Carroceria:</mat-label>
+                                <mat-select formControlName="idTipoDeCarroceria" name="idTipoDeCarroceria" >
+                                <mat-option *ngFor="let item of lstTiposDeCarroceriasFiltrado" [value]="item.idTipoDeCarroceria">{{ item.nombreTipoDeCarroceria }}</mat-option>
+                            </mat-select>
+                            </mat-form-field>
+                                                     
+
+
+                            <mat-form-field appearance="fill" fxFlex>
+                                <mat-label></mat-label>
+                                <input hidden=true matInput>
+                                <mat-checkbox formControlName="tieneTrailer" name="tieneTrailer" >Tiene Trailer:</mat-checkbox>
+                            </mat-form-field>
+                            
+                        </div>
+                        <div  fxLayout="row" fxLayoutGap="1px">
+                            <mat-form-field appearance="fill"  fxFlex>
+                                <mat-label>Observacion:</mat-label>
+                                <input matInput  placeholder="descripcion" formControlName="descripcion">
+                            </mat-form-field>  
+                        </div>
+                        <div mat-dialog-actions align="end">
+                            <button *ngIf="editaroAgregar === 'agregar'" mat-raised-button color="primary" (click)="guardarDatos()">Agregar</button>
+                            <button *ngIf="editaroAgregar === 'editar'" mat-raised-button color="primary" (click)="editarFila(indexEditar)">Editar</button>
+                            <button mat-raised-button color="warn" (click)="cancelarEdicion()">Cancel</button>
+                        </div>
+                        <div mat-dialog-actions align="end">
+                            
+                            
+                        </div>
+                        
+                        
+                    </form>  
+                </td>
+            </ng-container>
+            <!-- Agrega las columnas a la tabla -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr mat-footer-row *matFooterRowDef="['ftAgregar']" ></tr>
+            
+                   
+        </table>  
+        
+     
+    </mat-expansion-panel>
+</mat-accordion>
+
+
+
+
+
+
+
+
+
+

@@ -145,6 +145,11 @@ import { PanelOrigenDestinoComponent } from './componentes/lugares-xofertas/pane
 import { PanelVehiculosOfertasComponent } from './componentes/carrocerias-xtipos-de-vehiculos-xofertas/panel-vehiculos-ofertas/panel-vehiculos-ofertas.component';
 import { CarroceriasXTiposDeVehiculosXOfertasComponent } from './componentes/carrocerias-xtipos-de-vehiculos-xofertas/carrocerias-xtipos-de-vehiculos-xofertas.component';
 import { PanelCargasOfertasComponent } from './componentes/cargas-xofertas/panel-cargas-ofertas/panel-cargas-ofertas.component';
+import { PanelRequisitosOfertasComponent } from './componentes/requisitos-xofertas/panel-requisitos-ofertas/panel-requisitos-ofertas.component';
+import { PanelPlantillaOrigenDestinoComponent } from './componentes/plantillas-lugares-xofertas/panel-plantilla-origen-destino/panel-plantilla-origen-destino.component';
+import { PanelPlantillaVehiculosOfertasComponent } from './componentes/plantillas-carrocerias-xtipos-de-vehiculos-xofertas/panel-plantilla-vehiculos-ofertas/panel-plantilla-vehiculos-ofertas.component';
+import { PanelPlantillaCargasOfertasComponent } from './componentes/plantillas-cargas-xofertas/panel-plantilla-cargas-ofertas/panel-plantilla-cargas-ofertas.component';
+import { PanelPlantillaRequisitosOfertasComponent } from './componentes/plantillas-requisitos-xofertas/panel-plantilla-requisitos-ofertas/panel-plantilla-requisitos-ofertas.component';
 
 
 
@@ -284,6 +289,11 @@ import { PanelCargasOfertasComponent } from './componentes/cargas-xofertas/panel
     CarroceriasXTiposDeVehiculosXOfertasComponent,
     PanelVehiculosOfertasComponent,
     PanelCargasOfertasComponent,
+    PanelRequisitosOfertasComponent,
+    PanelPlantillaOrigenDestinoComponent,
+    PanelPlantillaVehiculosOfertasComponent,
+    PanelPlantillaCargasOfertasComponent,
+    PanelPlantillaRequisitosOfertasComponent,
     
     
     

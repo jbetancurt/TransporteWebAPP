@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { CarroceriasXTiposDeVehiculosXOfertas , CarroceriasXTiposDeVehiculosXOfertasComponent, CarroceriasXTiposDeVehiculosXOfertasService } from '../';
+import { PlantillasCarroceriasXTiposDeVehiculosXOfertas , PlantillasCarroceriasXTiposDeVehiculosXOfertasComponent, PlantillasCarroceriasXTiposDeVehiculosXOfertasService } from '../';
 import { CarroceriasXTiposDeVehiculos, CarroceriasXTiposDeVehiculosService } from '../../carrocerias-xtipos-de-vehiculos';
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
@@ -12,12 +12,13 @@ import { TiposDeVehiculos, TiposDeVehiculosService } from '../../tipos-de-vehicu
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-panel-vehiculos-ofertas',
-  templateUrl: './panel-vehiculos-ofertas.component.html',
-  styleUrls: ['./panel-vehiculos-ofertas.component.scss']
+  selector: 'app-panel-plantilla-vehiculos-ofertas',
+  templateUrl: './panel-plantilla-vehiculos-ofertas.component.html',
+  styleUrls: ['./panel-plantilla-vehiculos-ofertas.component.scss']
 })
 
-export class PanelVehiculosOfertasComponent implements OnInit {
+
+export class PanelPlantillaVehiculosOfertasComponent implements OnInit {
   
   @Input() tituloDelPanel = "VEHICULOS ACEPTADOS";
   @Input() editaroAgregar = "agregar";
@@ -30,7 +31,7 @@ export class PanelVehiculosOfertasComponent implements OnInit {
   datosGuardados: any[] = [];
   datosTemporales:any[]=[];
   dataSource = new MatTableDataSource<any>(this.datosGuardados);  
-  lstCarroceriasXTiposDeVehiculosXOfertas:  CarroceriasXTiposDeVehiculosXOfertas[] = [];
+  lstPlantillasCarroceriasXTiposDeVehiculosXOfertas:  PlantillasCarroceriasXTiposDeVehiculosXOfertas[] = [];
   lstCarroceriasXTiposDeVehiculos: CarroceriasXTiposDeVehiculos[] = [];
   lstTiposDeVehiculos: TiposDeVehiculos[] = [];
   lstTiposDeCarrocerias: TiposDeCarrocerias[] = [];
@@ -49,7 +50,7 @@ export class PanelVehiculosOfertasComponent implements OnInit {
   constructor 
   (
     private formBuilder: FormBuilder,
-    private carroceriasxtiposdevehiculosxofertasService: CarroceriasXTiposDeVehiculosXOfertasService,
+    private plantillascarroceriasxtiposdevehiculosxofertasService: PlantillasCarroceriasXTiposDeVehiculosXOfertasService,
     private carroceriasxtiposdevehiculosService: CarroceriasXTiposDeVehiculosService,
     private tiposdevehiculosService: TiposDeVehiculosService,
     private tiposdecarroceriasService: TiposDeCarroceriasService
@@ -60,7 +61,7 @@ export class PanelVehiculosOfertasComponent implements OnInit {
     this.listarCarroceriaXTipoDeVehiculo();
     this.listarTiposDeVehiculos();
     this.listarTiposDeCarrocerias();
-    this.listarCarroceriasXTiposDeVehiculosXOfertas(this.idOferta);    
+    this.listarPlantillasCarroceriasXTiposDeVehiculosXOfertas(this.idOferta);    
     //this.descripcionPanel = this.datosGuardados.map(dato => this.encontrarNombreTipoDeVehiculo(dato.idTipoDeVehiculo));
     //this.refrescarResumenPanel();
    // this.descripcionPanelPorComas = this.descripcionPanel.join(', ');
@@ -168,12 +169,12 @@ export class PanelVehiculosOfertasComponent implements OnInit {
     });
   }
 
-  listarCarroceriasXTiposDeVehiculosXOfertas(idOferta:number){
-    this.carroceriasxtiposdevehiculosxofertasService.ConsultarXOferta(idOferta.toString()).subscribe({
-      next: (lstcarroceriasxtiposdevehiculosxofertas: CarroceriasXTiposDeVehiculosXOfertas[]) => {
-        this.lstCarroceriasXTiposDeVehiculosXOfertas = lstcarroceriasxtiposdevehiculosxofertas;
-        //console.log(this.lstCarroceriasXTiposDeVehiculosXOfertas);
-        this.cargarCarroceriasXTiposDeVehiculosXOfertasAdatosGuardados();
+  listarPlantillasCarroceriasXTiposDeVehiculosXOfertas(idOferta:number){
+    this.plantillascarroceriasxtiposdevehiculosxofertasService.ConsultarXOferta(idOferta.toString()).subscribe({
+      next: (lstplatillascarroceriasxtiposdevehiculosxofertas: PlantillasCarroceriasXTiposDeVehiculosXOfertas[]) => {
+        this.lstPlantillasCarroceriasXTiposDeVehiculosXOfertas = lstplatillascarroceriasxtiposdevehiculosxofertas;
+        //console.log(this.lstPlantillasCarroceriasXTiposDeVehiculosXOfertas);
+        this.cargarPlantillasCarroceriasXTiposDeVehiculosXOfertasAdatosGuardados();
       //  this.refrescarResumenPanel();
       }
     });
@@ -249,9 +250,9 @@ export class PanelVehiculosOfertasComponent implements OnInit {
 
 
 
-  cargarCarroceriasXTiposDeVehiculosXOfertasAdatosGuardados() {
+  cargarPlantillasCarroceriasXTiposDeVehiculosXOfertasAdatosGuardados() {
     
-    this.lstCarroceriasXTiposDeVehiculosXOfertas.forEach(vehiculo => {
+    this.lstPlantillasCarroceriasXTiposDeVehiculosXOfertas.forEach(vehiculo => {
       //console.log(vehiculo);
       const datos = {
        // idCarroceriaXTipoDeVehiculo: lugar.idCarroceriaXTipoDeVehiculo,
@@ -272,4 +273,3 @@ export class PanelVehiculosOfertasComponent implements OnInit {
   }
 
 }
-

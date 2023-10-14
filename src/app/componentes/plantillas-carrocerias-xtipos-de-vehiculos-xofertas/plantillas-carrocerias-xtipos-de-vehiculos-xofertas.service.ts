@@ -27,6 +27,11 @@ export class PlantillasCarroceriasXTiposDeVehiculosXOfertasService {
     return this.httpClient.get<PlantillasCarroceriasXTiposDeVehiculosXOfertas[]>(urlPage, environment.httpOptions);
   }
 
+  public ConsultarXOferta(idOferta : string): Observable<PlantillasCarroceriasXTiposDeVehiculosXOfertas[]>{
+    let ruta = urlPage + "/consultarxoferta/" + idOferta;
+    return this.httpClient.get<PlantillasCarroceriasXTiposDeVehiculosXOfertas[]>(ruta, environment.httpOptions);
+  }
+
   public Edit(_PlantillasCarroceriasXTiposDeVehiculosXOfertas : PlantillasCarroceriasXTiposDeVehiculosXOfertas): Observable<boolean>{
     return this.httpClient.put<boolean>(urlPage + '/' + (_PlantillasCarroceriasXTiposDeVehiculosXOfertas.idOferta), _PlantillasCarroceriasXTiposDeVehiculosXOfertas, environment.httpOptions);
   }

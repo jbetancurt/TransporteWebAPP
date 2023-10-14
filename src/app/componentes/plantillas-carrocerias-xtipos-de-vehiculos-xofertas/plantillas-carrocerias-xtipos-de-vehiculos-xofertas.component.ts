@@ -3,6 +3,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { PlantillasCarroceriasXTiposDeVehiculosXOfertas, PlantillasCarroceriasXTiposDeVehiculosXOfertasService } from './';
 import { Plantillas_Ofertas, Plantillas_OfertasService } from '../plantillas-ofertas';
 import { CarroceriasXTiposDeVehiculos, CarroceriasXTiposDeVehiculosService } from '../carrocerias-xtipos-de-vehiculos';
+import { TiposDeVehiculos, TiposDeVehiculosService } from '../tipos-de-vehiculos';
+import { TiposDeCarrocerias, TiposDeCarroceriasService } from '../tipos-de-carrocerias';
 
 
 @Component({
@@ -18,21 +20,29 @@ export class PlantillasCarroceriasXTiposDeVehiculosXOfertasComponent implements 
   editar:boolean=false;
   lstPlantillasOfertas:Plantillas_Ofertas[]=[];
   lstCarroceriasXTiposDeVehiculos:CarroceriasXTiposDeVehiculos[]=[];
+  lstTiposDeVehiculos: TiposDeVehiculos[] = [];
+  lstTiposDeCarrocerias: TiposDeCarrocerias[] = [];
   //lstplantillascarroceriasxtiposdevehiculosxofertas:PlantillasCarroceriasXTiposDeVehiculosXOfertas[]=[];
   FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas : FormGroup = this.formBuilder.group({      
     idCarroceriaXTipoDeVehiculoXOferta:new FormControl('0'),
     idOferta:new FormControl('1'),
-    idCarroceriaXTipoDeVehiculo:new FormControl('1'),
+    idTipoDeVehiculo:new FormControl('1'),
+    idTipoDeCarroceria:new FormControl('1'),
+    tieneTrailer:false,
     nombrePlantillaCarroceriaXTipoDeVehiculoXOferta:new FormControl('',Validators.required),
+    descripcion:new FormControl('',Validators.required),
   });
 
- 
+   
   cargarNombresPlantillasCarroceriasXTiposDeVehiculosXOfertas(plantillascarroceriasxtiposdevehiculosxofertas:PlantillasCarroceriasXTiposDeVehiculosXOfertas){
     this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.patchValue({
       idCarroceriaXTipoDeVehiculoXOferta:plantillascarroceriasxtiposdevehiculosxofertas.idCarroceriaXTipoDeVehiculoXOferta,
       idOferta : plantillascarroceriasxtiposdevehiculosxofertas.idOferta,
-      idCarroceriaXTipoDeVehiculo:plantillascarroceriasxtiposdevehiculosxofertas.idCarroceriaXTipoDeVehiculo,
+      idTipoDeVehiculo : plantillascarroceriasxtiposdevehiculosxofertas.idTipoDeVehiculo,
+      idTipoDeCarroceria : plantillascarroceriasxtiposdevehiculosxofertas.idTipoDeCarroceria,
+      tieneTrailer : plantillascarroceriasxtiposdevehiculosxofertas.tieneTrailer,
       nombrePlantillaCarroceriaXTipoDeVehiculoXOferta:plantillascarroceriasxtiposdevehiculosxofertas.nombrePlantillaCarroceriaXTipoDeVehiculoXOferta,
+      descripcion:plantillascarroceriasxtiposdevehiculosxofertas.descripcion,
     })
   }  
   public asignarid(idCarroceriaXTipoDeVehiculoXOferta:number){
@@ -65,7 +75,9 @@ export class PlantillasCarroceriasXTiposDeVehiculosXOfertasComponent implements 
     private plantillasofertasService: Plantillas_OfertasService,
     private carroceriasxtiposdevehiculosService: CarroceriasXTiposDeVehiculosService,
     private formBuilder: FormBuilder, 
-    private plantillascarroceriasxtiposdevehiculosxofertasService: PlantillasCarroceriasXTiposDeVehiculosXOfertasService) { }
+    private plantillascarroceriasxtiposdevehiculosxofertasService: PlantillasCarroceriasXTiposDeVehiculosXOfertasService,
+    private tiposdevehiculosService: TiposDeVehiculosService,
+    private tiposdecarroceriasService:TiposDeCarroceriasService) { }
 
     crearPlantillasCarroceriasXTiposDeVehiculosXOfertas(){
       let plantillascarroceriasxtiposdevehiculosxofertas : PlantillasCarroceriasXTiposDeVehiculosXOfertas = new PlantillasCarroceriasXTiposDeVehiculosXOfertas;
@@ -74,10 +86,12 @@ export class PlantillasCarroceriasXTiposDeVehiculosXOfertasComponent implements 
       //agregamos los datos del formulario a la tabla personas
       plantillascarroceriasxtiposdevehiculosxofertas.idCarroceriaXTipoDeVehiculoXOferta=this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.value.idCarroceriaXTipoDeVehiculoXOferta;
       plantillascarroceriasxtiposdevehiculosxofertas.idOferta=this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.value.idOferta;
-      plantillascarroceriasxtiposdevehiculosxofertas.idCarroceriaXTipoDeVehiculo=this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.value.idCarroceriaXTipoDeVehiculo;
+      plantillascarroceriasxtiposdevehiculosxofertas.idTipoDeVehiculo=this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.value.idTipoDeVehiculo;
+      plantillascarroceriasxtiposdevehiculosxofertas.idTipoDeCarroceria=this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.value.idTipoDeCarroceria;
+      plantillascarroceriasxtiposdevehiculosxofertas.tieneTrailer=this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.value.tieneTrailer;      
       plantillascarroceriasxtiposdevehiculosxofertas.nombrePlantillaCarroceriaXTipoDeVehiculoXOferta=this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.value.nombrePlantillaCarroceriaXTipoDeVehiculoXOferta;
-      
-      
+      plantillascarroceriasxtiposdevehiculosxofertas.descripcion=this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.value.descripcion;
+         
       
      //suscrubimos la guardada de los datos en la tabla plantillascarroceriasxtiposdevehiculosxofertas
       this.plantillascarroceriasxtiposdevehiculosxofertasService.create(plantillascarroceriasxtiposdevehiculosxofertas).subscribe(
@@ -110,15 +124,34 @@ export class PlantillasCarroceriasXTiposDeVehiculosXOfertasComponent implements 
         }
       });
     }
+
+    listarTiposDeVehiculos(){
+      this.tiposdevehiculosService.GetAll().subscribe({
+        next : (lsttiposdevehiculos:TiposDeVehiculos[]) => {
+          this.lstTiposDeVehiculos = lsttiposdevehiculos;
+        }
+      });
+    }
+
+    listarTiposDeCarrocerias(){
+      this.tiposdecarroceriasService.GetAll().subscribe({
+        next : (lsttiposdecarrocerias:TiposDeCarrocerias[]) => {
+          this.lstTiposDeCarrocerias = lsttiposdecarrocerias;
+        }
+      });
+    }
+
   
     editarPlantillasCarroceriasXTiposDeVehiculosXOfertas(idCarroceriaXTipoDeVehiculoXOferta:number){
       let plantillascarroceriasxtiposdevehiculosxofertas : PlantillasCarroceriasXTiposDeVehiculosXOfertas = new PlantillasCarroceriasXTiposDeVehiculosXOfertas;
   
       plantillascarroceriasxtiposdevehiculosxofertas.idCarroceriaXTipoDeVehiculoXOferta=idCarroceriaXTipoDeVehiculoXOferta;
       plantillascarroceriasxtiposdevehiculosxofertas.idOferta=this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.value.idOferta;
-      plantillascarroceriasxtiposdevehiculosxofertas.idCarroceriaXTipoDeVehiculo=this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.value.idCarroceriaXTipoDeVehiculo;
-      //agregamos los datos del formulario a la tabla plantillascarroceriasxtiposdevehiculosxofertas
+      plantillascarroceriasxtiposdevehiculosxofertas.idTipoDeVehiculo=this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.value.idTipoDeVehiculo;
+      plantillascarroceriasxtiposdevehiculosxofertas.idTipoDeCarroceria=this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.value.idTipoDeCarroceria;
+      plantillascarroceriasxtiposdevehiculosxofertas.tieneTrailer=this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.value.tieneTrailer;
       plantillascarroceriasxtiposdevehiculosxofertas.nombrePlantillaCarroceriaXTipoDeVehiculoXOferta=this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.value.nombrePlantillaCarroceriaXTipoDeVehiculoXOferta;
+      plantillascarroceriasxtiposdevehiculosxofertas.descripcion=this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.value.descripcion;
       
       //suscrubimos la guardada de los datos en la tabla plantillascarroceriasxtiposdevehiculosxofertas
       this.plantillascarroceriasxtiposdevehiculosxofertasService.Edit(plantillascarroceriasxtiposdevehiculosxofertas).subscribe(

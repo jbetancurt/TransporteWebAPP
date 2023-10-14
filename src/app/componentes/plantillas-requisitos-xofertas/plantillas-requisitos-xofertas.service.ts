@@ -24,6 +24,11 @@ export  class PlantillasRequisitosXOfertasServices {
     return this.httpClient.get<PlantillasRequisitosXOfertas[]>(urlPage, environment.httpOptions);
   }
 
+  public ConsultarXOferta(idOferta : string): Observable<PlantillasRequisitosXOfertas[]>{
+    let ruta = urlPage + "/consultarxoferta/" + idOferta;
+    return this.httpClient.get<PlantillasRequisitosXOfertas[]>(ruta, environment.httpOptions);
+  }
+
   public Edit(_PlantillasRequisitosXOfertas : PlantillasRequisitosXOfertas): Observable<boolean>{
     return this.httpClient.put<boolean>(urlPage + '/' + (_PlantillasRequisitosXOfertas.idRequisitoXOferta), _PlantillasRequisitosXOfertas, environment.httpOptions);
   }

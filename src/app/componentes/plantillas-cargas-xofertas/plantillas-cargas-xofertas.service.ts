@@ -25,6 +25,11 @@ export class PlantillasCargasXOfertasService {
     return this.httpClient.get<PlantillasCargasXOfertas[]>(urlPage, environment.httpOptions);
   }
 
+  public ConsultarXOferta(idOferta : string): Observable<PlantillasCargasXOfertas[]>{
+    let ruta = urlPage + "/consultarxoferta/" + idOferta;
+    return this.httpClient.get<PlantillasCargasXOfertas[]>(ruta, environment.httpOptions);
+  }
+
   public Edit(_PlantillasCargasXOfertas : PlantillasCargasXOfertas): Observable<boolean>{
     return this.httpClient.put<boolean>(urlPage + '/' + (_PlantillasCargasXOfertas.idOferta), _PlantillasCargasXOfertas, environment.httpOptions);
   }
