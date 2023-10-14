@@ -29,7 +29,7 @@ export class PlantillasRequisitosXOfertasComponent implements OnInit {
     idRequisitoXOferta: new FormControl('0'),
     idOferta:new FormControl(0,Validators.required),
     idRequisito:new FormControl(0,Validators.required),
-    requeridoRequisitoXOferta:false
+    observacion:new FormControl('',Validators.required)
   
   });
     
@@ -41,7 +41,7 @@ export class PlantillasRequisitosXOfertasComponent implements OnInit {
             idRequisitoXOferta:plantillasrequisitosxofertas.idRequisitoXOferta,
             idRequisito:plantillasrequisitosxofertas.idRequisito,
             idOferta:plantillasrequisitosxofertas.idOferta,
-            requeridoRequisitoXOferta:plantillasrequisitosxofertas.requeridoRequisitoXOferta          });
+            observacion:plantillasrequisitosxofertas.observacion});
         }        
       }
     });
@@ -104,7 +104,7 @@ export class PlantillasRequisitosXOfertasComponent implements OnInit {
       plantillasrequisitosxofertas.idRequisitoXOferta=this.FGAgregarPlantillasRequisitosXOfertas.value.idRequisitoXOferta;
       plantillasrequisitosxofertas.idRequisito=this.FGAgregarPlantillasRequisitosXOfertas.value.idRequisito;
       plantillasrequisitosxofertas.idOferta=this.FGAgregarPlantillasRequisitosXOfertas.value.idOferta;
-      plantillasrequisitosxofertas.requeridoRequisitoXOferta=this.FGAgregarPlantillasRequisitosXOfertas.value.requeridoRequisitoXOferta;
+      plantillasrequisitosxofertas.observacion=this.FGAgregarPlantillasRequisitosXOfertas.value.observacion;
       
             
      //suscrubimos la guardada de los datos en la tabla plantillasrequisitosxofertas
@@ -123,7 +123,7 @@ export class PlantillasRequisitosXOfertasComponent implements OnInit {
       plantillasrequisitosxofertas.idRequisitoXOferta=idRequisitoXOferta;
       plantillasrequisitosxofertas.idRequisito=this.FGAgregarPlantillasRequisitosXOfertas.value.idRequisito;
       plantillasrequisitosxofertas.idOferta=this.FGAgregarPlantillasRequisitosXOfertas.value.idOferta;
-      plantillasrequisitosxofertas.requeridoRequisitoXOferta=this.FGAgregarPlantillasRequisitosXOfertas.value.requeridoRequisitoXOferta;
+      plantillasrequisitosxofertas.observacion=this.FGAgregarPlantillasRequisitosXOfertas.value.observacion;
       
       
       //suscrubimos la guardada de los datos en la tabla plantillasrequisitosxofertas

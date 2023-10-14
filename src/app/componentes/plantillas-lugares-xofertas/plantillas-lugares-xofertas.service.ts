@@ -26,6 +26,11 @@ export class PlantillasLugaresXOfertasService {
     return this.httpClient.get<PlantillasLugaresXOfertas[]>(urlPage, environment.httpOptions);
   }
 
+  public ConsultarXOferta(idOferta : string, idTipoDeLugarXOferta : string): Observable<PlantillasLugaresXOfertas[]>{
+    let ruta = urlPage + "/consultarxoferta/" + idOferta + "/" + idTipoDeLugarXOferta;
+    return this.httpClient.get<PlantillasLugaresXOfertas[]>(ruta, environment.httpOptions);
+  }
+
   public Edit(_PlantillasLugaresXOfertas : PlantillasLugaresXOfertas): Observable<boolean>{
     return this.httpClient.put<boolean>(urlPage + '/' + (_PlantillasLugaresXOfertas.idLugarXOferta), _PlantillasLugaresXOfertas, environment.httpOptions);
   }

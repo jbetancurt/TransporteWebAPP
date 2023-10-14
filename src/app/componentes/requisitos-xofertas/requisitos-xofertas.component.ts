@@ -27,7 +27,7 @@ export class RequisitosXOfertasComponent implements OnInit {
     idRequisitoXOferta: new FormControl('0'),
     idOferta:new FormControl(0,Validators.required),
     idRequisito:new FormControl(0,Validators.required),
-    requeridoRequisitoXOferta:false
+    observacion:new FormControl('',Validators.required)
   
   });
     
@@ -37,9 +37,9 @@ export class RequisitosXOfertasComponent implements OnInit {
         if (datarequisitosxofertas.idRequisitoXOferta>0){
           this.FGAgregarRequisitosXOfertas.patchValue({
             idRequisitoXOferta:requisitosxofertas.idRequisitoXOferta,
-            idRequisito:requisitosxofertas.idRequisito,
             idOferta:requisitosxofertas.idOferta,
-            requeridoRequisitoXOferta:requisitosxofertas.requeridoRequisitoXOferta          });
+            idRequisito:requisitosxofertas.idRequisito,
+            observacion:requisitosxofertas.observacion          });
         }        
       }
     });
@@ -102,7 +102,7 @@ export class RequisitosXOfertasComponent implements OnInit {
       requisitosxofertas.idRequisitoXOferta=this.FGAgregarRequisitosXOfertas.value.idRequisitoXOferta;
       requisitosxofertas.idRequisito=this.FGAgregarRequisitosXOfertas.value.idRequisito;
       requisitosxofertas.idOferta=this.FGAgregarRequisitosXOfertas.value.idOferta;
-      requisitosxofertas.requeridoRequisitoXOferta=this.FGAgregarRequisitosXOfertas.value.requeridoRequisitoXOferta;
+      requisitosxofertas.observacion=this.FGAgregarRequisitosXOfertas.value.observacion;
       
             
      //suscrubimos la guardada de los datos en la tabla requisitosxofertas
@@ -121,7 +121,7 @@ export class RequisitosXOfertasComponent implements OnInit {
       requisitosxofertas.idRequisitoXOferta=idRequisitoXOferta;
       requisitosxofertas.idRequisito=this.FGAgregarRequisitosXOfertas.value.idRequisito;
       requisitosxofertas.idOferta=this.FGAgregarRequisitosXOfertas.value.idOferta;
-      requisitosxofertas.requeridoRequisitoXOferta=this.FGAgregarRequisitosXOfertas.value.requeridoRequisitoXOferta;
+      requisitosxofertas.observacion=this.FGAgregarRequisitosXOfertas.value.observacion;
       
       
       //suscrubimos la guardada de los datos en la tabla requisitosxofertas

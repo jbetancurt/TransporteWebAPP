@@ -7,3 +7,5 @@ export class CarroceriasXTiposDeVehiculosXOfertas {
     descripcion : string='';
 
 }
+
+

@@ -31,9 +31,8 @@ export class RequisitosComponent implements OnInit {
       idRequisito:requisitos.idRequisito,
       idEmpresa : requisitos.idEmpresa,
       nombrerequisito:requisitos.nombreRequisito,
-      requeridoRequisito:requisitos.requeridoRequisito ?? false,
-      adjuntoRequisito:requisitos.adjuntoRequisito ?? false,
-      validacionUnicaRequisito:requisitos.validacionUnicaRequisito ?? false
+      requeridoAdjunto:requisitos.requeridoAdjunto ?? false,
+      
     })
   }  
   public asignarid(idRequisito:number){
@@ -72,9 +71,7 @@ export class RequisitosComponent implements OnInit {
       requisitos.idRequisito=this.FGAgregarRequisitos.value.idRequisito;
       requisitos.idEmpresa=this.FGAgregarRequisitos.value.idEmpresa;
       requisitos.nombreRequisito=this.FGAgregarRequisitos.value.nombrerequisito;
-      requisitos.requeridoRequisito=this.FGAgregarRequisitos.value.requeridoRequisito;
-      requisitos.adjuntoRequisito=this.FGAgregarRequisitos.value.adjuntoRequisito;
-      requisitos.validacionUnicaRequisito=this.FGAgregarRequisitos.value.validacionUnicaRequisito;
+      requisitos.requeridoAdjunto=this.FGAgregarRequisitos.value.requeridoAdjunto;
       
       
       
@@ -100,9 +97,7 @@ export class RequisitosComponent implements OnInit {
       requisitos.idRequisito=idRequisito;
       requisitos.idEmpresa=this.FGAgregarRequisitos.value.idEmpresa;
       requisitos.nombreRequisito=this.FGAgregarRequisitos.value.nombrerequisito;
-      requisitos.requeridoRequisito=this.FGAgregarRequisitos.value.requeridoRequisito;
-      requisitos.adjuntoRequisito=this.FGAgregarRequisitos.value.adjuntoRequisito;
-      requisitos.validacionUnicaRequisito=this.FGAgregarRequisitos.value.validacionUnicaRequisito;
+      requisitos.requeridoAdjunto=this.FGAgregarRequisitos.value.requeridoAdjunto;  
       
       //suscrubimos la guardada de los datos en la tabla requisitos
       this.requisitosService.Edit(requisitos).subscribe(

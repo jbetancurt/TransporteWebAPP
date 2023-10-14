@@ -1,7 +1,7 @@
 <form [formGroup]="FGAgregarRequisitosXOfertas" (ngSubmit)="FGAgregarRequisitosXOfertas.valid &&  enviarDatos()" #formulario>
     <ng-container >
         <mat-toolbar>
-            <h1  mat-dialog-title>Agregar Plantilla Requisito Por Ofertas</h1>
+            <h1  mat-dialog-title>Agregar Requisito Por Ofertas</h1>
             <div class="menu-spacer"></div>
             
         </mat-toolbar>
@@ -23,11 +23,13 @@
                     </mat-select>
                 </mat-form-field>
             </div>
-            <div  fxLayout="row" fxLayoutGap="1px" >
-                <div appearance="fill" >
-                    <mat-checkbox formControlName="requeridoRequisitoXOferta" fxFlex>Requiere Requisito</mat-checkbox>
-                </div>
+            <div  fxLayout="row" fxLayoutGap="1px">
+                <mat-form-field appearance="fill"  fxFlex>
+                    <mat-label>Observacion</mat-label>
+                    <input matInput  formControlName="observacion" [readonly]="false">
+                </mat-form-field>  
             </div>
+            
             <input type="hidden" formControlName="idRequisitoXOferta" [readonly]="false">  
         
         </div>

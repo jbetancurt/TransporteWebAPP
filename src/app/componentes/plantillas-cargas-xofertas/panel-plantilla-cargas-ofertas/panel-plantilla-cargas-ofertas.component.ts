@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { CargasXOfertas , CargasXOfertasComponent, CargasXOfertasService } from '../';
+import { PlantillasCargasXOfertas , PlantillasCargasXOfertasComponent, PlantillasCargasXOfertasService } from '../';
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
 import { tap } from 'rxjs/operators';
@@ -9,12 +9,13 @@ import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-panel-cargas-ofertas',
-  templateUrl: './panel-cargas-ofertas.component.html',
-  styleUrls: ['./panel-cargas-ofertas.component.scss']
+  selector: 'app-panel-plantilla-cargas-ofertas',
+  templateUrl: './panel-plantilla-cargas-ofertas.component.html',
+  styleUrls: ['./panel-plantilla-cargas-ofertas.component.scss']
 })
-export class PanelCargasOfertasComponent implements OnInit {
-  
+
+
+export class PanelPlantillaCargasOfertasComponent implements OnInit {
   @Input() tituloDelPanel = "CARGA";
   @Input() editaroAgregar = "agregar";
   @Input() indexEditar = 0;
@@ -26,7 +27,7 @@ export class PanelCargasOfertasComponent implements OnInit {
   datosGuardados: any[] = [];
   datosTemporales:any[]=[];
   dataSource = new MatTableDataSource<any>(this.datosGuardados);  
-  lstCargasXOfertas:  CargasXOfertas[] = [];
+  lstPlantillasCargasXOfertas:  PlantillasCargasXOfertas[] = [];
   
   displayedColumns: string[] = ['tipoDeProducto','unidadDeEmpaque', 'altoCargaXOferta','anchoCargaXOferta', 'largoCargaXOferta','toneladaCargaXOferta','tarifaCargaXOferta', 'totalCargaXOferta','editar', 'borrar'];
 
@@ -44,13 +45,12 @@ export class PanelCargasOfertasComponent implements OnInit {
   constructor 
   (
     private formBuilder: FormBuilder,
-    private cargasxofertasService: CargasXOfertasService
+    private plantillascargasxofertasService: PlantillasCargasXOfertasService
     
   ) { }
   
   ngOnInit() {
-    this.listarCargasXOfertas(this.idOferta);
-    //this.refrescarResumenPanel();
+    this.listarPlantillasCargasXOfertas(this.idOferta);
   }
 
   FGAgregarCargas : FormGroup = this.formBuilder.group({  
@@ -119,18 +119,14 @@ export class PanelCargasOfertasComponent implements OnInit {
     this.dataSource.data = this.datosGuardados;
     this.refrescarResumenPanel();
     this.FGAgregarCargas.reset();
-    
   }
-
 
   editarFila(index: number) {
     this.datosGuardados[index] = this.FGAgregarCargas.value;
     this.dataSource.data = this.datosGuardados;
     this.FGAgregarCargas.reset();
-    //this.descripcionPanel = this.datosGuardados.map(dato => this.encontrarNombreTipoDeVehiculo(dato.idTipoDeVehiculo));
     this.editaroAgregar="agregar";
     this.refrescarResumenPanel();
-
   }
 
   cargarDatosParaEditar(index: number) {
@@ -149,14 +145,13 @@ export class PanelCargasOfertasComponent implements OnInit {
     });
   }
 
-  listarCargasXOfertas(idOferta:number){
-    this.cargasxofertasService.ConsultarXOferta(idOferta.toString()).subscribe({
-      next: (lstcargasxofertas: CargasXOfertas[]) => {
-        this.lstCargasXOfertas = lstcargasxofertas;
-        this.cargarCargasXOfertasAdatosGuardados();
-        console.log(this.lstCargasXOfertas);
+  listarPlantillasCargasXOfertas(idOferta:number){
+    this.plantillascargasxofertasService.ConsultarXOferta(idOferta.toString()).subscribe({
+      next: (lstplantillascargasxofertas: PlantillasCargasXOfertas[]) => {
+        this.lstPlantillasCargasXOfertas = lstplantillascargasxofertas;
+        this.cargarPlantillasCargasXOfertasAdatosGuardados();
+        console.log(this.lstPlantillasCargasXOfertas);
         console.log(this.idOferta)
-      //  this.refrescarResumenPanel();
       }
     });
   }
@@ -166,10 +161,8 @@ export class PanelCargasOfertasComponent implements OnInit {
   }
 
 
-  cargarCargasXOfertasAdatosGuardados() {
-    
-    this.lstCargasXOfertas.forEach(carga => {
-      //console.log(vehiculo);
+  cargarPlantillasCargasXOfertasAdatosGuardados() {
+    this.lstPlantillasCargasXOfertas.forEach(carga => {
       const datos = {
         idCargaXOferta: carga.idCargaXOferta,
         idOferta: carga.idOferta, 
@@ -181,13 +174,9 @@ export class PanelCargasOfertasComponent implements OnInit {
         toneladaCargaXOferta: carga.toneladaCargaXOferta,
         tarifaCargaXOferta: carga.tarifaCargaXOferta,
         totalCargaXOferta: carga.totalCargaXOferta
-       
       };
-      //console.log(datos);
       this.datosGuardados.push(datos);
       this.dataSource.data = this.datosGuardados;
-      //this.datosGuardados.map(dato => this.encontrarNombreTipoDeVehiculo(dato.idTipoDeVehiculo));
-      
     });
     this.refrescarResumenPanel();
   }

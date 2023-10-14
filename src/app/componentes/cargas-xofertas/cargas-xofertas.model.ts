@@ -1,6 +1,8 @@
 export class CargasXOfertas {
     idCargaXOferta: number=0;
     idOferta: number=0;
+    tipoDeProducto: string="";
+    unidadDeEmpaque: string="";
     altoCargaXOferta: number=0;
     anchoCargaXOferta: number=0;
     largoCargaXOferta: number=0;

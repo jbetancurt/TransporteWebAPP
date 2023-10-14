@@ -30,15 +30,34 @@
                 </td>
             </ng-container>
 
-            <ng-container matColumnDef="idCarroceriaXTipoDeVehiculo">
-                <th mat-header-cell *matHeaderCellDef> Carroceria Por Tipo De Vehiculo </th>
+            <ng-container matColumnDef="idTipoDeVehiculo">
+                <th mat-header-cell *matHeaderCellDef> Tipo De Vehiculo </th>
                 <td mat-cell *matCellDef="let element"> 
-                    {{element.idCarroceriaXTipoDeVehiculo}}
+                    {{element.idTipoDeVehiculo}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="idTipoDeCarroceria">
+                <th mat-header-cell *matHeaderCellDef> Tipo De Carroceria </th>
+                <td mat-cell *matCellDef="let element"> 
+                    {{element.idTipoDeCarroceria}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="tieneTrailer">
+                <th mat-header-cell *matHeaderCellDef><div fxFlexFill fxLayoutAlign="center center">
+                    Tiene Trailer
+                </div>  </th>
+                <td mat-cell *matCellDef="let dato"> 
+                    <div fxFlexFill fxLayoutAlign="center center">
+                        <mat-icon *ngIf="dato.tieneTrailer" color="tiene">check</mat-icon>
+                        <mat-icon *ngIf="!dato.tieneTrailer" color="notiene">close</mat-icon>
+                    </div>
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="nombrePlantillaCarroceriaXTipoDeVehiculoXOferta">
-                <th mat-header-cell *matHeaderCellDef> Tonelada Carga </th>
+                <th mat-header-cell *matHeaderCellDef> Nombre Plantilla</th>
                 <td mat-cell *matCellDef="let element"> 
                     {{element.nombrePlantillaCarroceriaXTipoDeVehiculoXOferta}}
                 </td>

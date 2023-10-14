@@ -26,7 +26,7 @@ export class ListarRequisitosComponent implements OnInit {
       @ViewChild(MatPaginator) paginator!: MatPaginator;
       @ViewChild(MatSort) sort!: MatSort;
       
-      displayedColumns: string[] = ['nombrerequisito', 'idEmpresa' ,'requeridoRequisito','adjuntoRequisito','validacionUnicaRequisito', 'editar', 'borrar'];
+      displayedColumns: string[] = ['idEmpresa' ,'nombrerequisito', 'requeridoAdjunto', 'editar', 'borrar'];
       public AbrirInformacion()
       {
             

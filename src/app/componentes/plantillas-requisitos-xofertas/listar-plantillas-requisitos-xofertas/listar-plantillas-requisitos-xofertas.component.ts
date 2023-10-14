@@ -30,7 +30,7 @@ export class ListarPlantillasRequisitosXOfertasComponent implements OnInit {
       @ViewChild(MatPaginator) paginator!: MatPaginator;
       @ViewChild(MatSort) sort!: MatSort;
       
-      displayedColumns: string[] = ['idOferta','idRequisito','requeridoRequisitoXOferta', 'editar', 'borrar'];
+      displayedColumns: string[] = ['idOferta','idRequisito','observacion', 'editar', 'borrar'];
       public AbrirInformacion()
       {
             

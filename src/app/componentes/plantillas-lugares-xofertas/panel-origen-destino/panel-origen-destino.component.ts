@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, ViewChild } from '@angular/core';
-import { LugaresXOfertas , LugaresXOfertasComponent, LugaresXOfertasService } from '../';
+import { PlantillasLugaresXOfertas , PlantillasLugaresXOfertasComponent, PlantillasLugaresXOfertasService } from '../';
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
 import { tap } from 'rxjs/operators';
@@ -13,8 +13,6 @@ import { Ofertas, OfertasService } from '../../ofertas';
 import { TiposDeLugaresXOfertas, TiposDeLugaresXOfertasService } from '../../tipos-de-lugares-xofertas';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-
-
 @Component({
   selector: 'app-panel-origen-destino',
   templateUrl: './panel-origen-destino.component.html',
@@ -22,11 +20,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 
 
-
 export class PanelOrigenDestinoComponent implements OnInit   {
   lstCiudades : Ciudades[]=[];
   lstPersonas : Personas[]=[];
-  lstLugaresXOfertas : LugaresXOfertas[]=[];
+  lstPlantillasLugaresXOfertas : PlantillasLugaresXOfertas[]=[];
   panelOpenState = false;
   openorclose = false;
   nombres = "";
@@ -204,11 +201,11 @@ cargarDatosParaEditar(index: number) {
     });
   }
 
-  listarLugaresXOfertas(idOferta:number, idTipoDeLugarXOferta:number){
-    this.lugaresxofertasService.ConsultarXOferta(idOferta.toString() , idTipoDeLugarXOferta.toString()).subscribe({
-      next : (lstlugaresxofertas:LugaresXOfertas[]) => { 
-        this.lstLugaresXOfertas=lstlugaresxofertas;
-        this.datosGuardados = this.lstLugaresXOfertas;
+  listarPlantillasLugaresXOfertas(idOferta:number, idTipoDeLugarXOferta:number){
+    this.plantillaslugaresxofertasService.ConsultarXOferta(idOferta.toString() , idTipoDeLugarXOferta.toString()).subscribe({
+      next : (lstlugaresxofertas:PlantillasLugaresXOfertas[]) => { 
+        this.lstPlantillasLugaresXOfertas=lstlugaresxofertas;
+        this.datosGuardados = this.lstPlantillasLugaresXOfertas;
         
         this.dataSource.data = this.datosGuardados;
         this.refrescarResumenPanel();
@@ -269,7 +266,7 @@ cargarDatosParaEditar(index: number) {
             this.asignarTipoDeLugar();
             this.listarCiudades();
             this.listarPersonas();
-            this.listarLugaresXOfertas(this.idOferta, this.idTipoDeLugarXOferta);
+            this.listarPlantillasLugaresXOfertas(this.idOferta, this.idTipoDeLugarXOferta);
             
   
           }
@@ -282,14 +279,14 @@ cargarDatosParaEditar(index: number) {
   constructor(
     private ciudadesService: CiudadesService,
     private personasService: PersonasService,
-    private lugaresxofertasService: LugaresXOfertasService,
+    private plantillaslugaresxofertasService: PlantillasLugaresXOfertasService,
     private tiposDeLugaresXOfertasService: TiposDeLugaresXOfertasService,
     private formBuilder: FormBuilder
     
     ) { }
 
     enviarDatos() : void{
-      let fgLugaresXOfertas=this.FGAgregarLugares.value;
+      let fgPlantillasLugaresXOfertas=this.FGAgregarLugares.value;
      
       
     }
