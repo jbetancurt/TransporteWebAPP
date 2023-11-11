@@ -44,6 +44,8 @@
                         {{dato.descripcion}}
                     </td>
                 </ng-container>
+
+                
                 
                         
     
@@ -103,6 +105,8 @@
                                 <input matInput  placeholder="descripcion" formControlName="descripcion">
                             </mat-form-field>  
                         </div>
+                        
+
                         <div mat-dialog-actions align="end">
                             <button *ngIf="editaroAgregar === 'agregar'" mat-raised-button color="primary" (click)="guardarDatos()">Agregar</button>
                             <button *ngIf="editaroAgregar === 'editar'" mat-raised-button color="primary" (click)="editarFila(indexEditar)">Editar</button>

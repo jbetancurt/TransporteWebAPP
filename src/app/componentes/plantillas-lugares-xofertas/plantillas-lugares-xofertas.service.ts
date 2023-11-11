@@ -42,6 +42,9 @@ export class PlantillasLugaresXOfertasService {
   public delete(idLugarXOferta: string): Observable<void> {
     return this.httpClient.delete<void>(urlPage + '/' + idLugarXOferta, environment.httpOptions);
   }
+  public BorrarPorIdOferta(idOferta: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/borrarporidoferta/' + idOferta, environment.httpOptions);
+  }
  
 }
 

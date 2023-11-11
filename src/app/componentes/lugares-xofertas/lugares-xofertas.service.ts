@@ -30,6 +30,8 @@ export class LugaresXOfertasService {
   }
 
   public Edit(_LugaresXOfertas : LugaresXOfertas): Observable<boolean>{
+    console.log(_LugaresXOfertas);
+    
     return this.httpClient.put<boolean>(urlPage + '/' + (_LugaresXOfertas.idCiudad), _LugaresXOfertas, environment.httpOptions);
   }
   
@@ -39,6 +41,10 @@ export class LugaresXOfertasService {
 
   public delete(idLugarXOferta: string): Observable<void> {
     return this.httpClient.delete<void>(urlPage + '/' + idLugarXOferta, environment.httpOptions);
+  }
+
+  public BorrarPorIdOferta(idOferta: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/borrarporidoferta/' + idOferta, environment.httpOptions);
   }
   
 }

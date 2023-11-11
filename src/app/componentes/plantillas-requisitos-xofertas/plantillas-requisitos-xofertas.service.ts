@@ -39,6 +39,9 @@ export  class PlantillasRequisitosXOfertasServices {
   public delete(idPlantillaRequisitoXOferta: string): Observable<void> {
     return this.httpClient.delete<void>(urlPage + '/' + idPlantillaRequisitoXOferta, environment.httpOptions);
   }
+  public BorrarPorIdOferta(idOferta: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/borrarporidoferta/' + idOferta, environment.httpOptions);
+  }
   
 }
 

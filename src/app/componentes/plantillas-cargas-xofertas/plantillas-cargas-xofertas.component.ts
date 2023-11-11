@@ -18,7 +18,7 @@ export class PlantillasCargasXOfertasComponent implements OnInit {
   FGAgregarPlantillasCargasXOfertas : FormGroup = this.formBuilder.group({      
     idCargaXOferta:new FormControl('0'),
     idOferta:new FormControl('1'),
-    nombrePlantillaCargaXOferta:new FormControl('',Validators.required),
+   // nombrePlantillaCargaXOferta:new FormControl('',Validators.required),
     toneladaCargaXOferta:new FormControl(0,Validators.required),
     largoCargaXOferta:new FormControl(0,Validators.required),
     anchoCargaXOferta:new FormControl(0,Validators.required),
@@ -33,7 +33,7 @@ export class PlantillasCargasXOfertasComponent implements OnInit {
     this.FGAgregarPlantillasCargasXOfertas.patchValue({
       idCargaXOferta:plantillascargasxofertas.idCargaXOferta,
       idOferta : plantillascargasxofertas.idOferta,
-      nombrePlantillaCargaXOferta:plantillascargasxofertas.nombrePlantillaCargaXOferta,
+    //  nombrePlantillaCargaXOferta:plantillascargasxofertas.nombrePlantillaCargaXOferta,
       toneladaCargaXOferta:plantillascargasxofertas.toneladaCargaXOferta,
       largoCargaXOferta:plantillascargasxofertas.largoCargaXOferta,
       anchoCargaXOferta:plantillascargasxofertas.anchoCargaXOferta,
@@ -79,7 +79,7 @@ export class PlantillasCargasXOfertasComponent implements OnInit {
       //agregamos los datos del formulario a la tabla personas
       plantillascargasxofertas.idCargaXOferta=this.FGAgregarPlantillasCargasXOfertas.value.idCargaXOferta;
       plantillascargasxofertas.idOferta=this.FGAgregarPlantillasCargasXOfertas.value.idOferta;
-      plantillascargasxofertas.nombrePlantillaCargaXOferta=this.FGAgregarPlantillasCargasXOfertas.value.nombrePlantillaCargaXOferta;
+    //  plantillascargasxofertas.nombrePlantillaCargaXOferta=this.FGAgregarPlantillasCargasXOfertas.value.nombrePlantillaCargaXOferta;
       plantillascargasxofertas.toneladaCargaXOferta=this.FGAgregarPlantillasCargasXOfertas.value.toneladaCargaXOferta;
       plantillascargasxofertas.largoCargaXOferta=this.FGAgregarPlantillasCargasXOfertas.value.largoCargaXOferta;
       plantillascargasxofertas.anchoCargaXOferta=this.FGAgregarPlantillasCargasXOfertas.value.anchoCargaXOferta;
@@ -119,7 +119,7 @@ export class PlantillasCargasXOfertasComponent implements OnInit {
       plantillascargasxofertas.idCargaXOferta=idCargaXOferta;
       plantillascargasxofertas.idOferta=this.FGAgregarPlantillasCargasXOfertas.value.idOferta;
       //agregamos los datos del formulario a la tabla plantillascargasxofertas
-      plantillascargasxofertas.nombrePlantillaCargaXOferta=this.FGAgregarPlantillasCargasXOfertas.value.nombrePlantillaCargaXOferta;
+      //plantillascargasxofertas.nombrePlantillaCargaXOferta=this.FGAgregarPlantillasCargasXOfertas.value.nombrePlantillaCargaXOferta;
       plantillascargasxofertas.toneladaCargaXOferta=this.FGAgregarPlantillasCargasXOfertas.value.toneladaCargaXOferta;
       plantillascargasxofertas.largoCargaXOferta=this.FGAgregarPlantillasCargasXOfertas.value.largoCargaXOferta;
       plantillascargasxofertas.anchoCargaXOferta=this.FGAgregarPlantillasCargasXOfertas.value.anchoCargaXOferta;

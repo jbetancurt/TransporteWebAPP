@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { PlantillasCargasXOfertas , PlantillasCargasXOfertasComponent, PlantillasCargasXOfertasService } from '../';
+import { CargasXOfertas } from '../../cargas-xofertas';
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
 import { tap } from 'rxjs/operators';
@@ -20,11 +21,15 @@ export class PanelPlantillaCargasOfertasComponent implements OnInit {
   @Input() editaroAgregar = "agregar";
   @Input() indexEditar = 0;
   @Input() idOferta = 0;
+  @Input() DatosParaCrearPlantillaCargasPorOferta:CargasXOfertas[]=[];
+  @Output() datosActualizadosCargas = new EventEmitter<PlantillasCargasXOfertas[]>();
+  @Output() datosActualizadosParaBorrarCargas = new EventEmitter<PlantillasCargasXOfertas[]>();
   panelOpenState = false;
   openorclose = false;
   descripcionPanel:any[] = [];
   descripcionPanelPorComas :  string = "";
-  datosGuardados: any[] = [];
+  datosGuardados: PlantillasCargasXOfertas[] = [];
+  datosParaBorrar:PlantillasCargasXOfertas[] = [];
   datosTemporales:any[]=[];
   dataSource = new MatTableDataSource<any>(this.datosGuardados);  
   lstPlantillasCargasXOfertas:  PlantillasCargasXOfertas[] = [];
@@ -34,6 +39,7 @@ export class PanelPlantillaCargasOfertasComponent implements OnInit {
   
   tipoDeProducto: string="";
   unidadDeEmpaque: string="";
+  //nombrePlantillaCargaXOferta: string="";
   altoCargaXOferta: number=0;
   anchoCargaXOferta: number=0;
   largoCargaXOferta: number=0;
@@ -50,10 +56,20 @@ export class PanelPlantillaCargasOfertasComponent implements OnInit {
   ) { }
   
   ngOnInit() {
-    this.listarPlantillasCargasXOfertas(this.idOferta);
+    
+    if (this.DatosParaCrearPlantillaCargasPorOferta.length>0){
+      this.lstPlantillasCargasXOfertas=this.DatosParaCrearPlantillaCargasPorOferta;
+      this.cargarPlantillasCargasXOfertasAdatosGuardados();
+      this.datosActualizadosCargas.emit(this.datosGuardados);
+    }
+    else{
+      this.listarPlantillasCargasXOfertas(this.idOferta);
+    }
   }
 
   FGAgregarCargas : FormGroup = this.formBuilder.group({  
+    idCargaXOferta: new FormControl(0),
+   // nombrePlantillaCargaXOferta: new FormControl('',Validators.required),
     tipoDeProducto: new FormControl('',Validators.required),
     unidadDeEmpaque: new FormControl('',Validators.required), 
     altoCargaXOferta: new FormControl(0,Validators.required),
@@ -95,19 +111,20 @@ export class PanelPlantillaCargasOfertasComponent implements OnInit {
       alert("Debe seleccionar Alto Carga y Ancho Carga");
     }
     else{ 
-      const datos = {
-        tipoDeProducto:this.FGAgregarCargas.value.tipoDeProducto,
-        unidadDeEmpaque:this.FGAgregarCargas.value.unidadDeEmpaque,
-        altoCargaXOferta:this.FGAgregarCargas.value.altoCargaXOferta,
-        anchoCargaXOferta:this.FGAgregarCargas.value.anchoCargaXOferta,
-        largoCargaXOferta:this.FGAgregarCargas.value.largoCargaXOferta,
-        toneladaCargaXOferta:this.FGAgregarCargas.value.toneladaCargaXOferta,
-        tarifaCargaXOferta:this.FGAgregarCargas.value.tarifaCargaXOferta,
-        totalCargaXOferta:this.FGAgregarCargas.value.totalCargaXOferta
-        
-      };
-      this.datosGuardados.push(datos);
+      let PlantillaCargaXOferta = new PlantillasCargasXOfertas;
+     // PlantillaCargaXOferta.nombrePlantillaCargaXOferta = this.FGAgregarCargas.value.nombrePlantillaCargaXOferta;
+      PlantillaCargaXOferta.tipoDeProducto=this.FGAgregarCargas.value.tipoDeProducto;
+      PlantillaCargaXOferta.unidadDeEmpaque=this.FGAgregarCargas.value.unidadDeEmpaque;
+      PlantillaCargaXOferta.altoCargaXOferta=this.FGAgregarCargas.value.altoCargaXOferta;
+      PlantillaCargaXOferta.anchoCargaXOferta=this.FGAgregarCargas.value.anchoCargaXOferta;
+      PlantillaCargaXOferta.largoCargaXOferta=this.FGAgregarCargas.value.largoCargaXOferta;
+      PlantillaCargaXOferta.toneladaCargaXOferta=this.FGAgregarCargas.value.toneladaCargaXOferta;
+      PlantillaCargaXOferta.tarifaCargaXOferta=this.FGAgregarCargas.value.tarifaCargaXOferta;
+      PlantillaCargaXOferta.totalCargaXOferta=this.FGAgregarCargas.value.totalCargaXOferta;
+
+      this.datosGuardados.push(PlantillaCargaXOferta);
       this.dataSource.data = this.datosGuardados;
+      this.datosActualizadosCargas.emit(this.datosGuardados);
       this.FGAgregarCargas.reset();
       
       this.refrescarResumenPanel();
@@ -115,15 +132,19 @@ export class PanelPlantillaCargasOfertasComponent implements OnInit {
   }
 
   eliminarFila(index: number) { 
+    this.datosParaBorrar.push(this.datosGuardados[index]);
     this.datosGuardados.splice(index, 1);
     this.dataSource.data = this.datosGuardados;
+    this.datosActualizadosParaBorrarCargas.emit(this.datosParaBorrar);
     this.refrescarResumenPanel();
     this.FGAgregarCargas.reset();
   }
 
   editarFila(index: number) {
+    
     this.datosGuardados[index] = this.FGAgregarCargas.value;
     this.dataSource.data = this.datosGuardados;
+    this.datosActualizadosParaBorrarCargas.emit(this.datosParaBorrar);
     this.FGAgregarCargas.reset();
     this.editaroAgregar="agregar";
     this.refrescarResumenPanel();
@@ -134,6 +155,8 @@ export class PanelPlantillaCargasOfertasComponent implements OnInit {
     this.indexEditar=index;
     let filaSeleccionada = this.datosGuardados[index];
     this.FGAgregarCargas.patchValue({
+      idCargaXOferta:filaSeleccionada.idCargaXOferta,
+     // nombrePlantillaCargaXOferta:filaSeleccionada.nombrePlantillaCargaXOferta,
       tipoDeProducto:filaSeleccionada.tipoDeProducto,
       unidadDeEmpaque:filaSeleccionada.unidadDeEmpaque,
       altoCargaXOferta:filaSeleccionada.altoCargaXOferta,
@@ -163,19 +186,20 @@ export class PanelPlantillaCargasOfertasComponent implements OnInit {
 
   cargarPlantillasCargasXOfertasAdatosGuardados() {
     this.lstPlantillasCargasXOfertas.forEach(carga => {
-      const datos = {
-        idCargaXOferta: carga.idCargaXOferta,
-        idOferta: carga.idOferta, 
-        tipoDeProducto: carga.tipoDeProducto,
-        unidadDeEmpaque: carga.unidadDeEmpaque,
-        altoCargaXOferta: carga.altoCargaXOferta,
-        anchoCargaXOferta: carga.anchoCargaXOferta,
-        largoCargaXOferta: carga.largoCargaXOferta,
-        toneladaCargaXOferta: carga.toneladaCargaXOferta,
-        tarifaCargaXOferta: carga.tarifaCargaXOferta,
-        totalCargaXOferta: carga.totalCargaXOferta
-      };
-      this.datosGuardados.push(datos);
+      let PlantillaCargaXOferta = new PlantillasCargasXOfertas;
+      PlantillaCargaXOferta.idCargaXOferta = carga.idCargaXOferta;
+      PlantillaCargaXOferta.idOferta = carga.idOferta;
+     // PlantillaCargaXOferta.nombrePlantillaCargaXOferta = carga.nombrePlantillaCargaXOferta;
+      PlantillaCargaXOferta.tipoDeProducto=carga.tipoDeProducto;
+      PlantillaCargaXOferta.unidadDeEmpaque=carga.unidadDeEmpaque;
+      PlantillaCargaXOferta.altoCargaXOferta=carga.altoCargaXOferta;
+      PlantillaCargaXOferta.anchoCargaXOferta=carga.anchoCargaXOferta;
+      PlantillaCargaXOferta.largoCargaXOferta=carga.largoCargaXOferta;
+      PlantillaCargaXOferta.toneladaCargaXOferta=carga.toneladaCargaXOferta;
+      PlantillaCargaXOferta.tarifaCargaXOferta=carga.tarifaCargaXOferta;
+      PlantillaCargaXOferta.totalCargaXOferta=carga.totalCargaXOferta;
+      
+      this.datosGuardados.push(PlantillaCargaXOferta);
       this.dataSource.data = this.datosGuardados;
     });
     this.refrescarResumenPanel();

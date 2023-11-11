@@ -42,5 +42,8 @@ export class RequisitosXOfertasService {
     return this.httpClient.delete<void>(urlPage + '/' + idRequisitoXOferta, environment.httpOptions);
   }
   
+  public BorrarPorIdOferta(idOferta: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/borrarporidoferta/' + idOferta, environment.httpOptions);
+  }
 }
 

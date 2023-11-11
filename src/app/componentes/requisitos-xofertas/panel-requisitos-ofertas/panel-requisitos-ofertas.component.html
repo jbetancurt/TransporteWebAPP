@@ -65,48 +65,45 @@
                     </td>
                 </ng-container>
                      
-            <ng-container matColumnDef="ftAgregar">
-                <td mat-footer-cell *matFooterCellDef colspan="100%">
-                    <form [formGroup]="FGAgregarRequisito" (ngSubmit)="FGAgregarRequisito.valid" #formulario>            
-                            
-                        <div  fxLayout="row" fxLayoutGap="6px">
-                            <mat-form-field appearance="fill" fxFlex>
-                                <mat-label>Requisito:</mat-label>
-                                <mat-select formControlName="idRequisito" name="idRequisito">
-                                <mat-option *ngFor="let item of lstRequisitos" [value]="item.idRequisito">{{ item.nombreRequisito}}</mat-option>
-                            </mat-select>
-                            </mat-form-field>
+                <ng-container matColumnDef="ftAgregar">
+                    <td mat-footer-cell *matFooterCellDef colspan="100%">
+                        <form [formGroup]="FGAgregarRequisito" (ngSubmit)="FGAgregarRequisito.valid" #formulario>            
+                                
+                            <div  fxLayout="row" fxLayoutGap="6px">
+                                <mat-form-field appearance="fill" fxFlex>
+                                    <mat-label>Requisito:</mat-label>
+                                    <mat-select formControlName="idRequisito" name="idRequisito">
+                                    <mat-option *ngFor="let item of lstRequisitos" [value]="item.idRequisito">{{ item.nombreRequisito}}</mat-option>
+                                </mat-select>
+                                </mat-form-field>
 
-                            <mat-form-field appearance="fill"  fxFlex>
-                                <mat-label>Observacion:</mat-label>
-                                <input matInput  placeholder="observacion" formControlName="observacion">
-                            </mat-form-field>  
-                            
-                        </div>
-                       
-                        <div mat-dialog-actions align="end">
-                            <mat-form-field appearance="fill"  fxFlex>
-                                <mat-label>Nombre Plantilla:</mat-label>
-                                <input matInput  placeholder="observacion" formControlName="observacion">
-                            </mat-form-field>  
-                            <button *ngIf="editaroAgregar === 'agregar'" mat-raised-button color="primary" (click)="guardarDatos()">Agregar</button>
-                            <button *ngIf="editaroAgregar === 'editar'" mat-raised-button color="primary" (click)="editarFila(indexEditar)">Editar</button>
-                            <button mat-raised-button color="warn" (click)="cancelarEdicion()">Cancel</button>
-                        </div>
-                        <div mat-dialog-actions align="end">
-                            
-                            
-                        </div>
+                                <mat-form-field appearance="fill"  fxFlex>
+                                    <mat-label>Observacion:</mat-label>
+                                    <input matInput  placeholder="observacion" formControlName="observacion">
+                                </mat-form-field>  
+                                
+                            </div>
                         
-                        
-                    </form>  
-                </td>
-            </ng-container>
-            <!-- Agrega las columnas a la tabla -->
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            <tr mat-footer-row *matFooterRowDef="['ftAgregar']" ></tr>
-            
+                            <div mat-dialog-actions align="end">
+                            
+                                <button *ngIf="editaroAgregar === 'agregar'" mat-raised-button color="primary" (click)="guardarDatos()">Agregar</button>
+                                <button *ngIf="editaroAgregar === 'editar'" mat-raised-button color="primary" (click)="editarFila(indexEditar)">Editar</button>
+                                <button mat-raised-button color="warn" (click)="cancelarEdicion()">Cancel</button>
+                            </div>
+                            <div mat-dialog-actions align="end">
+                                
+                                
+                            </div>
+                            
+                            
+                        </form>  
+                    </td>
+                </ng-container>
+                <!-- Agrega las columnas a la tabla -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr mat-footer-row *matFooterRowDef="['ftAgregar']" ></tr>
+                
                    
         </table>  
         

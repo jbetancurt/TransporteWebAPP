@@ -7,8 +7,15 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Empresas, EmpresasService } from '../../empresas';
+import { LugaresXOfertasComponent, LugaresXOfertasService } from '../../lugares-xofertas';
+import { CarroceriasXTiposDeVehiculosXOfertas, CarroceriasXTiposDeVehiculosXOfertasService } from '../../carrocerias-xtipos-de-vehiculos-xofertas';
+import { RequisitosXOfertasComponent, RequisitosXOfertasService } from '../../requisitos-xofertas';
+import { CargasXOfertasComponent, CargasXOfertasService } from '../../cargas-xofertas';
 import { EstadosDeLasOfertas, EstadosDeLasOfertasService } from '../../estados-de-las-ofertas';
 import { TiposOrientacionesDeLaOferta, TiposOrientacionesDeLaOfertaService } from '../../tipos-orientaciones-de-la-oferta';
+import { Plantillas_Ofertas, Plantillas_OfertasComponent } from '../../plantillas-ofertas';
+import { firstValueFrom, forkJoin } from 'rxjs';
+import { LoginService } from 'src/app/paginas/login';
 
 @Component({
   selector: 'app-listar-ofertas',
@@ -19,6 +26,7 @@ import { TiposOrientacionesDeLaOferta, TiposOrientacionesDeLaOfertaService } fro
 
 
 export class ListarOfertasComponent implements OnInit {
+      idEmpresaLogueado = 0;
       arraypaginator=environment.paginator;
       lstEmpresas : Empresas[]=[];
       lstEstadosDeLasOfertas : EstadosDeLasOfertas[]=[];
@@ -32,13 +40,15 @@ export class ListarOfertasComponent implements OnInit {
       @ViewChild(MatSort) sort!: MatSort;
       @Input() idOfertaInput: string = "";
       
-      displayedColumns: string[] = ['idEmpresa','idTipoOrientacionDeLaOferta','idEstadoDeLaOferta','tituloOferta','descripcionOferta','valorTotalDeLaOferta','fechaInicialOferta', 'fechaFinalOferta','editar', 'borrar'];
+      
+      displayedColumns: string[] = ['idEmpresa','idTipoOrientacionDeLaOferta','idEstadoDeLaOferta','tituloOferta','descripcionOferta','valorTotalDeLaOferta','fechaInicialOferta', 'fechaFinalOferta','editar', 'borrar','plantilla'];
       public AbrirInformacion()
       {
-            
-         this.ofertasService.GetAll().subscribe({
+        
+         this.ofertasService.ConsultarXIdEmpresa(this.idEmpresaLogueado.toString()).subscribe({
            next : (dataofertas:Ofertas[]) => {
             this.lstofertasTodos = dataofertas;
+          
             this.lstofertas = dataofertas;
             this.dataSource = new MatTableDataSource(dataofertas);
             this.dataSource.paginator = this.paginator;
@@ -62,10 +72,44 @@ export class ListarOfertasComponent implements OnInit {
         this.collectionSize = this.lstofertas.length;
         
       }
-    
-      ngOnInit() {
-        console.log(this.idOfertaInput);
+
+      
+      abrirModalPlantillas(idOferta:number, tipoPlantilla:string){
+        const dialogRef = this.modalService.open(Plantillas_OfertasComponent).updateSize('80%');
+            
+        dialogRef.componentInstance.idOfertaACargar=idOferta;
+        dialogRef.componentInstance.tipoPlantillaQueSeCreara=tipoPlantilla;
+        //dialogRef.componentInstance.asignarid(dialogRef.componentInstance.idOfertaACargar);
+        dialogRef.componentInstance.onAdd.subscribe(() => {
+          dialogRef.close();
+        });
+        dialogRef.afterClosed().subscribe(result => {
         
+      
+          //this.AbrirInformacion();
+        });
+       }
+
+
+      
+          
+
+
+      accion2() {
+        // Acción 2
+      }
+    
+          
+      ngOnInit() {
+       
+        let usr=this.loginservice.getUser();
+        if (usr){
+          this.idEmpresaLogueado=usr.idEmpresa;
+        } 
+        else{
+          this.idEmpresaLogueado=2;
+        }
+            
         this.listarEmpresas();
         this.listarEstadosDeLasOfertas();
         this.listarTiposOrientacionesDeLaOferta();
@@ -74,7 +118,8 @@ export class ListarOfertasComponent implements OnInit {
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
         }
-               
+        
+        
       }
       encontrarNombreEmpresa(idEmpresa:number):string{
         let empresa:string="";
@@ -130,6 +175,8 @@ export class ListarOfertasComponent implements OnInit {
         });
       }
 
+      
+            
 
     
       AbrirModalOferta(idOferta:number){
@@ -145,18 +192,38 @@ export class ListarOfertasComponent implements OnInit {
         });
       }
     
-        borrarXId(idOferta:number){
-        this.ofertasService.delete(idOferta.toString()).subscribe({ 
-          next:  () => {
-             this.AbrirInformacion();
+      borrarXId(idOferta:number){
+        
+        forkJoin([
+          this.lugaresxofertaService.BorrarPorIdOferta(idOferta.toString()),
+          this.carroceriasxtiposdevehiculosxofertasService.BorrarPorIdOferta(idOferta.toString()),
+          this.requisitosxofertasService.BorrarPorIdOferta(idOferta.toString()),
+          this.cargasxofertasService.BorrarPorIdOferta(idOferta.toString())
+        ]).subscribe({
+          next: () => {
+            
+            // Borra la oferta después de que se hayan borrado los lugares, requisitos y cargas
+            this.ofertasService.delete(idOferta.toString()).subscribe({
+              next: () => {
+               
+                this.AbrirInformacion();
+              }
+            });
           }
         });
-       }
+      }
+
       constructor(
         private ofertasService: OfertasService,
         private empresasService: EmpresasService,
+        private lugaresxofertaService: LugaresXOfertasService,
+        private carroceriasxtiposdevehiculosxofertasService: CarroceriasXTiposDeVehiculosXOfertasService,
+        private requisitosxofertasService: RequisitosXOfertasService,
+        private cargasxofertasService: CargasXOfertasService,
         private estadosdelasofertasService: EstadosDeLasOfertasService,
         private tiposorientacionesdelaofertaService: TiposOrientacionesDeLaOfertaService,
-        private modalService: MatDialog
+        private modalService: MatDialog,
+        private loginservice: LoginService,
+        private dialog: MatDialog
         ) { }
     }  

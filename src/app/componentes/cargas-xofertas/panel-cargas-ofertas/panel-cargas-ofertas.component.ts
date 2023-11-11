@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { CargasXOfertas , CargasXOfertasComponent, CargasXOfertasService } from '../';
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
@@ -7,6 +7,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { PlantillasCargasXOfertas} from '../../plantillas-cargas-xofertas/plantillas-cargas-xofertas.model';
+import { PlantillasCargasXOfertasService } from '../../plantillas-cargas-xofertas/plantillas-cargas-xofertas.service';
 
 @Component({
   selector: 'app-panel-cargas-ofertas',
@@ -19,11 +21,16 @@ export class PanelCargasOfertasComponent implements OnInit {
   @Input() editaroAgregar = "agregar";
   @Input() indexEditar = 0;
   @Input() idOferta = 0;
+  @Output() datosActualizadosCargas = new EventEmitter<CargasXOfertas[]>();
+  @Output() datosActualizadosParaBorrarCargas = new EventEmitter<CargasXOfertas[]>();
+  @Input() DatosParaCargarDeLaPlantilla:PlantillasCargasXOfertas[] = [];
   panelOpenState = false;
   openorclose = false;
   descripcionPanel:any[] = [];
   descripcionPanelPorComas :  string = "";
-  datosGuardados: any[] = [];
+  datosGuardados: CargasXOfertas[] = [];
+  datosGuardadosPlantillasCargasXOfertas: PlantillasCargasXOfertas[] = [];
+  datosParaBorrar:CargasXOfertas[] = [];
   datosTemporales:any[]=[];
   dataSource = new MatTableDataSource<any>(this.datosGuardados);  
   lstCargasXOfertas:  CargasXOfertas[] = [];
@@ -44,7 +51,8 @@ export class PanelCargasOfertasComponent implements OnInit {
   constructor 
   (
     private formBuilder: FormBuilder,
-    private cargasxofertasService: CargasXOfertasService
+    private cargasxofertasService: CargasXOfertasService,
+    private plantillascargasxofertasService: PlantillasCargasXOfertasService
     
   ) { }
   
@@ -54,18 +62,19 @@ export class PanelCargasOfertasComponent implements OnInit {
   }
 
   FGAgregarCargas : FormGroup = this.formBuilder.group({  
+    idCargaXOferta: new FormControl(0),
     tipoDeProducto: new FormControl('',Validators.required),
     unidadDeEmpaque: new FormControl('',Validators.required), 
-    altoCargaXOferta: new FormControl(0,Validators.required),
-    anchoCargaXOferta: new FormControl(0,Validators.required),
-    largoCargaXOferta: new FormControl(0,Validators.required),
-    toneladaCargaXOferta: new FormControl(0,Validators.required),
-    tarifaCargaXOferta: new FormControl(0,Validators.required),
-    totalCargaXOferta: new FormControl(0,Validators.required)
+    altoCargaXOferta: new FormControl(0),
+    anchoCargaXOferta: new FormControl(0),
+    largoCargaXOferta: new FormControl(0),
+    toneladaCargaXOferta: new FormControl(0),
+    tarifaCargaXOferta: new FormControl(0),
+    totalCargaXOferta: new FormControl(0)
   });
   
   refrescarResumenPanel(){    
-    console.log(this.datosGuardados.length);
+   
     if (this.datosGuardados.length==0){
       this.descripcionPanelPorComas="";
     }
@@ -74,6 +83,17 @@ export class PanelCargasOfertasComponent implements OnInit {
           "* " + x.unidadDeEmpaque + "(" + x.tipoDeProducto + ")").join(', ');
     }
   }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['DatosParaCargarDeLaPlantilla']) {
+      if (this.DatosParaCargarDeLaPlantilla.length > 0){
+        this.datosGuardados = [];
+        this.datosGuardadosPlantillasCargasXOfertas = [];
+        this.listarPlantillasCargasXOfertas(this.DatosParaCargarDeLaPlantilla[0].idOferta);
+      }
+    }
+  }
+
 
   panelOpen(){
     this.openorclose = true
@@ -95,19 +115,20 @@ export class PanelCargasOfertasComponent implements OnInit {
       alert("Debe seleccionar Alto Carga y Ancho Carga");
     }
     else{ 
-      const datos = {
-        tipoDeProducto:this.FGAgregarCargas.value.tipoDeProducto,
-        unidadDeEmpaque:this.FGAgregarCargas.value.unidadDeEmpaque,
-        altoCargaXOferta:this.FGAgregarCargas.value.altoCargaXOferta,
-        anchoCargaXOferta:this.FGAgregarCargas.value.anchoCargaXOferta,
-        largoCargaXOferta:this.FGAgregarCargas.value.largoCargaXOferta,
-        toneladaCargaXOferta:this.FGAgregarCargas.value.toneladaCargaXOferta,
-        tarifaCargaXOferta:this.FGAgregarCargas.value.tarifaCargaXOferta,
-        totalCargaXOferta:this.FGAgregarCargas.value.totalCargaXOferta
-        
-      };
-      this.datosGuardados.push(datos);
+      let CargaXOferta = new CargasXOfertas;
+     
+      CargaXOferta.tipoDeProducto=this.FGAgregarCargas.value.tipoDeProducto;
+      CargaXOferta.unidadDeEmpaque=this.FGAgregarCargas.value.unidadDeEmpaque;
+      CargaXOferta.altoCargaXOferta=this.FGAgregarCargas.value.altoCargaXOferta;
+      CargaXOferta.anchoCargaXOferta=this.FGAgregarCargas.value.anchoCargaXOferta;
+      CargaXOferta.largoCargaXOferta=this.FGAgregarCargas.value.largoCargaXOferta;
+      CargaXOferta.toneladaCargaXOferta=this.FGAgregarCargas.value.toneladaCargaXOferta;
+      CargaXOferta.tarifaCargaXOferta=this.FGAgregarCargas.value.tarifaCargaXOferta;
+      CargaXOferta.totalCargaXOferta=this.FGAgregarCargas.value.totalCargaXOferta;
+      
+      this.datosGuardados.push(CargaXOferta);
       this.dataSource.data = this.datosGuardados;
+      this.datosActualizadosCargas.emit(this.datosGuardados);
       this.FGAgregarCargas.reset();
       
       this.refrescarResumenPanel();
@@ -115,8 +136,10 @@ export class PanelCargasOfertasComponent implements OnInit {
   }
 
   eliminarFila(index: number) { 
+    this.datosParaBorrar.push(this.datosGuardados[index]);
     this.datosGuardados.splice(index, 1);
     this.dataSource.data = this.datosGuardados;
+    this.datosActualizadosParaBorrarCargas.emit(this.datosParaBorrar);
     this.refrescarResumenPanel();
     this.FGAgregarCargas.reset();
     
@@ -126,8 +149,8 @@ export class PanelCargasOfertasComponent implements OnInit {
   editarFila(index: number) {
     this.datosGuardados[index] = this.FGAgregarCargas.value;
     this.dataSource.data = this.datosGuardados;
+    this.datosActualizadosCargas.emit(this.datosGuardados);
     this.FGAgregarCargas.reset();
-    //this.descripcionPanel = this.datosGuardados.map(dato => this.encontrarNombreTipoDeVehiculo(dato.idTipoDeVehiculo));
     this.editaroAgregar="agregar";
     this.refrescarResumenPanel();
 
@@ -138,6 +161,7 @@ export class PanelCargasOfertasComponent implements OnInit {
     this.indexEditar=index;
     let filaSeleccionada = this.datosGuardados[index];
     this.FGAgregarCargas.patchValue({
+      idCargaXOferta:filaSeleccionada.idCargaXOferta,
       tipoDeProducto:filaSeleccionada.tipoDeProducto,
       unidadDeEmpaque:filaSeleccionada.unidadDeEmpaque,
       altoCargaXOferta:filaSeleccionada.altoCargaXOferta,
@@ -149,13 +173,35 @@ export class PanelCargasOfertasComponent implements OnInit {
     });
   }
 
+  listarPlantillasCargasXOfertas(idOfertaPlantillaCargasXOfertas:number){
+    this.plantillascargasxofertasService.ConsultarXOferta(idOfertaPlantillaCargasXOfertas.toString()).subscribe({
+      next: (lstplantillascargasxofertas: PlantillasCargasXOfertas[]) => {
+        this.datosGuardadosPlantillasCargasXOfertas = lstplantillascargasxofertas;
+        for (let index = 0; index < this.datosGuardadosPlantillasCargasXOfertas.length; index++) {
+          let CargaXOferta = new CargasXOfertas;
+          CargaXOferta.tipoDeProducto=this.datosGuardadosPlantillasCargasXOfertas[index].tipoDeProducto;
+          CargaXOferta.unidadDeEmpaque=this.datosGuardadosPlantillasCargasXOfertas[index].unidadDeEmpaque;
+          CargaXOferta.altoCargaXOferta=this.datosGuardadosPlantillasCargasXOfertas[index].altoCargaXOferta;
+          CargaXOferta.anchoCargaXOferta=this.datosGuardadosPlantillasCargasXOfertas[index].anchoCargaXOferta; 
+          CargaXOferta.largoCargaXOferta=this.datosGuardadosPlantillasCargasXOfertas[index].largoCargaXOferta;
+          CargaXOferta.toneladaCargaXOferta=this.datosGuardadosPlantillasCargasXOfertas[index].toneladaCargaXOferta;
+          CargaXOferta.tarifaCargaXOferta=this.datosGuardadosPlantillasCargasXOfertas[index].tarifaCargaXOferta;
+          CargaXOferta.totalCargaXOferta=this.datosGuardadosPlantillasCargasXOfertas[index].totalCargaXOferta;
+          
+          this.datosGuardados.push(CargaXOferta);
+        }
+        this.dataSource.data = this.datosGuardados;
+        this.refrescarResumenPanel();
+      }
+    });
+  }
+
   listarCargasXOfertas(idOferta:number){
     this.cargasxofertasService.ConsultarXOferta(idOferta.toString()).subscribe({
       next: (lstcargasxofertas: CargasXOfertas[]) => {
         this.lstCargasXOfertas = lstcargasxofertas;
         this.cargarCargasXOfertasAdatosGuardados();
-        console.log(this.lstCargasXOfertas);
-        console.log(this.idOferta)
+       
       //  this.refrescarResumenPanel();
       }
     });
@@ -169,24 +215,21 @@ export class PanelCargasOfertasComponent implements OnInit {
   cargarCargasXOfertasAdatosGuardados() {
     
     this.lstCargasXOfertas.forEach(carga => {
-      //console.log(vehiculo);
-      const datos = {
-        idCargaXOferta: carga.idCargaXOferta,
-        idOferta: carga.idOferta, 
-        tipoDeProducto: carga.tipoDeProducto,
-        unidadDeEmpaque: carga.unidadDeEmpaque,
-        altoCargaXOferta: carga.altoCargaXOferta,
-        anchoCargaXOferta: carga.anchoCargaXOferta,
-        largoCargaXOferta: carga.largoCargaXOferta,
-        toneladaCargaXOferta: carga.toneladaCargaXOferta,
-        tarifaCargaXOferta: carga.tarifaCargaXOferta,
-        totalCargaXOferta: carga.totalCargaXOferta
-       
-      };
-      //console.log(datos);
-      this.datosGuardados.push(datos);
+      let CargaXOferta = new CargasXOfertas;
+      
+      CargaXOferta.idCargaXOferta=carga.idCargaXOferta;
+      CargaXOferta.idOferta=carga.idOferta;
+      CargaXOferta.tipoDeProducto=carga.tipoDeProducto;
+      CargaXOferta.unidadDeEmpaque=carga.unidadDeEmpaque;
+      CargaXOferta.altoCargaXOferta=carga.altoCargaXOferta;
+      CargaXOferta.anchoCargaXOferta=carga.anchoCargaXOferta;
+      CargaXOferta.largoCargaXOferta=carga.largoCargaXOferta;
+      CargaXOferta.toneladaCargaXOferta=carga.toneladaCargaXOferta;
+      CargaXOferta.tarifaCargaXOferta=carga.tarifaCargaXOferta;
+      CargaXOferta.totalCargaXOferta=carga.totalCargaXOferta;
+      
+      this.datosGuardados.push(CargaXOferta);
       this.dataSource.data = this.datosGuardados;
-      //this.datosGuardados.map(dato => this.encontrarNombreTipoDeVehiculo(dato.idTipoDeVehiculo));
       
     });
     this.refrescarResumenPanel();

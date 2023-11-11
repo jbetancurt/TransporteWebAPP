@@ -14,7 +14,7 @@ export class OfertasService {
   
   public Get(id : string): Observable<Ofertas>{ 
     let url = urlPage + "/" + id; 
-    console.log(url);  
+    
     let obj =this.httpClient.get<Ofertas>(url, environment.httpOptions);
     return obj;
   }
@@ -22,6 +22,10 @@ export class OfertasService {
   public GetAll(): Observable<Ofertas[]>{
     
     return this.httpClient.get<Ofertas[]>(urlPage, environment.httpOptions);
+  }
+
+  public ConsultarXIdEmpresa(idEmpresa : string): Observable<Ofertas[]>{
+    return this.httpClient.get<Ofertas[]>(urlPage + '/consultarxidEmpresa/' + idEmpresa, environment.httpOptions);
   }
 
   public Edit(_Ofertas : Ofertas): Observable<boolean>{

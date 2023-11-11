@@ -25,7 +25,7 @@ export class ListarPlantillasCargasXOfertasComponent implements OnInit {
       @ViewChild(MatPaginator) paginator!: MatPaginator;
       @ViewChild(MatSort) sort!: MatSort;
       
-      displayedColumns: string[] = ['idOferta','nombrePlantillaCargaXOferta','toneladaCargaXOferta', 'tarifaCargaXOferta', 'totalCargaXOferta' , 'editar', 'borrar'];
+      displayedColumns: string[] = ['idOferta','toneladaCargaXOferta', 'tarifaCargaXOferta', 'totalCargaXOferta' , 'editar', 'borrar'];
       public AbrirInformacion()
       {
             
@@ -44,7 +44,7 @@ export class ListarPlantillasCargasXOfertasComponent implements OnInit {
         
         this.lstplantillascargasxofertas = this.lstplantillascargasxofertasTodos.filter(
             (val) => (
-              ((val.nombrePlantillaCargaXOferta ?? "").trim() ?? "").toLowerCase().includes(value.toLowerCase().replace(/\s/g, ""))
+              ((val.tipoDeProducto ?? "").trim() ?? "").toLowerCase().includes(value.toLowerCase().replace(/\s/g, ""))
         ));
         this.dataSource = new MatTableDataSource(this.lstplantillascargasxofertas);
         

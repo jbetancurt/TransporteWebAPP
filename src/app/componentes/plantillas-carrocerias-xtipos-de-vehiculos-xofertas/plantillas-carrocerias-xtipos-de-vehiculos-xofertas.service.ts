@@ -39,8 +39,13 @@ export class PlantillasCarroceriasXTiposDeVehiculosXOfertasService {
   public create(_PlantillasCarroceriasXTiposDeVehiculosXOfertas : PlantillasCarroceriasXTiposDeVehiculosXOfertas): Observable<number>{
     return this.httpClient.post<number>(urlPage, _PlantillasCarroceriasXTiposDeVehiculosXOfertas, environment.httpOptions);
   }
+
   public delete(idCarroceriaXTipoDeVehiculoXOferta: string): Observable<void> {
     return this.httpClient.delete<void>(urlPage + '/' + idCarroceriaXTipoDeVehiculoXOferta, environment.httpOptions);
   }
+  public BorrarPorIdOferta(idOferta: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/borrarporidoferta/' + idOferta, environment.httpOptions);
+  }
+
  
 }

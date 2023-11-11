@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { TiposDeVehiculos } from './tipos-de-vehiculos.model';
 const urlPage = environment.apiUrl +'/tiposdevehiculos';
@@ -17,6 +17,10 @@ export class TiposDeVehiculosService {
     console.log(url);  
     let obj =this.httpClient.get<TiposDeVehiculos>(url, environment.httpOptions);
     return obj;
+  }
+  public async  GetAllPromesa(): Promise<TiposDeVehiculos[]>{
+     
+    return await firstValueFrom( this.httpClient.get<TiposDeVehiculos[]>(urlPage, environment.httpOptions));
   }
   
   public GetAll(): Observable<TiposDeVehiculos[]>{

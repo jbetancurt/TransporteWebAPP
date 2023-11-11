@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { LugaresXOfertas , LugaresXOfertasComponent, LugaresXOfertasService } from '../';
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
@@ -12,6 +12,7 @@ import { Empresas, EmpresasService } from '../../empresas';
 import { Ofertas, OfertasService } from '../../ofertas';
 import { TiposDeLugaresXOfertas, TiposDeLugaresXOfertasService } from '../../tipos-de-lugares-xofertas';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { PlantillasLugaresXOfertas, PlantillasLugaresXOfertasService } from '../../plantillas-lugares-xofertas';
 
 
 
@@ -29,26 +30,38 @@ export class PanelOrigenDestinoComponent implements OnInit   {
   lstLugaresXOfertas : LugaresXOfertas[]=[];
   panelOpenState = false;
   openorclose = false;
+  mostrarErrorCamposIncompletos: boolean = false;
   nombres = "";
   
   editaroAgregar = "agregar";
   indexEditar = 0;
-  tipoDeLugar: number=0;
 
   descripcionPanelPorComas :  string = "";
   
-  datosGuardados: any[] = [];
+  datosGuardados: LugaresXOfertas[] = [];
+  datosQueLleganDePlantillaGuardados : PlantillasLugaresXOfertas[] = [];
+  datosParaBorrar: LugaresXOfertas[] = [];
+ // @Output() lugaresParaGuardarEnLaOferta: any[] = [];
+
   
+  @Output() datosActualizadosLugares = new EventEmitter<LugaresXOfertas[]>();
+  @Output() datosActualizadosParaBorrarLugares = new EventEmitter<LugaresXOfertas[]>();
+
+
+  
+
+
+
   datosTemporales:any[]=[];
   dataSource = new MatTableDataSource<any>(this.datosGuardados);  
   tituloDelPanel = "";
   @Input() idOferta = 0;
   
   @Input() idEmpresa = 0;
+  @Input() DatosParaCargarDeLaPlantilla:PlantillasLugaresXOfertas[] = [];
   @Input() enumeradorTipoLugarXOferta = "";
 
- 
-
+  
   displayedColumns: string[] = ['idCiudad', 'idPersona','nombreLugarXOferta', 'direccionLugarXOferta', 'telefonoLugarXOferta','observacionLugarXOferta','editar', 'borrar'];
   // Define los datos de la tabla
   
@@ -65,47 +78,90 @@ export class PanelOrigenDestinoComponent implements OnInit   {
   telefonoLugarXOferta: string="";
   direccionLugarXOferta: string="";
   
-  FGAgregarLugares : FormGroup = this.formBuilder.group({      
-    idCiudad:new FormControl(0,Validators.required),
-    idPersona:new FormControl(0,Validators.required),
+  FGAgregarLugares : FormGroup = this.formBuilder.group({  
+    idLugarXOferta: new FormControl('0'),    
+    idCiudad:new FormControl('',Validators.required),
+    idPersona:new FormControl('',Validators.required),
     nombreLugarXOferta:new FormControl('',Validators.required),
-    observacionLugarXOferta: new FormControl('',Validators.required),
+    observacionLugarXOferta: new FormControl(''),
     telefonoLugarXOferta: new FormControl('',Validators.required),
     direccionLugarXOferta: new FormControl('',Validators.required),
     idTipoDeLugarXOferta:new FormControl(0,Validators.required),
-   // idEmpresa:new FormControl(0,Validators.required),
-    
-    //ordenLugarXOferta:new FormControl(0,Validators.required)
-    
+     
   });
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['DatosParaCargarDeLaPlantilla']) {
+      if (this.DatosParaCargarDeLaPlantilla.length > 0){
+        if (this.enumeradorTipoLugarXOferta != ""){
+          this.datosGuardados = [];
+          this.datosQueLleganDePlantillaGuardados = [];
+     
+          this.tiposDeLugaresXOfertasService.ConsultarPorEnum(this.enumeradorTipoLugarXOferta).subscribe({
+            next : (objTiposDeLugaresXOfertas:TiposDeLugaresXOfertas) => { 
+              if (objTiposDeLugaresXOfertas.idTipoDeLugarXOferta > 0){
+                
+                
+                this.tituloDelPanel = objTiposDeLugaresXOfertas.nombreTipoDeLugarXOferta;
+                this.idTipoDeLugarXOferta = objTiposDeLugaresXOfertas.idTipoDeLugarXOferta;
+                
+                this.listarCiudades();
+                this.listarPersonas();
+                this.listarPlantillasLugaresXOfertas(this.DatosParaCargarDeLaPlantilla[0].idOferta, this.idTipoDeLugarXOferta);
+               
+      
+              }
+            }
+          });
+        }
+      }
+      
+    }  
+  } 
+
+  isFieldInvalid(field: string) { // {6}
+    return (
+      (!this.FGAgregarLugares.get(field)?.valid && this.FGAgregarLugares.get(field)?.touched) ||
+      (this.FGAgregarLugares.get(field)?.untouched)
+    );
+  }
 
   
 
 guardarDatos() {
-  if(this.FGAgregarLugares.value.idCiudad == null || this.FGAgregarLugares.value.idPersona == null){
-    alert("Debe seleccionar una Ciudad y un Contacto");
-  }
-  else{ 
-    const datos = {
-      idCiudad:this.FGAgregarLugares.value.idCiudad,
-      idPersona: this.FGAgregarLugares.value.idPersona, 
-      //idEmpresa:0,
-      idTipoDeLugarXOferta:this.tipoDeLugar,
+  if(!this.FGAgregarLugares.invalid){
+    this.mostrarErrorCamposIncompletos=false;
+    console.log('Formulario invalido');
+    if(this.FGAgregarLugares.value.idCiudad == null || this.FGAgregarLugares.value.idPersona == null){
+      alert("Debe seleccionar una Ciudad y un Contacto");
+    }
+    else{ 
+      let LugarXOferta = new LugaresXOfertas; 
+      LugarXOferta.idCiudad=this.FGAgregarLugares.value.idCiudad;
+      LugarXOferta.idPersona= this.FGAgregarLugares.value.idPersona;
+      LugarXOferta.idTipoDeLugarXOferta=this.idTipoDeLugarXOferta;
       
-      //ordenLugarXOferta: this.ordenLugarXOferta,
-      nombreLugarXOferta: this.FGAgregarLugares.value.nombreLugarXOferta,  
-      observacionLugarXOferta: this.FGAgregarLugares.value.observacionLugarXOferta,
-      telefonoLugarXOferta: this.FGAgregarLugares.value.telefonoLugarXOferta,
-      direccionLugarXOferta: this.FGAgregarLugares.value.direccionLugarXOferta
-      
-    };
-    this.datosGuardados.push(datos);
-    this.dataSource.data = this.datosGuardados;
-
-    this.FGAgregarLugares.reset();
+       
+      LugarXOferta.nombreLugarXOferta= this.FGAgregarLugares.value.nombreLugarXOferta;  
+      LugarXOferta.observacionLugarXOferta= this.FGAgregarLugares.value.observacionLugarXOferta;
+      LugarXOferta.telefonoLugarXOferta= this.FGAgregarLugares.value.telefonoLugarXOferta;
+      LugarXOferta.direccionLugarXOferta= this.FGAgregarLugares.value.direccionLugarXOferta;
     
-    this.refrescarResumenPanel();
-  }  
+      this.datosGuardados.push(LugarXOferta);
+      this.dataSource.data = this.datosGuardados;
+     
+      this.datosActualizadosLugares.emit(this.datosGuardados);
+      
+  
+      this.FGAgregarLugares.reset();
+      
+      this.refrescarResumenPanel();
+    }  
+  
+  }
+  else{
+    this.mostrarErrorCamposIncompletos=true;
+  }
 }
 
 listarOrigenes(){
@@ -127,8 +183,11 @@ listarDestinos(){
 }
 
 eliminarFila(index: number) { 
+  this.datosParaBorrar.push(this.datosGuardados[index]);
   this.datosGuardados.splice(index, 1);
   this.dataSource.data = this.datosGuardados;
+  this.datosActualizadosParaBorrarLugares.emit(this.datosParaBorrar);
+  this.datosActualizadosLugares.emit(this.datosGuardados);
   this.FGAgregarLugares.reset();
   
   this.refrescarResumenPanel();
@@ -138,8 +197,8 @@ eliminarFila(index: number) {
 editarFila(index: number) {
   this.datosGuardados[index] = this.FGAgregarLugares.value;
   this.dataSource.data = this.datosGuardados;
+  this.datosActualizadosLugares.emit(this.datosGuardados);
   this.FGAgregarLugares.reset();
-  
   this.refrescarResumenPanel();
   this.editaroAgregar="agregar";
 }
@@ -157,14 +216,11 @@ cancelarEdicion(){
 
 
 cargarDatosParaEditar(index: number) {
-  console.log(index);
   this.editaroAgregar="editar";
   this.indexEditar=index;
   let filaSeleccionada = this.datosGuardados[index];
-  console.log(filaSeleccionada);
-  console.log(this.datosGuardados[index]);
-  console.log(index);
   this.FGAgregarLugares.patchValue({
+    idLugarXOferta: filaSeleccionada.idLugarXOferta,
     idCiudad: filaSeleccionada.idCiudad,
     idPersona: filaSeleccionada.idPersona,
     idTipoDeLugarXOferta: filaSeleccionada.idTipoDeLugarXOferta,
@@ -212,14 +268,39 @@ cargarDatosParaEditar(index: number) {
         
         this.dataSource.data = this.datosGuardados;
         this.refrescarResumenPanel();
-        console.log(this.idOferta);
-        console.log(lstlugaresxofertas);
-        
-        console.log(this.idEmpresa);
+       
       }
     });
   }
   
+  listarPlantillasLugaresXOfertas(idOfertaPlantillaLugares:number, idTipoDeLugarXOferta:number){
+    this.plantillaslugaresxofertasService.ConsultarXOferta(idOfertaPlantillaLugares.toString() , idTipoDeLugarXOferta.toString()).subscribe({
+      next : (lstplantillaslugaresxofertas:PlantillasLugaresXOfertas[]) => { 
+        
+        this.datosQueLleganDePlantillaGuardados = lstplantillaslugaresxofertas;
+        console.log(this.datosQueLleganDePlantillaGuardados);
+        console.log(this.datosQueLleganDePlantillaGuardados.length);
+        for (let index = 0; index < this.datosQueLleganDePlantillaGuardados.length; index++) {
+          let LugarXOferta = new LugaresXOfertas;
+          LugarXOferta.idPersona = this.datosQueLleganDePlantillaGuardados[index].idPersona;
+          LugarXOferta.idCiudad = this.datosQueLleganDePlantillaGuardados[index].idCiudad;
+          LugarXOferta.idTipoDeLugarXOferta = this.datosQueLleganDePlantillaGuardados[index].idTipoDeLugarXOferta;
+          LugarXOferta.nombreLugarXOferta = this.datosQueLleganDePlantillaGuardados[index].nombreLugarXOferta;
+          LugarXOferta.observacionLugarXOferta = this.datosQueLleganDePlantillaGuardados[index].observacionLugarXOferta;
+          LugarXOferta.telefonoLugarXOferta = this.datosQueLleganDePlantillaGuardados[index].telefonoLugarXOferta;
+          LugarXOferta.direccionLugarXOferta = this.datosQueLleganDePlantillaGuardados[index].direccionLugarXOferta;
+          console.log(LugarXOferta);
+          this.datosGuardados.push(LugarXOferta);
+        }
+        
+        this.dataSource.data = this.datosGuardados;
+        this.refrescarResumenPanel();
+       
+      }
+    });
+  }
+
+
   panelOpen(){
     this.openorclose = true
   }
@@ -227,7 +308,6 @@ cargarDatosParaEditar(index: number) {
   refrescarResumenPanel(){    
     this.descripcionPanelPorComas = this.datosGuardados.map(x => 
       "* " + x.nombreLugarXOferta + "(" + this.encontrarNombreCiudad(x.idCiudad) + ")").join(', ');
-  
   }
 
 
@@ -246,27 +326,19 @@ cargarDatosParaEditar(index: number) {
     this.editaroAgregar=editaroAgregar;
   }
 
-  asignarTipoDeLugar(){
-    if (this.tituloDelPanel=="Origen"){
-      this.tipoDeLugar= 2
-    }else{
-      this.tipoDeLugar= 3
-    }
-  }
-
-  
 
   ngOnInit() {
+      
     if (this.enumeradorTipoLugarXOferta != ""){
      
       this.tiposDeLugaresXOfertasService.ConsultarPorEnum(this.enumeradorTipoLugarXOferta).subscribe({
         next : (objTiposDeLugaresXOfertas:TiposDeLugaresXOfertas) => { 
           if (objTiposDeLugaresXOfertas.idTipoDeLugarXOferta > 0){
-            //console.log(this.idOferta);
+            
             
             this.tituloDelPanel = objTiposDeLugaresXOfertas.nombreTipoDeLugarXOferta;
             this.idTipoDeLugarXOferta = objTiposDeLugaresXOfertas.idTipoDeLugarXOferta;
-            this.asignarTipoDeLugar();
+            
             this.listarCiudades();
             this.listarPersonas();
             this.listarLugaresXOfertas(this.idOferta, this.idTipoDeLugarXOferta);
@@ -284,6 +356,7 @@ cargarDatosParaEditar(index: number) {
     private personasService: PersonasService,
     private lugaresxofertasService: LugaresXOfertasService,
     private tiposDeLugaresXOfertasService: TiposDeLugaresXOfertasService,
+    private plantillaslugaresxofertasService: PlantillasLugaresXOfertasService,
     private formBuilder: FormBuilder
     
     ) { }

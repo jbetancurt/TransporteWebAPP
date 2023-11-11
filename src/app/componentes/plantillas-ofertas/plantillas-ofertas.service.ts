@@ -24,6 +24,10 @@ export class Plantillas_OfertasService {
     return this.httpClient.get<Plantillas_Ofertas[]>(urlPage, environment.httpOptions);
   }
 
+  public ConsultarXIdEmpresaXIdTipoPlantilla(idEmpresa : string, idTipoPlantilla : string): Observable<Plantillas_Ofertas[]>{
+    return this.httpClient.get<Plantillas_Ofertas[]>(urlPage + '/consultarxidempresaxidtipoplantilla/' + idEmpresa + '/' + idTipoPlantilla, environment.httpOptions);
+  }
+
   public Edit(_Plantillas_Ofertas : Plantillas_Ofertas): Observable<boolean>{
     return this.httpClient.put<boolean>(urlPage + '/' + (_Plantillas_Ofertas.idOferta), _Plantillas_Ofertas, environment.httpOptions);
   }

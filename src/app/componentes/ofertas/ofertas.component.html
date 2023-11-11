@@ -3,32 +3,52 @@
         <mat-toolbar>
             <h1  mat-dialog-title>Agregar Oferta</h1>
             <div class="menu-spacer"></div>
-            
+                <mat-select formControlName="idOferta" *ngIf="mostrarSelectPlantillaOferta" (selectionChange)="CargarPlantillaDeTipoOferta($event.value)">
+                    <mat-option *ngFor="let item of lstPlantillasDeTipoOferta" [value]="item.idOferta">{{ item.nombrePlantillaOferta }}</mat-option>
+                </mat-select>
+                <mat-checkbox (click)="cambiarValorSelectPlantilla($event)" >Cargar Plantillas Oferta</mat-checkbox>
         </mat-toolbar>
         <mat-card>
             <mat-card-content>
-                      
-                <app-panel-origen-destino [idEmpresa]="idEmpresaLogueado" [idOferta]="idOferta" [enumeradorTipoLugarXOferta]="'Origen'"></app-panel-origen-destino>
                 <br>
-                <app-panel-origen-destino [idEmpresa]="idEmpresaLogueado" [idOferta]="idOferta" [enumeradorTipoLugarXOferta]="'Destino'"></app-panel-origen-destino>
-                <br>
-                <app-panel-vehiculos-ofertas [idOferta]="idOferta"></app-panel-vehiculos-ofertas>
-                <br>
-                <app-panel-cargas-ofertas [idOferta]="idOferta"></app-panel-cargas-ofertas>
-                <br>
-                <app-panel-requisitos-ofertas [idOferta]="idOferta"></app-panel-requisitos-ofertas> 
-                <br>
-            </mat-card-content>   
-            <mat-card-content>    
-                <div  fxLayout="row" fxLayoutGap="1px">
-                    <mat-form-field appearance="fill" fxFlex>
-                        <mat-label>Empresa: </mat-label>
-                        <mat-select formControlName="idEmpresa"  >
-                            <mat-option *ngFor="let item of lstEmpresas" [value]="item.idEmpresa">{{ item.nombreEmpresa}}</mat-option>
+                <div style="display:flex">
+                    <mat-checkbox (click)="cambiarValorSelectPlantillaLugar($event)" >Cargar Plantillas Lugar</mat-checkbox>     
+                    <div style="display:flex; justify-content: flex-end; flex-grow: 1;">
+                        <mat-select class="highlight-on-focus" formControlName="idOferta" *ngIf="mostrarSelectPlantillaLugar" (selectionChange)="CargarPlantillaDeTipoLugar($event.value)">
+                            <mat-option *ngFor="let item of lstPlantillasDeTipoOferta" [value]="item.idOferta">{{ item.nombrePlantillaOferta }}</mat-option>
                         </mat-select>
-                    </mat-form-field>
-                </div>
-                                                
+                    </div>    
+                </div>    
+                <br>
+                <app-panel-origen-destino [idEmpresa]="idEmpresaLogueado" [idOferta]="idOferta" [DatosParaCargarDeLaPlantilla]="DatosParaCargarDeLaPlantillaOrigenes" [enumeradorTipoLugarXOferta]="'Origen'" (datosActualizadosLugares)="recibirOutputOrigenes($event)" (datosActualizadosParaBorrarLugares)="recibirOutputBorrarOrigenes($event)"></app-panel-origen-destino>
+                <br>
+                <app-panel-origen-destino [idEmpresa]="idEmpresaLogueado" [idOferta]="idOferta" [DatosParaCargarDeLaPlantilla]="DatosParaCargarDeLaPlantillaDestinos" [enumeradorTipoLugarXOferta]="'Destino'" (datosActualizadosLugares)="recibirOutputDestinos($event)" (datosActualizadosParaBorrarLugares)="recibirOutputBorrarDestinos($event)"></app-panel-origen-destino>
+                
+                <br>
+                <mat-select formControlName="idOferta" *ngIf="mostrarSelectPlantillaVehiculo" (selectionChange)="CargarPlantillaDeTipoVehiculo($event.value)">
+                    <mat-option *ngFor="let item of lstPlantillasDeTipoOferta" [value]="item.idOferta">{{ item.nombrePlantillaOferta }}</mat-option>
+                </mat-select>
+                <mat-checkbox (click)="cambiarValorSelectPlantillaVehiculo($event)" >Cargar Plantillas De Tipo Vehiculo</mat-checkbox>     
+                <br>
+                <app-panel-vehiculos-ofertas [idOferta]="idOferta" [DatosParaCargarDeLaPlantilla]="DatosParaCargarDeLaPlantillaVehiculos" (datosActualizadosVehiculos)="recibirOutputVehiculos($event)" (datosActualizadosParaBorrarVehiculos)="recibirOutputBorrarVehiculos($event)"></app-panel-vehiculos-ofertas>
+                
+                <br>
+                <mat-select formControlName="idOferta" *ngIf="mostrarSelectPlantillaCarga" (selectionChange)="CargarPlantillaDeTipoCarga($event.value)">
+                    <mat-option *ngFor="let item of lstPlantillasDeTipoOferta" [value]="item.idOferta">{{ item.nombrePlantillaOferta }}</mat-option>
+                </mat-select>
+                <mat-checkbox (click)="cambiarValorSelectPlantillaCarga($event)" >Cargar Plantillas De Tipo Cargas</mat-checkbox>     
+                <br>
+                <app-panel-cargas-ofertas [idOferta]="idOferta" [DatosParaCargarDeLaPlantilla]="DatosParaCargarDeLaPlantillaCargas" (datosActualizadosCargas)="recibirOutputCargas($event)" (datosActualizadosParaBorrarCargas)="recibirOutputBorrarCargas($event)"></app-panel-cargas-ofertas>
+                
+                <br>
+                <mat-select formControlName="idOferta" *ngIf="mostrarSelectPlantillaRequisito" (selectionChange)="CargarPlantillaDeTipoRequisito($event.value)">
+                    <mat-option *ngFor="let item of lstPlantillasDeTipoOferta" [value]="item.idOferta">{{ item.nombrePlantillaOferta }}</mat-option>
+                </mat-select>
+                <mat-checkbox (click)="cambiarValorSelectPlantillaRequisito($event)" >Cargar Plantillas De Tipo Requisito</mat-checkbox>     
+                <br>
+                <app-panel-requisitos-ofertas [idOferta]="idOferta" [DatosParaCargarDeLaPlantilla]="DatosParaCargarDeLaPlantillaRequisitos" (datosActualizadosRequisitos)="recibirOutputRequisitos($event)" (datosActualizadosParaBorrarRequisitos)="recibirOutputBorrarRequisitos($event)"></app-panel-requisitos-ofertas> 
+                <br>   
+                  
                 <div  fxLayout="row" fxLayoutGap="1px">
                     <mat-form-field appearance="fill" fxFlex>
                         <mat-label>Estado De La Oferta: </mat-label>
@@ -88,10 +108,6 @@
                         <mat-datepicker #fechaFinalOferta></mat-datepicker>
                     </mat-form-field>
                 </div>
-
-
-                        
-
                 <input type="hidden" formControlName="idOferta" [readonly]="false">  
             </mat-card-content>
             <mat-card-actions align="end">

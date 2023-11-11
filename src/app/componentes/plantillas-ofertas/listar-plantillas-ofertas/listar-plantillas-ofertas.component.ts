@@ -1,5 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Plantillas_Ofertas , Plantillas_OfertasComponent, Plantillas_OfertasService } from '../';
+import { PlantillasLugaresXOfertasService } from '../../plantillas-lugares-xofertas';
+import { PlantillasCarroceriasXTiposDeVehiculosXOfertasService } from '../../plantillas-carrocerias-xtipos-de-vehiculos-xofertas';
+import { PlantillasRequisitosXOfertasServices } from '../../plantillas-requisitos-xofertas';
+import { PlantillasCargasXOfertasService } from '../../plantillas-cargas-xofertas';
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
 import { tap } from 'rxjs/operators';
@@ -7,8 +11,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Empresas, EmpresasService } from '../../empresas';
-import { EstadosDeLasOfertas, EstadosDeLasOfertasService } from '../../estados-de-las-ofertas';
 import { TiposOrientacionesDeLaOferta, TiposOrientacionesDeLaOfertaService } from '../../tipos-orientaciones-de-la-oferta';
+import { TiposDePlantillasOfertas,TiposDePlantillasOfertasService } from '../../tipos-de-plantillas-ofertas';
+import { forkJoin } from 'rxjs';
 
 
 @Component({
@@ -21,7 +26,7 @@ import { TiposOrientacionesDeLaOferta, TiposOrientacionesDeLaOfertaService } fro
 export class ListarPlantillasOfertasComponent implements OnInit {
       arraypaginator=environment.paginator;
       lstEmpresas : Empresas[]=[];
-      lstEstadosDeLasOfertas : EstadosDeLasOfertas[]=[];
+      lstTiposDePlantillasOfertas : TiposDePlantillasOfertas[]=[];
       lstTiposOrientacionesDeLaOferta : TiposOrientacionesDeLaOferta[]=[];
       lstofertas:Plantillas_Ofertas[]=[];
       lstofertasTodos:Plantillas_Ofertas[]=[];
@@ -31,7 +36,7 @@ export class ListarPlantillasOfertasComponent implements OnInit {
       @ViewChild(MatPaginator) paginator!: MatPaginator;
       @ViewChild(MatSort) sort!: MatSort;
       
-      displayedColumns: string[] = ['idEmpresa','nombrePlantillaOferta','idEstadoDeLaOferta','idTipoOrientacionDeLaOferta','tituloOferta','valorTotalDeLaOferta' , 'editar', 'borrar'];
+      displayedColumns: string[] = ['idEmpresa','nombrePlantillaOferta','idTipoDePlantillaOferta','idTipoOrientacionDeLaOferta','tituloOferta','valorTotalDeLaOferta' , 'editar', 'borrar'];
       public AbrirInformacion()
       {
             
@@ -64,7 +69,7 @@ export class ListarPlantillasOfertasComponent implements OnInit {
     
       ngOnInit() {
         this.listarEmpresas();
-        this.listarEstadosDeLasOfertas();
+        this.listarTiposDePlantillasOfertas();
         this.listarTiposOrientacionesDeLaOferta();
         this.AbrirInformacion();
         if (this.dataSource != null){
@@ -91,20 +96,20 @@ export class ListarPlantillasOfertasComponent implements OnInit {
         });
       }
 
-      encontrarNombreEstadoDeLaOferta(idEstadoDeLaOferta:number):string{
-        let estadodelaoferta:string="";
-        this.lstEstadosDeLasOfertas.forEach(element => {
-          if(element.idEstadoDeLaOferta==idEstadoDeLaOferta){
-            estadodelaoferta=element.nombreEstadoDeLaOferta;
+      encontrarNombreTipoDePlantillaOferta(idTipoDePlantillaOferta:number):string{
+        let tipodeplantillaoferta:string="";
+        this.lstTiposDePlantillasOfertas.forEach(element => {
+          if(element.idTipoDePlantillaOferta==idTipoDePlantillaOferta){
+            tipodeplantillaoferta=element.nombreTipoDePlantillaOferta;
           }
         });
-        return estadodelaoferta;
+        return tipodeplantillaoferta;
       }
 
-      listarEstadosDeLasOfertas(){
-        this.estadosdelasofertasService.GetAll().subscribe({
-          next : (lstestadosdelasofertas:EstadosDeLasOfertas[]) => {
-            this.lstEstadosDeLasOfertas=lstestadosdelasofertas;
+      listarTiposDePlantillasOfertas(){
+        this.tiposdeplantillasofertasService.GetAll().subscribe({
+          next : (lsttiposdeplantillasofertas:TiposDePlantillasOfertas[]) => {
+            this.lstTiposDePlantillasOfertas=lsttiposdeplantillasofertas;
           }
         });
       }
@@ -130,8 +135,8 @@ export class ListarPlantillasOfertasComponent implements OnInit {
 
     
       AbrirModalPlantilla_Oferta(idOferta:number){
-        const dialogRef = this.modalService.open(Plantillas_OfertasComponent).updateSize('80%');
-            
+        const dialogRef = this.modalService.open(Plantillas_OfertasComponent).updateSize('100%','100%');
+        //const dialogRef = this.modalService.open(OfertasComponent).updateSize('100%','100%');    
         dialogRef.componentInstance.idOferta=idOferta;
         dialogRef.componentInstance.asignarid(idOferta);
         dialogRef.componentInstance.onAdd.subscribe(() => {
@@ -143,16 +148,34 @@ export class ListarPlantillasOfertasComponent implements OnInit {
        }
     
         borrarXId(idOferta:number){
-        this.plantillas_ofertasService.delete(idOferta.toString()).subscribe({ 
-          next:  () => {
-             this.AbrirInformacion();
-          }
-        });
-       }
+        
+          forkJoin([
+            this.plantillaslugaresxofertaService.BorrarPorIdOferta(idOferta.toString()),
+            this.plantillascarroceriasxtiposdevehiculosxofertasService.BorrarPorIdOferta(idOferta.toString()),
+            this.plantillasrequisitosxofertasService.BorrarPorIdOferta(idOferta.toString()),
+            this.plantillascargasxofertasService.BorrarPorIdOferta(idOferta.toString())
+          ]).subscribe({
+            next: () => {
+             
+              // Borra la oferta después de que se hayan borrado los lugares, requisitos y cargas
+              this.plantillas_ofertasService.delete(idOferta.toString()).subscribe({
+                next: () => {
+                
+                  this.AbrirInformacion();
+                }
+              });
+            }
+          });
+        }
+        
       constructor(
         private plantillas_ofertasService: Plantillas_OfertasService,
+        private plantillaslugaresxofertaService: PlantillasLugaresXOfertasService,
+        private plantillascarroceriasxtiposdevehiculosxofertasService: PlantillasCarroceriasXTiposDeVehiculosXOfertasService,
+        private plantillasrequisitosxofertasService: PlantillasRequisitosXOfertasServices,
+        private plantillascargasxofertasService: PlantillasCargasXOfertasService,
         private empresasService: EmpresasService,
-        private estadosdelasofertasService: EstadosDeLasOfertasService,
+        private tiposdeplantillasofertasService: TiposDePlantillasOfertasService,
         private tiposorientacionesdelaofertaService: TiposOrientacionesDeLaOfertaService,
         private modalService: MatDialog
         ) { }
