@@ -44,5 +44,9 @@ export  class CarroceriasXTiposDeVehiculosXOfertasService {
   public delete(idCarroceriaXTipoDeVehiculo: string): Observable<void> {
     return this.httpClient.delete<void>(urlPage + '/' + idCarroceriaXTipoDeVehiculo, environment.httpOptions);
   }
+
+  public BorrarPorIdOferta(idOferta: string): Observable<void> {
+    return this.httpClient.delete<void>(urlPage + '/borrarporidoferta/' + idOferta, environment.httpOptions);
+  }
 }
 

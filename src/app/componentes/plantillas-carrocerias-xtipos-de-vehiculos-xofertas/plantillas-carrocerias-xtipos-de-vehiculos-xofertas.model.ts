@@ -4,7 +4,7 @@ export class PlantillasCarroceriasXTiposDeVehiculosXOfertas {
     idTipoDeVehiculo = 0;
     idTipoDeCarroceria = 0;
     tieneTrailer = false;
-    nombrePlantillaCarroceriaXTipoDeVehiculoXOferta = " ";
-    descripcion = " ";
+    //nombrePlantillaCarroceriaXTipoDeVehiculoXOferta = "";
+    descripcion = "";
 }
 

@@ -5,3 +5,6 @@ export class RequisitosXOfertas {
     observacion : string="";
 }
 
+export class RequisitosXOfertasAdjuntos extends RequisitosXOfertas {
+    requeridoAdjunto : boolean=false;
+}

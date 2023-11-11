@@ -1,7 +1,7 @@
 export class PlantillasCargasXOfertas {
     idCargaXOferta = 0;
     idOferta = 0;
-    nombrePlantillaCargaXOferta = '';
+ 
     tipoDeProducto: string="";
     unidadDeEmpaque: string="";
     toneladaCargaXOferta = 0;

@@ -32,7 +32,7 @@ export class ListarPlantillasCarroceriasXTiposDeVehiculosXOfertasComponent imple
       @ViewChild(MatPaginator) paginator!: MatPaginator;
       @ViewChild(MatSort) sort!: MatSort;
       
-      displayedColumns: string[] = ['idOferta','idTipoDeVehiculo','idTipoDeCarroceria','tieneTrailer','nombrePlantillaCarroceriaXTipoDeVehiculoXOferta', 'editar', 'borrar'];
+      displayedColumns: string[] = ['idOferta','idTipoDeVehiculo','idTipoDeCarroceria','tieneTrailer', 'editar', 'borrar'];
       public AbrirInformacion()
       {
         this.plantillascarroceriasxtiposdevehiculosxofertasService.GetAll().subscribe({
@@ -50,7 +50,7 @@ export class ListarPlantillasCarroceriasXTiposDeVehiculosXOfertasComponent imple
         
         this.lstplantillascarroceriasxtiposdevehiculosxofertas = this.lstplantillascarroceriasxtiposdevehiculosxofertasTodos.filter(
             (val) => (
-              ((val.nombrePlantillaCarroceriaXTipoDeVehiculoXOferta ?? "").trim() ?? "").toLowerCase().includes(value.toLowerCase().replace(/\s/g, ""))
+              ((val.descripcion ?? "").trim() ?? "").toLowerCase().includes(value.toLowerCase().replace(/\s/g, ""))
         ));
         this.dataSource = new MatTableDataSource(this.lstplantillascarroceriasxtiposdevehiculosxofertas);
         

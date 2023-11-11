@@ -29,7 +29,7 @@ export class PlantillasCarroceriasXTiposDeVehiculosXOfertasComponent implements 
     idTipoDeVehiculo:new FormControl('1'),
     idTipoDeCarroceria:new FormControl('1'),
     tieneTrailer:false,
-    nombrePlantillaCarroceriaXTipoDeVehiculoXOferta:new FormControl('',Validators.required),
+   // nombrePlantillaCarroceriaXTipoDeVehiculoXOferta:new FormControl('',Validators.required),
     descripcion:new FormControl('',Validators.required),
   });
 
@@ -41,7 +41,7 @@ export class PlantillasCarroceriasXTiposDeVehiculosXOfertasComponent implements 
       idTipoDeVehiculo : plantillascarroceriasxtiposdevehiculosxofertas.idTipoDeVehiculo,
       idTipoDeCarroceria : plantillascarroceriasxtiposdevehiculosxofertas.idTipoDeCarroceria,
       tieneTrailer : plantillascarroceriasxtiposdevehiculosxofertas.tieneTrailer,
-      nombrePlantillaCarroceriaXTipoDeVehiculoXOferta:plantillascarroceriasxtiposdevehiculosxofertas.nombrePlantillaCarroceriaXTipoDeVehiculoXOferta,
+     // nombrePlantillaCarroceriaXTipoDeVehiculoXOferta:plantillascarroceriasxtiposdevehiculosxofertas.nombrePlantillaCarroceriaXTipoDeVehiculoXOferta,
       descripcion:plantillascarroceriasxtiposdevehiculosxofertas.descripcion,
     })
   }  
@@ -89,7 +89,7 @@ export class PlantillasCarroceriasXTiposDeVehiculosXOfertasComponent implements 
       plantillascarroceriasxtiposdevehiculosxofertas.idTipoDeVehiculo=this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.value.idTipoDeVehiculo;
       plantillascarroceriasxtiposdevehiculosxofertas.idTipoDeCarroceria=this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.value.idTipoDeCarroceria;
       plantillascarroceriasxtiposdevehiculosxofertas.tieneTrailer=this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.value.tieneTrailer;      
-      plantillascarroceriasxtiposdevehiculosxofertas.nombrePlantillaCarroceriaXTipoDeVehiculoXOferta=this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.value.nombrePlantillaCarroceriaXTipoDeVehiculoXOferta;
+      //plantillascarroceriasxtiposdevehiculosxofertas.nombrePlantillaCarroceriaXTipoDeVehiculoXOferta=this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.value.nombrePlantillaCarroceriaXTipoDeVehiculoXOferta;
       plantillascarroceriasxtiposdevehiculosxofertas.descripcion=this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.value.descripcion;
          
       
@@ -150,7 +150,7 @@ export class PlantillasCarroceriasXTiposDeVehiculosXOfertasComponent implements 
       plantillascarroceriasxtiposdevehiculosxofertas.idTipoDeVehiculo=this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.value.idTipoDeVehiculo;
       plantillascarroceriasxtiposdevehiculosxofertas.idTipoDeCarroceria=this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.value.idTipoDeCarroceria;
       plantillascarroceriasxtiposdevehiculosxofertas.tieneTrailer=this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.value.tieneTrailer;
-      plantillascarroceriasxtiposdevehiculosxofertas.nombrePlantillaCarroceriaXTipoDeVehiculoXOferta=this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.value.nombrePlantillaCarroceriaXTipoDeVehiculoXOferta;
+//      plantillascarroceriasxtiposdevehiculosxofertas.nombrePlantillaCarroceriaXTipoDeVehiculoXOferta=this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.value.nombrePlantillaCarroceriaXTipoDeVehiculoXOferta;
       plantillascarroceriasxtiposdevehiculosxofertas.descripcion=this.FGAgregarPlantillasCarroceriasXTiposDeVehiculosXOfertas.value.descripcion;
       
       //suscrubimos la guardada de los datos en la tabla plantillascarroceriasxtiposdevehiculosxofertas

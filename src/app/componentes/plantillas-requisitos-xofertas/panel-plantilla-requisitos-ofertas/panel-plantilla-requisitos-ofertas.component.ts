@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { PlantillasRequisitosXOfertas , PlantillasRequisitosXOfertasComponent, PlantillasRequisitosXOfertasServices } from '../';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { PlantillasRequisitosXOfertas , PlantillasRequisitosXOfertasAdjuntos, PlantillasRequisitosXOfertasComponent, PlantillasRequisitosXOfertasServices } from '../';
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
 import { tap } from 'rxjs/operators';
@@ -9,6 +9,8 @@ import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Requisitos} from '../../requisitos/requisitos.model';
 import { RequisitosService} from '../../requisitos/requisitos.service';
+import { RequisitosXOfertas } from '../../requisitos-xofertas';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-panel-plantilla-requisitos-ofertas',
@@ -23,11 +25,16 @@ export class PanelPlantillaRequisitosOfertasComponent implements OnInit {
   @Input() editaroAgregar = "agregar";
   @Input() indexEditar = 0;
   @Input() idOferta = 0;
+  @Input() DatosParaCrearPlantillaRequisitosPorOferta:RequisitosXOfertas[]=[];
+  @Output() datosActualizadosRequisitos = new EventEmitter<PlantillasRequisitosXOfertas[]>();
+  @Output() datosActualizadosParaBorrarRequisitos = new EventEmitter<PlantillasRequisitosXOfertas[]>();
+
   panelOpenState = false;
   openorclose =false;
   descripcionPanel:any[] = [];
   descripcionPanelPorComas :  string = "";
-  datosGuardados: any[] = [];
+  datosGuardados: PlantillasRequisitosXOfertas[] = [];
+  datosParaBorrar:PlantillasRequisitosXOfertas[] = [];
   datosTemporales:any[]=[];
   dataSource = new MatTableDataSource<any>(this.datosGuardados);  
   lstPlantillasRequisitosXOfertas:  PlantillasRequisitosXOfertas[] = [];
@@ -40,6 +47,7 @@ export class PanelPlantillaRequisitosOfertasComponent implements OnInit {
   idRequisito : number=0;
   requeridoAdjunto: boolean=false;
   observacion : string="";
+ // nombrePlantillaRequisitoXOferta : string="";
  
   
   constructor 
@@ -50,26 +58,43 @@ export class PanelPlantillaRequisitosOfertasComponent implements OnInit {
   ) { }
   
   ngOnInit() {
-    this.FGAgregarRequisito.reset();
-    this.listarRequisitos();
-    this.listarPlantillasRequisitosXOfertas(this.idOferta);    
+    if (this.DatosParaCrearPlantillaRequisitosPorOferta.length>0){
+      this.lstPlantillasRequisitosXOfertas=this.DatosParaCrearPlantillaRequisitosPorOferta;
+      this.cargarPlantillasRequisitosXOfertasAdatosGuardados();
+      this.datosActualizadosRequisitos.emit(this.datosGuardados);
+      this.listarRequisitos();
+     
+    }
+    else{
+      console.log(this.idOferta);
+      this.FGAgregarRequisito.reset();
+      this.listarRequisitos();
+      this.listarPlantillasRequisitosXOfertas(this.idOferta);    
+    }
+
+
+
+
+    
     
   }
 
   FGAgregarRequisito : FormGroup = this.formBuilder.group({      
-   
+    idRequisitoXOferta : new FormControl('0'),
     idRequisito:new FormControl(0,Validators.required),
     requeridoAdjunto:false,
-    observacion:new FormControl('',Validators.required)    
+    observacion:new FormControl('',Validators.required),
+   // nombrePlantillaRequisitoXOferta:new FormControl('',Validators.required),    
        
   });
   
-  refrescarResumenPanel(){    
-    console.log(this.datosGuardados.length);
+ async refrescarResumenPanel(){    
+  const requisitosdelaplantilla = await firstValueFrom(this.requisitosService.GetAll()); 
     if (this.datosGuardados.length==0){
       this.descripcionPanelPorComas="";
     }
     else{
+      this.lstRequisitos= requisitosdelaplantilla;
       this.descripcionPanelPorComas = this.datosGuardados.map(x => 
           "* " + this.encontrarNombreRequisito(x.idRequisito)).join(', ');
     }
@@ -85,14 +110,17 @@ export class PanelPlantillaRequisitosOfertasComponent implements OnInit {
       alert("Debe seleccionar un requisito");
     }
     else{  
-      const datos = {
-        idRequisito:this.FGAgregarRequisito.value.idRequisito,
-        requeridoAdjunto:this.encontrarRequeridoAdjunto(this.FGAgregarRequisito.value.idRequisito),
-        observacion:this.FGAgregarRequisito.value.observacion,
-      };
-      console.log(datos);
-      this.datosGuardados.push(datos);
+      let PlantillaRequisitoXOfertaAdjunto = new PlantillasRequisitosXOfertasAdjuntos;
+      PlantillaRequisitoXOfertaAdjunto.idRequisitoXOferta=0;
+      PlantillaRequisitoXOfertaAdjunto.idOferta=this.idOferta;
+      PlantillaRequisitoXOfertaAdjunto.idRequisito=this.FGAgregarRequisito.value.idRequisito;
+      PlantillaRequisitoXOfertaAdjunto.requeridoAdjunto= this.encontrarRequeridoAdjunto(this.FGAgregarRequisito.value.idRequisito);
+      PlantillaRequisitoXOfertaAdjunto.observacion=this.FGAgregarRequisito.value.observacion;
+    //  PlantillaRequisitoXOfertaAdjunto.nombrePlantillaRequisitoXOferta=this.FGAgregarRequisito.value.nombrePlantillaRequisitoXOferta;
+
+      this.datosGuardados.push(PlantillaRequisitoXOfertaAdjunto);
       this.dataSource.data = this.datosGuardados;
+      this.datosActualizadosRequisitos.emit(this.datosGuardados);
       this.FGAgregarRequisito.reset();
       this.descripcionPanel = this.datosGuardados.map(dato => this.encontrarNombreRequisito(dato.idRequisito));
       this.refrescarResumenPanel();
@@ -101,8 +129,10 @@ export class PanelPlantillaRequisitosOfertasComponent implements OnInit {
 
 
    eliminarFila(index: number) { 
+    this.datosParaBorrar.push(this.datosGuardados[index]);
     this.datosGuardados.splice(index, 1);
     this.dataSource.data = this.datosGuardados;
+    this.datosActualizadosParaBorrarRequisitos.emit(this.datosParaBorrar);
     this.descripcionPanel = this.datosGuardados.map(dato => this.encontrarNombreRequisito(dato.idRequisito));
     this.refrescarResumenPanel();
     this.FGAgregarRequisito.reset();
@@ -123,8 +153,10 @@ export class PanelPlantillaRequisitosOfertasComponent implements OnInit {
   }
 
   editarFila(index: number) {
+    
     this.datosGuardados[index] = this.FGAgregarRequisito.value;
     this.dataSource.data = this.datosGuardados;
+    this.datosActualizadosRequisitos.emit(this.datosGuardados);
     this.FGAgregarRequisito.reset();
     this.descripcionPanel = this.datosGuardados.map(dato => this.encontrarNombreRequisito(dato.idRequisito));
     this.editaroAgregar="agregar";
@@ -140,9 +172,11 @@ export class PanelPlantillaRequisitosOfertasComponent implements OnInit {
     this.listarRequisitos();
     
     this.FGAgregarRequisito.patchValue({
+      idRequisitoXOferta:filaSeleccionada.idRequisitoXOferta,
       idRequisito:filaSeleccionada.idRequisito,
       requeridoAdjunto:this.encontrarRequeridoAdjunto(filaSeleccionada.idRequisito),  
-      observacion:filaSeleccionada.observacion
+      observacion:filaSeleccionada.observacion,
+     // nombrePlantillaRequisitoXOferta:filaSeleccionada.nombrePlantillaRequisitoXOferta,
     });
   }
 
@@ -152,7 +186,7 @@ export class PanelPlantillaRequisitosOfertasComponent implements OnInit {
         this.lstPlantillasRequisitosXOfertas = lstplantillasrequisitosxofertas;
         //console.log(this.lstPlantillasRequisitosXOfertas);
         this.cargarPlantillasRequisitosXOfertasAdatosGuardados();
-      //  this.refrescarResumenPanel();
+        
       }
     });
     this.refrescarResumenPanel();
@@ -200,13 +234,14 @@ export class PanelPlantillaRequisitosOfertasComponent implements OnInit {
   cargarPlantillasRequisitosXOfertasAdatosGuardados() {
     
     this.lstPlantillasRequisitosXOfertas.forEach(requisito => {
-      const datos = {
-        idOferta: requisito.idOferta, 
-        idRequisito: requisito.idRequisito,
-        requeridoAdjunto:this.encontrarRequeridoAdjunto(requisito.idRequisito),
-        observacion: requisito.observacion
-      };
-      this.datosGuardados.push(datos);
+      let PlantillaRequisitoXOfertaAdjunto = new PlantillasRequisitosXOfertasAdjuntos;
+      PlantillaRequisitoXOfertaAdjunto.idRequisitoXOferta=requisito.idRequisitoXOferta;
+      PlantillaRequisitoXOfertaAdjunto.idOferta=requisito.idOferta;
+      PlantillaRequisitoXOfertaAdjunto.idRequisito=requisito.idRequisito;
+      PlantillaRequisitoXOfertaAdjunto.requeridoAdjunto= this.encontrarRequeridoAdjunto(requisito.idRequisito);
+      PlantillaRequisitoXOfertaAdjunto.observacion=requisito.observacion;
+      //PlantillaRequisitoXOfertaAdjunto.nombrePlantillaRequisitoXOferta=requisito.nombrePlantillaRequisitoXOferta;
+      this.datosGuardados.push(PlantillaRequisitoXOfertaAdjunto);
       this.dataSource.data = this.datosGuardados;
       this.datosGuardados.map(dato => this.encontrarNombreRequisito(dato.idRequisito));
       

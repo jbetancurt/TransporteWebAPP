@@ -1,6 +1,7 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { PlantillasCarroceriasXTiposDeVehiculosXOfertas , PlantillasCarroceriasXTiposDeVehiculosXOfertasComponent, PlantillasCarroceriasXTiposDeVehiculosXOfertasService } from '../';
 import { CarroceriasXTiposDeVehiculos, CarroceriasXTiposDeVehiculosService } from '../../carrocerias-xtipos-de-vehiculos';
+import { CarroceriasXTiposDeVehiculosXOfertas, CarroceriasXTiposDeVehiculosXOfertasService } from '../../carrocerias-xtipos-de-vehiculos-xofertas';
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
 import { tap } from 'rxjs/operators';
@@ -10,6 +11,7 @@ import { MatSort } from '@angular/material/sort';
 import { TiposDeCarrocerias, TiposDeCarroceriasService } from '../../tipos-de-carrocerias';
 import { TiposDeVehiculos, TiposDeVehiculosService } from '../../tipos-de-vehiculos';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable, firstValueFrom, isObservable } from 'rxjs';
 
 @Component({
   selector: 'app-panel-plantilla-vehiculos-ofertas',
@@ -24,11 +26,15 @@ export class PanelPlantillaVehiculosOfertasComponent implements OnInit {
   @Input() editaroAgregar = "agregar";
   @Input() indexEditar = 0;
   @Input() idOferta = 0;
+  @Input() DatosParaCrearPlantillaVehiculosPorOferta:CarroceriasXTiposDeVehiculosXOfertas[]=[];
+  @Output() datosActualizadosVehiculos = new EventEmitter<PlantillasCarroceriasXTiposDeVehiculosXOfertas[]>();
+  @Output() datosActualizadosParaBorrarVehiculos = new EventEmitter<PlantillasCarroceriasXTiposDeVehiculosXOfertas[]>();
   panelOpenState = false;
   openorclose =false;
   descripcionPanel:any[] = [];
   descripcionPanelPorComas :  string = "";
-  datosGuardados: any[] = [];
+  datosGuardados: PlantillasCarroceriasXTiposDeVehiculosXOfertas[] = [];
+  datosParaBorrar: PlantillasCarroceriasXTiposDeVehiculosXOfertas[] = [];
   datosTemporales:any[]=[];
   dataSource = new MatTableDataSource<any>(this.datosGuardados);  
   lstPlantillasCarroceriasXTiposDeVehiculosXOfertas:  PlantillasCarroceriasXTiposDeVehiculosXOfertas[] = [];
@@ -57,11 +63,26 @@ export class PanelPlantillaVehiculosOfertasComponent implements OnInit {
   ) { }
   
   ngOnInit() {
-    this.FGAgregarVehiculos.reset();
-    this.listarCarroceriaXTipoDeVehiculo();
-    this.listarTiposDeVehiculos();
-    this.listarTiposDeCarrocerias();
-    this.listarPlantillasCarroceriasXTiposDeVehiculosXOfertas(this.idOferta);    
+    if (this.DatosParaCrearPlantillaVehiculosPorOferta.length>0){
+      console.log(this.DatosParaCrearPlantillaVehiculosPorOferta);
+      this.lstPlantillasCarroceriasXTiposDeVehiculosXOfertas=this.DatosParaCrearPlantillaVehiculosPorOferta;
+      console.log(this.lstPlantillasCarroceriasXTiposDeVehiculosXOfertas);
+      this.listarTiposDeVehiculos();
+      this.listarTiposDeCarrocerias();
+      this.listarCarroceriaXTipoDeVehiculo();
+      this.FGAgregarVehiculos.reset();
+      this.cargarPlantillasCarroceriasXTiposDeVehiculosXOfertasAdatosGuardados();
+      this.datosActualizadosVehiculos.emit(this.datosGuardados);
+      this.refrescarResumenPanel();
+    }
+    else{
+      this.FGAgregarVehiculos.reset();
+      this.listarCarroceriaXTipoDeVehiculo();
+      this.listarTiposDeVehiculos();
+      this.listarTiposDeCarrocerias();
+      this.listarPlantillasCarroceriasXTiposDeVehiculosXOfertas(this.idOferta);  
+    }
+      
     //this.descripcionPanel = this.datosGuardados.map(dato => this.encontrarNombreTipoDeVehiculo(dato.idTipoDeVehiculo));
     //this.refrescarResumenPanel();
    // this.descripcionPanelPorComas = this.descripcionPanel.join(', ');
@@ -69,21 +90,28 @@ export class PanelPlantillaVehiculosOfertasComponent implements OnInit {
   }
 
   FGAgregarVehiculos : FormGroup = this.formBuilder.group({      
-   // idOferta:new FormControl(0,Validators.required),
-    //idCarroceriaXTipoDeVehiculo:new FormControl(0,Validators.required),
+   
+    idCarroceriaXTipoDeVehiculoXOferta:new FormControl('0'),
     idTipoDeVehiculo:new FormControl(0,Validators.required),
     idTipoDeCarroceria:new FormControl('',Validators.required),
     tieneTrailer:new FormControl(false,Validators.required),
-    descripcion:new FormControl('',Validators.required)
+    descripcion:new FormControl('',Validators.required),
+    //nombrePlantillaCarroceriaXTipoDeVehiculoXOferta:new FormControl(''),
        
   });
   
-  refrescarResumenPanel(){    
+  async refrescarResumenPanel(){    
+    const tiposdevehiculos = await firstValueFrom(this.tiposdevehiculosService.GetAll());
     console.log(this.datosGuardados.length);
     if (this.datosGuardados.length==0){
       this.descripcionPanelPorComas="";
     }
     else{
+      tiposdevehiculos.forEach(element => {
+           this.datosTemporales.push(this.datosGuardados.filter(x => x.idTipoDeVehiculo == element.idTipoDeVehiculo));
+      });
+      console.log('1'+this.datosGuardados);
+      console.log('2'+this.lstTiposDeVehiculos);
       this.descripcionPanelPorComas = this.datosGuardados.map(x => 
           "* " + this.encontrarNombreTipoDeVehiculo(x.idTipoDeVehiculo) + "(" + this.encontrarNombreTipoDeCarroceria(x.idTipoDeCarroceria) + ")").join(', ');
     }
@@ -94,38 +122,38 @@ export class PanelPlantillaVehiculosOfertasComponent implements OnInit {
   }
 
   guardarDatos() {
-    
-   // console.log(this.FGAgregarVehiculos.value.idTipoDeVehiculo);
-   // console.log(this.FGAgregarVehiculos.value.idTipoDeCarroceria);
+   
     if(this.FGAgregarVehiculos.value.idTipoDeVehiculo == null || this.FGAgregarVehiculos.value.idTipoDeCarroceria == null){
       alert("Debe seleccionar un tipo de vehiculo y un tipo de carroceria");
     }
     else{  
-      const datos = {
-      // idOferta:this.FGAgregarLugares.value.idCiudad,
-      //idEmpresa:0,
-      // idCarroceriaXTipoDeVehiculo: this.FGAgregarVehiculos.value.idCarroceriaXTipoDeVehiculo, 
-        idTipoDeVehiculo:this.FGAgregarVehiculos.value.idTipoDeVehiculo,
-        idTipoDeCarroceria:this.FGAgregarVehiculos.value.idTipoDeCarroceria,
-        tieneTrailer:this.FGAgregarVehiculos.value.tieneTrailer,
-        descripcion:this.FGAgregarVehiculos.value.descripcion
-      };
-      this.datosGuardados.push(datos);
+      let PlantillaCarroceriaXTipoDeVehiculoXOferta = new PlantillasCarroceriasXTiposDeVehiculosXOfertas;
+      PlantillaCarroceriaXTipoDeVehiculoXOferta.idCarroceriaXTipoDeVehiculoXOferta = 0;
+      PlantillaCarroceriaXTipoDeVehiculoXOferta.idTipoDeVehiculo = this.FGAgregarVehiculos.value.idTipoDeVehiculo;
+      PlantillaCarroceriaXTipoDeVehiculoXOferta.idTipoDeCarroceria = this.FGAgregarVehiculos.value.idTipoDeCarroceria;
+      if (this.FGAgregarVehiculos.value.tieneTrailer == null){
+        this.FGAgregarVehiculos.value.tieneTrailer = false;
+      }
+      PlantillaCarroceriaXTipoDeVehiculoXOferta.tieneTrailer = this.FGAgregarVehiculos.value.tieneTrailer;
+      PlantillaCarroceriaXTipoDeVehiculoXOferta.descripcion = this.FGAgregarVehiculos.value.descripcion;
+      //PlantillaCarroceriaXTipoDeVehiculoXOferta.nombrePlantillaCarroceriaXTipoDeVehiculoXOferta = this.FGAgregarVehiculos.value.nombrePlantillaCarroceriaXTipoDeVehiculoXOferta;
+
+      this.datosGuardados.push(PlantillaCarroceriaXTipoDeVehiculoXOferta);
       this.dataSource.data = this.datosGuardados;
+      this.datosActualizadosVehiculos.emit(this.datosGuardados);
       this.FGAgregarVehiculos.reset();
-      this.descripcionPanel = this.datosGuardados.map(dato => this.encontrarNombreTipoDeVehiculo(dato.idTipoDeVehiculo));
-      //this.descripcionPanelPorComas = this.descripcionPanel.join(', ');
+      //this.descripcionPanel = this.datosGuardados.map(dato => this.encontrarNombreTipoDeVehiculo(dato.idTipoDeVehiculo));
       this.refrescarResumenPanel();
     }
   }
 
   eliminarFila(index: number) { 
+    this.datosParaBorrar.push(this.datosGuardados[index]);
     this.datosGuardados.splice(index, 1);
     this.dataSource.data = this.datosGuardados;
-    this.descripcionPanel = this.datosGuardados.map(dato => this.encontrarNombreTipoDeVehiculo(dato.idTipoDeVehiculo));
-    this.refrescarResumenPanel();
+    this.datosActualizadosParaBorrarVehiculos.emit(this.datosParaBorrar);
     this.FGAgregarVehiculos.reset();
-    
+    this.refrescarResumenPanel();
   }
 
   cancelarEdicion(){
@@ -144,8 +172,9 @@ export class PanelPlantillaVehiculosOfertasComponent implements OnInit {
   editarFila(index: number) {
     this.datosGuardados[index] = this.FGAgregarVehiculos.value;
     this.dataSource.data = this.datosGuardados;
+    this.datosActualizadosVehiculos.emit(this.datosGuardados);
     this.FGAgregarVehiculos.reset();
-    this.descripcionPanel = this.datosGuardados.map(dato => this.encontrarNombreTipoDeVehiculo(dato.idTipoDeVehiculo));
+    //this.descripcionPanel = this.datosGuardados.map(dato => this.encontrarNombreTipoDeVehiculo(dato.idTipoDeVehiculo));
     this.editaroAgregar="agregar";
     this.refrescarResumenPanel();
 
@@ -157,14 +186,13 @@ export class PanelPlantillaVehiculosOfertasComponent implements OnInit {
     let filaSeleccionada = this.datosGuardados[index];
     
     this.listarCarroceriasParaElVehiculo(filaSeleccionada.idTipoDeVehiculo)
-    console.log(filaSeleccionada);
     this.FGAgregarVehiculos.patchValue({
-      //idCarroceriaXTipoDeVehiculo: filaSeleccionada.idCarroceriaXTipoDeVehiculo,
+      idCarroceriaXTipoDeVehiculoXOferta:filaSeleccionada.idCarroceriaXTipoDeVehiculoXOferta,
       idTipoDeVehiculo:filaSeleccionada.idTipoDeVehiculo,
       idTipoDeCarroceria:filaSeleccionada.idTipoDeCarroceria,
-     
       tieneTrailer:filaSeleccionada.tieneTrailer,
-      descripcion:filaSeleccionada.descripcion
+      descripcion:filaSeleccionada.descripcion,
+      //nombrePlantillaCarroceriaXTipoDeVehiculoXOferta:filaSeleccionada.nombrePlantillaCarroceriaXTipoDeVehiculoXOferta
 
     });
   }
@@ -173,11 +201,10 @@ export class PanelPlantillaVehiculosOfertasComponent implements OnInit {
     this.plantillascarroceriasxtiposdevehiculosxofertasService.ConsultarXOferta(idOferta.toString()).subscribe({
       next: (lstplatillascarroceriasxtiposdevehiculosxofertas: PlantillasCarroceriasXTiposDeVehiculosXOfertas[]) => {
         this.lstPlantillasCarroceriasXTiposDeVehiculosXOfertas = lstplatillascarroceriasxtiposdevehiculosxofertas;
-        //console.log(this.lstPlantillasCarroceriasXTiposDeVehiculosXOfertas);
         this.cargarPlantillasCarroceriasXTiposDeVehiculosXOfertasAdatosGuardados();
-      //  this.refrescarResumenPanel();
       }
     });
+    console.log(idOferta);
     this.refrescarResumenPanel();
     
   }
@@ -206,12 +233,14 @@ export class PanelPlantillaVehiculosOfertasComponent implements OnInit {
   }
 
 
-  listarTiposDeVehiculos(){
-    this.tiposdevehiculosService.GetAll().subscribe({
-      next: (lsttiposdevehiculos: TiposDeVehiculos[]) => {
-        this.lstTiposDeVehiculos = lsttiposdevehiculos;
-      }
-    });
+    listarTiposDeVehiculos(){
+     //this.tiposdevehiculosService.GetAllPromesa().then(x => this.lstTiposDeVehiculos = x);
+      this.tiposdevehiculosService.GetAll().subscribe({
+       next: (lsttiposdevehiculos:  TiposDeVehiculos[]) => {
+         this.lstTiposDeVehiculos =  lsttiposdevehiculos;
+         console.log('3'+this.lstTiposDeVehiculos);
+       }
+     });
   }
 
   listarTiposDeCarrocerias(){
@@ -251,23 +280,21 @@ export class PanelPlantillaVehiculosOfertasComponent implements OnInit {
 
 
   cargarPlantillasCarroceriasXTiposDeVehiculosXOfertasAdatosGuardados() {
-    
+    console.log(this.lstPlantillasCarroceriasXTiposDeVehiculosXOfertas);
     this.lstPlantillasCarroceriasXTiposDeVehiculosXOfertas.forEach(vehiculo => {
-      //console.log(vehiculo);
-      const datos = {
-       // idCarroceriaXTipoDeVehiculo: lugar.idCarroceriaXTipoDeVehiculo,
-        idOferta: vehiculo.idOferta, 
-        idTipoDeVehiculo: vehiculo.idTipoDeVehiculo,
-        idTipoDeCarroceria: vehiculo.idTipoDeCarroceria,
-        tieneTrailer: vehiculo.tieneTrailer,
-        descripcion: vehiculo.descripcion
-        
-      };
-      //console.log(datos);
-      this.datosGuardados.push(datos);
+      console.log(vehiculo);
+      let PlantillaCarroceriaXTipoDeVehiculoXOferta = new PlantillasCarroceriasXTiposDeVehiculosXOfertas;
+      PlantillaCarroceriaXTipoDeVehiculoXOferta.idCarroceriaXTipoDeVehiculoXOferta = vehiculo.idCarroceriaXTipoDeVehiculoXOferta;
+      PlantillaCarroceriaXTipoDeVehiculoXOferta.idOferta = vehiculo.idOferta;
+      PlantillaCarroceriaXTipoDeVehiculoXOferta.idTipoDeVehiculo = vehiculo.idTipoDeVehiculo;
+      PlantillaCarroceriaXTipoDeVehiculoXOferta.idTipoDeCarroceria = vehiculo.idTipoDeCarroceria;
+      PlantillaCarroceriaXTipoDeVehiculoXOferta.tieneTrailer = vehiculo.tieneTrailer;
+      PlantillaCarroceriaXTipoDeVehiculoXOferta.descripcion = vehiculo.descripcion;
+      //PlantillaCarroceriaXTipoDeVehiculoXOferta.nombrePlantillaCarroceriaXTipoDeVehiculoXOferta = vehiculo.nombrePlantillaCarroceriaXTipoDeVehiculoXOferta;
+      console.log(PlantillaCarroceriaXTipoDeVehiculoXOferta);
+      this.datosGuardados.push(PlantillaCarroceriaXTipoDeVehiculoXOferta);
       this.dataSource.data = this.datosGuardados;
-      this.datosGuardados.map(dato => this.encontrarNombreTipoDeVehiculo(dato.idTipoDeVehiculo));
-      
+      //this.datosGuardados.map(dato => this.encontrarNombreTipoDeVehiculo(dato.idTipoDeVehiculo));
     });
     this.refrescarResumenPanel();
   }

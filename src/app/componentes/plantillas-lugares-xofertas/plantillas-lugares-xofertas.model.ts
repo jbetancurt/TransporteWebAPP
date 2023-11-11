@@ -6,10 +6,9 @@ export class PlantillasLugaresXOfertas {
     idCiudad = 0;
     idTipoDeLugarXOferta = 0;
     ordenLugarXOferta = 0;
-    nombrePlantillaLugarXOferta = '';
+   // nombrePlantillaLugarXOferta = '';
     nombreLugarXOferta = '';
     observacionLugarXOferta = '';
     telefonoLugarXOferta = '';
     direccionLugarXOferta = '';
 }
-

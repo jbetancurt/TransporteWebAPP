@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { PlantillasLugaresXOfertas , PlantillasLugaresXOfertasComponent, PlantillasLugaresXOfertasService } from '../';
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
@@ -10,6 +10,7 @@ import { Personas, PersonasService } from '../../personas';
 import { Ciudades, CiudadesService } from '../../ciudades';
 import { Empresas, EmpresasService } from '../../empresas';
 import { Ofertas, OfertasService } from '../../ofertas';
+import { LugaresXOfertas, LugaresXOfertasService } from '../../lugares-xofertas';
 import { TiposDeLugaresXOfertas, TiposDeLugaresXOfertasService } from '../../tipos-de-lugares-xofertas';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -26,14 +27,21 @@ export class PanelPlantillaOrigenDestinoComponent implements OnInit   {
   panelOpenState = false;
   openorclose = false;
   nombres = "";
-  
+
   editaroAgregar = "agregar";
   indexEditar = 0;
-  tipoDeLugar: number=0;
 
   descripcionPanelPorComas :  string = "";
   
-  datosGuardados: any[] = [];
+  datosGuardados: PlantillasLugaresXOfertas[] = [];
+  datosParaBorrar: PlantillasLugaresXOfertas[] = [];
+  
+  @Output() datosActualizadosLugares = new EventEmitter<PlantillasLugaresXOfertas[]>();
+  @Output() datosActualizadosParaBorrarLugares = new EventEmitter<PlantillasLugaresXOfertas[]>();
+ 
+  tipoDeLugar: number=0;
+
+  
   
   datosTemporales:any[]=[];
   dataSource = new MatTableDataSource<any>(this.datosGuardados);  
@@ -42,6 +50,8 @@ export class PanelPlantillaOrigenDestinoComponent implements OnInit   {
   
   @Input() idEmpresa = 0;
   @Input() enumeradorTipoLugarXOferta = "";
+  @Input() DatosParaCrearPlantillaOrigenPorOferta:LugaresXOfertas[]=[];
+  @Input() DatosParaCrearPlantillaDestinoPorOferta:LugaresXOfertas[]=[];
 
  
 
@@ -61,10 +71,12 @@ export class PanelPlantillaOrigenDestinoComponent implements OnInit   {
   telefonoLugarXOferta: string="";
   direccionLugarXOferta: string="";
   
-  FGAgregarLugares : FormGroup = this.formBuilder.group({      
+  FGAgregarLugares : FormGroup = this.formBuilder.group({ 
+    idLugarXOferta:new FormControl('0'),         
     idCiudad:new FormControl(0,Validators.required),
     idPersona:new FormControl(0,Validators.required),
     nombreLugarXOferta:new FormControl('',Validators.required),
+   // nombrePlantillaLugarXOferta:new FormControl('',Validators.required),
     observacionLugarXOferta: new FormControl('',Validators.required),
     telefonoLugarXOferta: new FormControl('',Validators.required),
     direccionLugarXOferta: new FormControl('',Validators.required),
@@ -82,21 +94,20 @@ guardarDatos() {
     alert("Debe seleccionar una Ciudad y un Contacto");
   }
   else{ 
-    const datos = {
-      idCiudad:this.FGAgregarLugares.value.idCiudad,
-      idPersona: this.FGAgregarLugares.value.idPersona, 
-      //idEmpresa:0,
-      idTipoDeLugarXOferta:this.tipoDeLugar,
-      
-      //ordenLugarXOferta: this.ordenLugarXOferta,
-      nombreLugarXOferta: this.FGAgregarLugares.value.nombreLugarXOferta,  
-      observacionLugarXOferta: this.FGAgregarLugares.value.observacionLugarXOferta,
-      telefonoLugarXOferta: this.FGAgregarLugares.value.telefonoLugarXOferta,
-      direccionLugarXOferta: this.FGAgregarLugares.value.direccionLugarXOferta
-      
-    };
-    this.datosGuardados.push(datos);
+    let PlantillaLugarXOferta = new PlantillasLugaresXOfertas;
+
+    PlantillaLugarXOferta.idPersona = this.FGAgregarLugares.value.idPersona;
+    PlantillaLugarXOferta.idCiudad = this.FGAgregarLugares.value.idCiudad;
+    PlantillaLugarXOferta.idTipoDeLugarXOferta = this.idTipoDeLugarXOferta;
+    PlantillaLugarXOferta.nombreLugarXOferta = this.FGAgregarLugares.value.nombreLugarXOferta;
+    //PlantillaLugarXOferta.nombrePlantillaLugarXOferta = this.FGAgregarLugares.value.nombrePlantillaLugarXOferta;
+    PlantillaLugarXOferta.observacionLugarXOferta = this.FGAgregarLugares.value.observacionLugarXOferta;
+    PlantillaLugarXOferta.telefonoLugarXOferta = this.FGAgregarLugares.value.telefonoLugarXOferta;
+    PlantillaLugarXOferta.direccionLugarXOferta = this.FGAgregarLugares.value.direccionLugarXOferta;
+     
+    this.datosGuardados.push(PlantillaLugarXOferta);
     this.dataSource.data = this.datosGuardados;
+    this.datosActualizadosLugares.emit(this.datosGuardados);
 
     this.FGAgregarLugares.reset();
     
@@ -123,19 +134,19 @@ listarDestinos(){
 }
 
 eliminarFila(index: number) { 
+  this.datosParaBorrar.push(this.datosGuardados[index]);
   this.datosGuardados.splice(index, 1);
   this.dataSource.data = this.datosGuardados;
+  this.datosActualizadosParaBorrarLugares.emit(this.datosParaBorrar);
   this.FGAgregarLugares.reset();
-  
   this.refrescarResumenPanel();
-  
 }
 
 editarFila(index: number) {
   this.datosGuardados[index] = this.FGAgregarLugares.value;
   this.dataSource.data = this.datosGuardados;
+  this.datosActualizadosLugares.emit(this.datosGuardados);
   this.FGAgregarLugares.reset();
-  
   this.refrescarResumenPanel();
   this.editaroAgregar="agregar";
 }
@@ -153,18 +164,17 @@ cancelarEdicion(){
 
 
 cargarDatosParaEditar(index: number) {
-  console.log(index);
+  
   this.editaroAgregar="editar";
   this.indexEditar=index;
   let filaSeleccionada = this.datosGuardados[index];
-  console.log(filaSeleccionada);
-  console.log(this.datosGuardados[index]);
-  console.log(index);
   this.FGAgregarLugares.patchValue({
+    idLugarXOferta: filaSeleccionada.idLugarXOferta,
     idCiudad: filaSeleccionada.idCiudad,
     idPersona: filaSeleccionada.idPersona,
     idTipoDeLugarXOferta: filaSeleccionada.idTipoDeLugarXOferta,
     nombreLugarXOferta: filaSeleccionada.nombreLugarXOferta,
+    //nombrePlantillaLugarXOferta: filaSeleccionada.nombrePlantillaLugarXOferta,
     observacionLugarXOferta: filaSeleccionada.observacionLugarXOferta,
     telefonoLugarXOferta: filaSeleccionada.telefonoLugarXOferta,
     direccionLugarXOferta: filaSeleccionada.direccionLugarXOferta
@@ -208,10 +218,7 @@ cargarDatosParaEditar(index: number) {
         
         this.dataSource.data = this.datosGuardados;
         this.refrescarResumenPanel();
-        console.log(this.idOferta);
-        console.log(lstplantillaslugaresxofertas);
         
-        console.log(this.idEmpresa);
       }
     });
   }
@@ -242,37 +249,52 @@ cargarDatosParaEditar(index: number) {
     this.editaroAgregar=editaroAgregar;
   }
 
-  asignarTipoDeLugar(){
-    if (this.tituloDelPanel=="Origen"){
-      this.tipoDeLugar= 2
-    }else{
-      this.tipoDeLugar= 3
-    }
-  }
-
   
 
   ngOnInit() {
-    if (this.enumeradorTipoLugarXOferta != ""){
-     
-      this.tiposDeLugaresXOfertasService.ConsultarPorEnum(this.enumeradorTipoLugarXOferta).subscribe({
-        next : (objTiposDeLugaresXOfertas:TiposDeLugaresXOfertas) => { 
-          if (objTiposDeLugaresXOfertas.idTipoDeLugarXOferta > 0){
-            //console.log(this.idOferta);
-            
-            this.tituloDelPanel = objTiposDeLugaresXOfertas.nombreTipoDeLugarXOferta;
-            this.idTipoDeLugarXOferta = objTiposDeLugaresXOfertas.idTipoDeLugarXOferta;
-            this.asignarTipoDeLugar();
-            this.listarCiudades();
-            this.listarPersonas();
-            this.listarPlantillasLugaresXOfertas(this.idOferta, this.idTipoDeLugarXOferta);
-            
-  
-          }
-        }
-      });
-    }
     
+    if (this.DatosParaCrearPlantillaOrigenPorOferta.length>0 || this.DatosParaCrearPlantillaDestinoPorOferta.length>0){
+      if (this.DatosParaCrearPlantillaOrigenPorOferta.length>0){
+        this.lstPlantillasLugaresXOfertas=this.DatosParaCrearPlantillaOrigenPorOferta;
+        this.datosGuardados = this.lstPlantillasLugaresXOfertas;
+        this.datosActualizadosLugares.emit(this.datosGuardados);
+        this.dataSource.data = this.datosGuardados;
+        this.tituloDelPanel = "ORIGEN";
+        this.refrescarResumenPanel();
+      }
+      if (this.DatosParaCrearPlantillaDestinoPorOferta.length>0){
+        this.lstPlantillasLugaresXOfertas=this.DatosParaCrearPlantillaDestinoPorOferta;
+        this.datosGuardados = this.lstPlantillasLugaresXOfertas;
+        this.datosActualizadosLugares.emit(this.datosGuardados);
+        this.dataSource.data = this.datosGuardados;
+        this.tituloDelPanel = "DESTINO";
+        this.refrescarResumenPanel();
+      }
+           
+      this.listarCiudades();
+      this.listarPersonas();
+      
+    }
+    else{
+      if (this.enumeradorTipoLugarXOferta != ""){
+      
+        this.tiposDeLugaresXOfertasService.ConsultarPorEnum(this.enumeradorTipoLugarXOferta).subscribe({
+          next : (objTiposDeLugaresXOfertas:TiposDeLugaresXOfertas) => { 
+            if (objTiposDeLugaresXOfertas.idTipoDeLugarXOferta > 0){
+              
+              this.tituloDelPanel = objTiposDeLugaresXOfertas.nombreTipoDeLugarXOferta;
+              this.idTipoDeLugarXOferta = objTiposDeLugaresXOfertas.idTipoDeLugarXOferta;
+              this.listarCiudades();
+              this.listarPersonas();
+              this.listarPlantillasLugaresXOfertas(this.idOferta, this.idTipoDeLugarXOferta);
+              
+    
+            }
+          }
+        });
+      }
+    }
+
   }
  
   constructor(
